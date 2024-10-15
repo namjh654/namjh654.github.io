@@ -6,16 +6,13 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>봉봉이의 블로그</h1>
-        <p>This is the first post on my blog. Stay tuned for more updates!</p>
+        <p>namjh654 님의 블로그 입니다</p>
         <a href="/">Read More</a>
       </header>
       <main className="App-content">
         <article className="Post">
-          <h2>Blog Post Title</h2>
-          <p>
-            This is a short introduction to the blog post. Click below to read
-            more!
-          </p>
+          <h2>히스토리 테이킹</h2>
+          <p>장</p>
           <button className="App-link">Read More</button>
         </article>
       </main>
