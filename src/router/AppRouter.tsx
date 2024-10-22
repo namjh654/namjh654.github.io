@@ -12,6 +12,10 @@ const AppRouter = createBrowserRouter([
 
     children: [
       {
+        index: true, // This makes it the default child route for "/"
+        element: <Home />,
+      },
+      {
         path: "home",
         element: <Home />,
       },

@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--header-bg); /* Example variable for theme */
+}
+
+.theme-toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px; /* Adjust size as needed */
+  color: var(--icon-color); /* Example variable for theme */
+}
+
+.theme-toggle-button:hover {
+  color: var(--icon-hover-color); /* Change color on hover */
+}
