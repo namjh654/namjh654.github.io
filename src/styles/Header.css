@@ -1,19 +1,66 @@
+/* Header.css */
 .header {
   display: flex;
   justify-content: space-between;
+  /* 좌측, 중앙, 우측 배치 */
   align-items: center;
   padding: 10px 20px;
-  background-color: var(--header-bg); /* Example variable for theme */
+  background-color: #333;
+  color: white;
+}
+
+.drawer-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  /* 아이콘 크기 */
+  cursor: pointer;
+}
+
+.header-title {
+  flex-grow: 1;
+  /* 중앙 정렬을 위한 공간 확보 */
+  text-align: center;
+  font-size: 24px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  /* 버튼과 프로필 사진 간격 */
 }
 
 .theme-toggle-button {
   background: none;
   border: none;
+  color: white;
+  font-size: 24px;
   cursor: pointer;
-  font-size: 24px; /* Adjust size as needed */
-  color: var(--icon-color); /* Example variable for theme */
 }
 
-.theme-toggle-button:hover {
-  color: var(--icon-hover-color); /* Change color on hover */
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* 원형 프로필 사진 */
+  object-fit: cover;
+}
+
+/* 반응형 스타일링 */
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 18px;
+  }
+
+  .drawer-button,
+  .theme-toggle-button {
+    font-size: 20px;
+  }
+
+  .profile-picture {
+    width: 35px;
+    height: 35px;
+  }
 }
