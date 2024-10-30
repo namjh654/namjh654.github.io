@@ -19,7 +19,7 @@ const Header = () => {
       </button>
 
       {/* Center: Header title */}
-      <p className="header-title">BongBongE2Blog :3B </p>
+      <p className="header-title">Blog Bong</p>
 
       {/* Right: Theme Toggle Button and Profile Picture */}
       <div className="header-right">

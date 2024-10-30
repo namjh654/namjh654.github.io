@@ -1,8 +1,8 @@
 // pages/Contact.tsx
 import React from "react";
 
-const Contact = () => {
+const DevOps = () => {
   return <h2>Contact Page</h2>;
 };
 
-export default Contact;
+export default DevOps;

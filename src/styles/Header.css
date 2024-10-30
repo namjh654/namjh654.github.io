@@ -13,7 +13,7 @@
   background: none;
   border: none;
   color: white;
-  font-size: 24px;
+  font-size: 22px;
   /* 아이콘 크기 */
   cursor: pointer;
 }
@@ -49,7 +49,7 @@
 }
 
 /* 반응형 스타일링 */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .header-title {
     font-size: 18px;
   }
@@ -63,4 +63,4 @@
     width: 35px;
     height: 35px;
   }
-}
+} */

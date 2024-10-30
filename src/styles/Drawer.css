@@ -1,0 +1,94 @@
+/* Drawer Layout styles */
+.drawer {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  height: 100vh;
+}
+
+/* Dark Mode */
+.drawer.dark {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+/* Profile Section */
+.profile-section {
+  padding: 20px;
+  background-color: #4caf50;
+  /* Green background */
+  color: white;
+  text-align: center;
+}
+
+.profile-background {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-name {
+  font-size: 1.2em;
+  margin: 5px 0;
+}
+
+.profile-email {
+  font-size: 0.9em;
+  color: #e0e0e0;
+}
+
+/* Menu Section */
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 10px 0;
+  font-size: 1em;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.submenu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.submenu-item {
+  display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1em;
+    color: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submenu-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}

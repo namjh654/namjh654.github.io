@@ -3,8 +3,12 @@ import Root from "../Root";
 import ErrorPage from "../pages/common/ErrorPage";
 import Home from "../pages/Home";
 import About from "../pages/About";
-import Contact from "../pages/Contact";
-import Support from "../pages/Support";
+import WebDev from "../pages/WebDev";
+import AppDev from "../pages/AppDev";
+import DevOps from "../pages/DevOps";
+import Schedule from "../pages/Schedule";
+import Daily from "../pages/Daily";
+import Dashboard from "../pages/DashBoard";
 
 const AppRouter = createBrowserRouter([
   {
@@ -18,6 +22,10 @@ const AppRouter = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
         path: "home",
         element: <Home />,
       },
@@ -26,13 +34,34 @@ const AppRouter = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "contact",
-        element: <Contact />,
+        path: "webdev",
+        element: <WebDev />,
       },
       {
-        path: "support",
-        element: <Support />,
+        path: "appdev",
+        element: <AppDev />,
       },
+      {
+        path: "devops",
+        element: <DevOps />,
+      },
+      {
+        path: "daily",
+        element: <Daily />,
+      },
+      {
+        path: "schedule",
+        element: <Schedule />,
+      },
+
+      // {
+      //   path: "contact",
+      //   element: <Contact />,
+      // },
+      // {
+      //   path: "support",
+      //   element: <Support />,
+      // },
     ],
   },
   // {

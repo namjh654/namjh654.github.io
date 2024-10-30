@@ -5,6 +5,7 @@ import useDrawerStore from "../zustand/useDrawerStore";
 
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css"; // Drawer 스타일을 불러옵니다.
+import DrawerLayout from "./Drawer";
 
 const MainLayout = (props: { children: React.ReactNode }) => {
   const { isDrawerOpen, toggleDrawer } = useDrawerStore();
@@ -17,7 +18,7 @@ const MainLayout = (props: { children: React.ReactNode }) => {
         direction="left"
         style={{ maxWidth: 350, width: "80%" }}
       >
-        <div>Hello World</div>
+        <DrawerLayout />
       </Drawer>
 
       <main>{props.children}</main>
