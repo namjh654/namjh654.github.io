@@ -3,6 +3,12 @@
   background-color: var(--background-color);
   color: var(--text-color);
   height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox 스크롤바 숨기기 */
+}
+
+.drawer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge에서 스크롤바 숨기기 */
 }
 
 /* Dark Mode */
@@ -14,7 +20,7 @@
 /* Profile Section */
 .profile-section {
   padding: 20px;
-  background-color: #4caf50;
+  background-color: #4caf50; /* ff7f00 */
   /* Green background */
   color: white;
   text-align: center;
@@ -79,14 +85,14 @@
 
 .submenu-item {
   display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    padding: 10px 25px;
-    font-size: 1em;
-    color: inherit;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1em;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .submenu-item:hover {

@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useDrawerStore from "../zustand/useDrawerStore";
 import "../styles/Drawer.css";
-
+import profile from "../assets/logo/bbeb.jpg";
 const DrawerLayout = () => {
   const { theme } = useThemeStore();
   const navigate = useNavigate();
@@ -44,12 +44,8 @@ const DrawerLayout = () => {
       {/* Profile Section */}
       <div className="profile-section">
         <div className="profile-background">
-          <img
-            src="https://picsum.photos/50/50"
-            alt="Profile"
-            className="profile-image"
-          />
-          <p className="user-role">Full Stack Developer</p>
+          <img src={profile} alt="Profile" className="profile-image" />
+          <p className="user-role">주인장</p>
           <h2 className="profile-name">봉봉이 블로그</h2>
           <p className="profile-email">namjh654@naver.com</p>
         </div>

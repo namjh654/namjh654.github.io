@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { FaBars, FaMoon, FaSun } from "react-icons/fa"; // 드로어 아이콘과 테마 아이콘
 import { useThemeStore } from "../zustand/useThemeStore";
-import "../styles/Header.css";
 import useDrawerStore from "../zustand/useDrawerStore";
+import profile from "../assets/logo/bbeb.jpg";
+
+import "../styles/Header.css";
 
 const Header = () => {
   const { theme, toggleTheme } = useThemeStore();
   const { toggleDrawer } = useDrawerStore();
+
   useEffect(() => {
     document.body.className = theme; // Apply theme to the body
   }, [theme]);
@@ -27,7 +30,7 @@ const Header = () => {
           {theme === "light" ? <FaMoon /> : <FaSun />}
         </button>
         <img
-          src="https://picsum.photos/50/50" // 프로필 이미지 경로
+          src={profile} // 프로필 이미지 경로
           alt="Profile"
           className="profile-picture"
         />

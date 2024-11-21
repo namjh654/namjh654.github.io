@@ -9,22 +9,26 @@ import DrawerLayout from "./Drawer";
 
 const MainLayout = (props: { children: React.ReactNode }) => {
   const { isDrawerOpen, toggleDrawer } = useDrawerStore();
+
   return (
-    <div>
+    <main
+      style={{
+        flex: 1, // Header/Footer 제외한 공간을 차지
+        overflowY: "auto", // 스크롤 필요 시 활성화
+      }}
+    >
       <Header />
       <Drawer
         open={isDrawerOpen}
         onClose={toggleDrawer}
         direction="left"
-        style={{ maxWidth: 350, width: "80%" }}
+        style={{ maxWidth: 350, width: "80%", zIndex: 1001 }}
       >
         <DrawerLayout />
       </Drawer>
-
-      <main>{props.children}</main>
-
+      <div className="contentWrap">{props.children}</div>
       <Footer />
-    </div>
+    </main>
   );
 };
 

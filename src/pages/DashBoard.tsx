@@ -1,10 +1,10 @@
 import React from "react";
-import "../styles/Pages/Home.css";
+import "../styles/Pages/DashBoard.css";
 import { FaUser, FaChartLine, FaTasks, FaBell } from "react-icons/fa";
 
 const Dashboard = () => {
   return (
-    <div className="dashboard">
+    <div className="contentContainer">
       {/* 상단 섹션: 프로필 정보 */}
       <div className="dashboard-header">
         <div className="user-profile">
@@ -43,6 +43,36 @@ const Dashboard = () => {
       </div>
 
       {/* 최근 활동 섹션 */}
+      <div className="activity-section">
+        <h3>최근 활동</h3>
+        <ul className="activity-list">
+          <li>새로운 프로젝트가 생성되었습니다.</li>
+          <li>회원이 등록되었습니다.</li>
+          <li>서버 상태가 업데이트되었습니다.</li>
+          <li>5개의 알림이 도착했습니다.</li>
+        </ul>
+      </div>
+
+      <div className="activity-section">
+        <h3>최근 활동</h3>
+        <ul className="activity-list">
+          <li>새로운 프로젝트가 생성되었습니다.</li>
+          <li>회원이 등록되었습니다.</li>
+          <li>서버 상태가 업데이트되었습니다.</li>
+          <li>5개의 알림이 도착했습니다.</li>
+        </ul>
+      </div>
+
+      <div className="activity-section">
+        <h3>최근 활동</h3>
+        <ul className="activity-list">
+          <li>새로운 프로젝트가 생성되었습니다.</li>
+          <li>회원이 등록되었습니다.</li>
+          <li>서버 상태가 업데이트되었습니다.</li>
+          <li>5개의 알림이 도착했습니다.</li>
+        </ul>
+      </div>
+
       <div className="activity-section">
         <h3>최근 활동</h3>
         <ul className="activity-list">
