@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" width="1600" height="1067">
+<defs><linearGradient id="l" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+<rect width="1600" height="1067" fill="#dcc2b2"/>
+<rect y="695.7246162551439" width="1600" height="371.2753837448561" fill="#bb8f78"/>
+<rect x="679.5144032921811" y="149.38000000000002" width="330.68422496570645" height="460.9846162551439" fill="#efe3db"/>
+<line x1="844.8565157750343" y1="149.38000000000002" x2="844.8565157750343" y2="610.3646162551439" stroke="#7e5442" stroke-width="6.4"/>
+<polygon points="679.5144032921811,695.7246162551439 1010.1986282578875,695.7246162551439 1307.8144307270234,1067 877.924938271605,1067" fill="url(#l)"/>
+<rect x="885.093278463649" y="572.6438244170095" width="296.1028806584362" height="123.08079183813445" fill="#7e5442"/>
+<rect x="914.7035665294926" y="559.8398244170095" width="236.88230452674898" height="12.804" fill="#3a2820"/>
+<circle cx="1409.2032921810699" cy="213.4" r="37.345000000000006" fill="#efe3db" opacity=".8"/>
+<line x1="1424" y1="0" x2="1424" y2="176.055" stroke="#3a2820" stroke-width="2"/>
+<text x="64" y="1002.9799999999999" font-family="Helvetica,Arial,sans-serif" font-size="27.741999999999997" letter-spacing="4" fill="#3a2820" opacity=".55">SAMPLE — SEONGSU-CAFE / COVER</text>
+</svg>

@@ -1,0 +1,33 @@
+{
+  "title": "성수 카페 봉봉",
+  "titleEn": "Cafe Bongbong, Seongsu",
+  "category": "commercial",
+  "date": "2026-05-10",
+  "location": "서울 성동구 성수동",
+  "area": "86㎡",
+  "client": "카페 봉봉",
+  "scope": ["공간 설계", "인테리어", "사인 디자인", "BI"],
+  "summary": "공장 건물 1층을 개조한 카페. 붉은 벽돌과 테라코타 톤으로 동네의 결을 이어가며 브랜드까지 함께 만들었습니다.",
+  "cover": "cover.svg",
+  "featured": true,
+  "status": "published",
+  "sections": [
+    {
+      "heading": "Brief",
+      "body": "오래 머물고 싶은 동네 카페. 공간과 로고, 컵 슬리브까지 한 사람이 만든 것처럼 보이길 원했습니다."
+    },
+    {
+      "heading": "Approach",
+      "body": "긴 바 테이블을 공간 중심에 두고, 창가 쪽은 낮은 좌석으로 구성해 거리 풍경을 끌어들였습니다.\n간판과 메뉴판, 패키지는 공간에 쓴 재료 색에서 출발했습니다."
+    }
+  ],
+  "gallery": [
+    { "src": "01.svg", "caption": "테라코타 타일 바 카운터", "wide": true },
+    { "src": "02.svg", "caption": "창가 좌석" },
+    { "src": "03.svg", "caption": "파사드와 사인" }
+  ],
+  "credits": [
+    { "role": "Design & Branding", "name": "봉봉 스튜디오" },
+    { "role": "Photo", "name": "샘플 이미지" }
+  ]
+}

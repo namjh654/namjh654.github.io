@@ -1,15 +1,23 @@
-// store.ts
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+type Theme = "light" | "dark";
 
 interface ThemeState {
-  theme: string;
+  theme: Theme;
   toggleTheme: () => void;
 }
 
-export const useThemeStore = create<ThemeState>((set) => ({
-  theme: "light", // 기본값을 'light'로 설정
-  toggleTheme: () =>
-    set((state: { theme: string }) => ({
-      theme: state.theme === "light" ? "dark" : "light",
-    })),
-}));
+const systemTheme = (): Theme =>
+  window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+export const useThemeStore = create<ThemeState>()(
+  persist(
+    (set) => ({
+      theme: systemTheme(),
+      toggleTheme: () =>
+        set((state) => ({ theme: state.theme === "light" ? "dark" : "light" })),
+    }),
+    { name: "bongbong-theme" }
+  )
+);

@@ -1,0 +1,38 @@
+{
+  "title": "한남동 주택 리모델링",
+  "titleEn": "Hannam House",
+  "category": "remodeling",
+  "date": "2026-08-20",
+  "location": "서울 용산구 한남동",
+  "area": "132㎡ (40평)",
+  "client": "개인 주택",
+  "scope": ["리모델링 설계", "인테리어", "가구 디자인", "시공 감리"],
+  "summary": "1966년에 지어진 단독주택의 서까래와 벽돌을 살리고, 가족이 함께 머무는 거실과 부엌을 하나로 열었습니다.",
+  "cover": "cover.svg",
+  "featured": true,
+  "status": "published",
+  "sections": [
+    {
+      "heading": "Brief",
+      "body": "세 식구가 오래 살 집. 낡은 구조는 고치되, 이 집이 지나온 시간은 지우지 않기를 바랐습니다."
+    },
+    {
+      "heading": "Approach",
+      "body": "철거 과정에서 드러난 서까래를 그대로 노출하고, 남향 창을 넓혀 하루 동안 빛이 거실 깊숙이 들어오도록 했습니다.\n벽돌 외벽은 세척 후 보수만 하고, 내부는 석회 미장과 오크 마루로 톤을 맞췄습니다."
+    },
+    {
+      "heading": "Result",
+      "body": "닫혀 있던 방 세 개가 하나의 큰 생활 공간이 되었고, 부엌 아일랜드가 집의 중심이 되었습니다."
+    }
+  ],
+  "gallery": [
+    { "src": "01.svg", "caption": "보수한 벽돌 외관", "wide": true },
+    { "src": "02.svg", "caption": "서까래를 드러낸 거실" },
+    { "src": "03.svg", "caption": "오크 수납장 디테일" },
+    { "src": "04.svg", "caption": "남향 창으로 들어오는 오후의 빛", "wide": true }
+  ],
+  "credits": [
+    { "role": "Design", "name": "봉봉 스튜디오" },
+    { "role": "Photo", "name": "샘플 이미지" }
+  ]
+}

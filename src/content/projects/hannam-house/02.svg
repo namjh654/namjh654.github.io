@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500">
+<defs><linearGradient id="l" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+<rect width="1200" height="1500" fill="#d6c8b2"/>
+<rect y="878.1658950617284" width="1200" height="621.8341049382716" fill="#b49d7e"/>
+<rect x="221.4074074074074" y="210.00000000000003" width="243.09218106995885" height="548.1658950617284" fill="#e9e2d6"/>
+<line x1="342.95349794238683" y1="210.00000000000003" x2="342.95349794238683" y2="758.1658950617284" stroke="#7a6650" stroke-width="4.8"/>
+<polygon points="221.4074074074074,878.1658950617284 464.4995884773663,878.1658950617284 683.2825514403291,1500 367.2627160493827,1500" fill="url(#l)"/>
+<rect x="811.187242798354" y="641.2687757201646" width="233.63117283950615" height="236.89711934156378" fill="#7a6650"/>
+<rect x="834.5503600823046" y="623.2687757201646" width="186.90493827160492" height="18" fill="#3b332b"/>
+<circle cx="1083.2793209876543" cy="300" r="52.50000000000001" fill="#e9e2d6" opacity=".8"/>
+<line x1="1068" y1="0" x2="1068" y2="247.5" stroke="#3b332b" stroke-width="2"/>
+<text x="48" y="1410" font-family="Helvetica,Arial,sans-serif" font-size="39" letter-spacing="4" fill="#3b332b" opacity=".55">SAMPLE — HANNAM-HOUSE / 02</text>
+</svg>

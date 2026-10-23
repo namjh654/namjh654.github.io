@@ -1,9 +1,20 @@
-name: Deploy React to GitHub Pages
+name: Build & Deploy
 
+# 브랜치 흐름: 작업 브랜치(namjh654/*) → dev → master
+# - PR, dev push   : 빌드 검사만 (배포 안 함)
+# - master push    : 빌드 후 GitHub Pages 배포 (https://namjh654.github.io/)
 on:
   push:
-    branches:
-      - master # name of the branch you are pushing to
+    branches: [master, dev]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -15,15 +26,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: npm
       - name: Install Dependencies
         run: npm ci
       - name: Build
-        run: npm run build
+        run: npm run build # CI=true 이므로 ESLint 경고도 실패로 처리된다
       - name: Upload artifact
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v3
         with:
           path: "build/."
+
   deploy:
+    if: github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -31,9 +46,8 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
       - name: Deploy
+        id: deployment
         uses: actions/deploy-pages@v4
