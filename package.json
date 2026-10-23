@@ -24,6 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "postbuild": "node scripts/postbuild.js",
+    "prerender": "node scripts/prerender.js",
+    "build:site": "npm run build && npm run prerender",
     "test": "react-scripts test",
     "new:project": "node scripts/new-content.js project",
     "new:behind": "node scripts/new-content.js behind",
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "playwright": "^1.64.1",
     "typescript": "^4.9.5"
   }
 }

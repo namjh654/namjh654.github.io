@@ -1,68 +1,68 @@
 import { Link } from "react-router-dom";
-import { projects } from "../content";
+import { SectionHead, delay } from "../components/Cards";
 import { processSteps, services, site } from "../content/site";
-import { useDocumentTitle } from "../lib/useDocumentTitle";
+import { organizationLd, useSeo } from "../lib/seo";
+import studioPhoto from "../assets/photos/studio.jpg";
 
 const Studio = () => {
-  useDocumentTitle("Studio");
-  const years = new Date().getFullYear() - site.since + 1;
+  useSeo({
+    title: "스튜디오",
+    description: site.intro,
+    path: "/studio",
+    image: studioPhoto,
+    jsonLd: organizationLd,
+  });
 
   return (
     <div className="page">
-      <section className="container page-head">
-        <p className="eyebrow">Studio</p>
-        <h1 className="page-title">{site.brandKo}</h1>
-        <p className="lead page-lead">{site.intro}</p>
+      <section className="hero hero-short">
+        <img className="hero-photo" src={studioPhoto} alt="" />
+        <div className="hero-shade" />
+        <div className="container hero-content">
+          <p className="hero-label">Studio</p>
+          <h1 className="hero-title">{site.brandKo}</h1>
+        </div>
       </section>
 
-      <section className="band band-gray">
-        <div className="container split">
-          <div className="split-head">
-            <h2 className="section-title">하는 일</h2>
-            <p className="muted">설계, 시공, 브랜딩을 한 팀이 끝까지 맡습니다.</p>
-          </div>
-          <div className="bento">
-            <div className="bento-card bento-lime bento-stat">
-              <span className="pill pill-dark">#완성한 프로젝트</span>
-              <strong>{projects.length}+</strong>
-            </div>
-            <div className="bento-card bento-blue bento-stat">
-              <span className="pill">#함께한 시간</span>
-              <strong>{years}년</strong>
-            </div>
-            {services.map((s) => (
-              <div key={s.title} className="bento-card">
-                <p className="bento-en">{s.title}</p>
-                <h3 className="bento-title">{s.titleKo}</h3>
+      <section className="section container statement">
+        <p className="statement-text" data-reveal>
+          {site.intro}
+        </p>
+      </section>
+
+      <section className="section section-gray">
+        <div className="container">
+          <SectionHead label="Services" title="하는 일" />
+          <ol className="service-grid">
+            {services.map((s, i) => (
+              <li key={s.title} className="service" data-reveal style={delay(i)}>
+                <span className="service-num">0{i + 1}</span>
+                <h3 className="service-title">{s.titleKo}</h3>
                 <p className="muted">{s.body}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
       <section className="section container">
-        <h2 className="section-title">진행 과정</h2>
+        <SectionHead label="Process" title="진행 과정" />
         <ol className="process">
           {processSteps.map((p) => (
-            <li key={p.step} className="process-item">
+            <li key={p.step} className="process-item" data-reveal>
               <span className="process-step">{p.step}</span>
-              <div>
-                <h3 className="process-title">{p.title}</h3>
-                <p className="muted">{p.body}</p>
-              </div>
+              <h3 className="process-title">{p.title}</h3>
+              <p className="muted">{p.body}</p>
             </li>
           ))}
         </ol>
       </section>
 
-      <section className="band band-lime">
-        <div className="container cta-inner">
-          <h2 className="band-title">함께 만들 공간 이야기를 들려주세요.</h2>
-          <Link to="/contact" className="button">
-            문의하기
-          </Link>
-        </div>
+      <section className="section container closing" data-reveal>
+        <h2 className="section-title">함께 만들 공간 이야기를 들려주세요.</h2>
+        <Link to="/contact" className="btn">
+          문의하기
+        </Link>
       </section>
     </div>
   );

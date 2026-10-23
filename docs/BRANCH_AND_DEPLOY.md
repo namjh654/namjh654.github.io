@@ -1,51 +1,75 @@
-# 브랜치 전략과 배포 자동화
+# 브랜치 · 배포 · SEO
 
-`community_wall` · `community_wall_admin` 과 같은 흐름을 씁니다. 이 저장소의 운영 브랜치 이름만 `main` 이 아니라 `master` 입니다.
+## 1. 브랜치 흐름
+
+`community_wall` · `community_wall_admin` 과 같은 흐름입니다. 이 저장소의 운영 브랜치 이름만 `main` 이 아니라 `master` 입니다.
 
 ```
 namjh654/<작업>  ──PR──▶  dev  ──PR──▶  master
-   (작업 브랜치)        (빌드 검사)      (GitHub Pages 자동 배포)
+   (작업 브랜치)        (검사·미리보기)    (운영 배포)
 ```
 
-| 브랜치            | 역할                         | Actions (`.github/workflows/deploy.yaml`) |
-| ----------------- | ---------------------------- | ----------------------------------------- |
-| `namjh654/*`      | 기능·콘텐츠 작업             | PR 을 열면 빌드 검사                       |
-| `dev`             | 통합·확인                     | push 시 빌드 검사 (배포 없음)              |
-| `master`          | 운영 (https://namjh654.github.io/) | push 시 빌드 → Pages 배포                |
+| 브랜치       | GitHub Pages 모드 (현재) | Cloudflare 모드              |
+| ------------ | ------------------------ | ---------------------------- |
+| `namjh654/*` | PR 빌드 검사             | PR 빌드 검사                 |
+| `dev`        | 빌드 검사                | 미리보기 배포 `dev.<프로젝트>.pages.dev` |
+| `master`     | 운영 배포                | 운영 배포                     |
 
-- 빌드는 `CI=true` 로 돌기 때문에 ESLint 경고 하나도 실패로 처리됩니다. 깨진 JSON·이미지 경로도 빌드에서 걸립니다.
-- 같은 브랜치에 연달아 push 하면 이전 실행은 취소됩니다(`concurrency`).
-- GitHub Pages 는 저장소당 사이트가 하나라서 `dev` 미리보기 배포는 없습니다. dev 확인은 로컬 `npm start` 또는 PR 빌드 결과로 합니다.
-  미리보기 주소가 꼭 필요해지면 Vercel/Cloudflare Pages 에 `dev` 브랜치만 연결하는 방법을 권장합니다 (`vercel.json` 에 SPA rewrite 필요).
+빌드는 `CI=true` 로 돌아서 ESLint 경고·깨진 JSON·없는 이미지 경로가 모두 실패로 처리됩니다.
 
-## 배포 구성 점검 결과 (2026-10-24)
+## 2. 빌드 과정 (`npm run build:site`)
 
-| 항목 | 상태 | 조치 |
-| --- | --- | --- |
-| Pages 소스 | `build_type: workflow` (Actions 배포) | 유지 |
-| 직접 URL 접근·새로고침 (`/projects/xxx`) | Pages 는 SPA rewrite 미지원 → 404 | `scripts/postbuild.js` 가 `build/404.html` 생성 |
-| `package.json` `homepage` | `namjeonghyeok.github.io` (다른 계정 주소) | `https://namjh654.github.io/` 로 수정 |
-| `npm run deploy` (gh-pages 패키지) | Pages 소스가 Actions 라서 `gh-pages` 브랜치는 더 이상 서빙되지 않음 | 스크립트·패키지 제거 (중복 배포 경로 정리) |
-| 워크플로 environment URL | 프로젝트 사이트 형식(`/<repo>/`)으로 잘못 표기 | `deploy-pages` 출력값 사용 |
-| `dev` 브랜치 | 원격에 없음 | 처음 한 번 생성 필요 (아래) |
-| `master` 보호 규칙 | 없음 | 권장: PR 필수 + 빌드 체크 통과 필수 |
-| 남은 옛 브랜치 | `gh-pages`, `gh-pages-2.2.1`, `gh-pages-3.1.6`, `flexbox-sticky-footer`, `navbar-menu` (2015~2024 Jekyll 테마 잔재) | 확인 후 정리 권장 (자동 삭제하지 않음) |
+1. `react-scripts build` — 앱 번들
+2. `scripts/postbuild.js` — `sitemap.xml`, `robots.txt`, (GitHub Pages 일 때) `404.html`
+3. `scripts/prerender.js` — 헤드리스 브라우저로 모든 페이지를 열어 **완성된 HTML** 을 `build/<경로>/index.html` 로 저장
 
-## 처음 한 번 설정
+로컬에서 prerender 를 처음 돌릴 때: `npx playwright install chromium --only-shell`
 
-```bash
-# dev 브랜치 만들기
-git switch master && git pull
-git switch -c dev && git push -u origin dev
-```
+## 3. 호스팅 비교 (2026-10 기준)
 
-GitHub → Settings:
+| 항목 | GitHub Pages (현재) | Cloudflare Pages | Firebase Hosting (Spark) |
+| --- | --- | --- | --- |
+| 비용 | 무료 | 무료 | 무료 한도 후 종량제 |
+| 전송량 | 월 100GB (권장 한도) | 정적 파일 무제한 | **하루 360MB** (사진 많은 사이트는 부족) |
+| 상업적 이용 | 온라인 비즈니스·커머스 목적은 약관상 제한 | 허용 | 허용 |
+| 모르는 경로 처리 | `404.html` 을 **404 상태로** 응답 | SPA 모드로 **200** 응답 | rewrite 로 200 |
+| 브랜치 미리보기 | 없음 (저장소당 사이트 1개) | 브랜치별 주소 자동 | 프리뷰 채널 (별도 설정) |
+| 헤더·캐시 제어 | 불가 | `_headers` 파일 | `firebase.json` |
+| 국내 속도 | 보통 | 서울 PoP, 빠름 | 보통 |
+| 커스텀 도메인 | 가능 | 가능 (DNS 도 Cloudflare 면 가장 간단) | 가능 |
 
-1. **Pages** → Source: *GitHub Actions* (현재 설정됨)
-2. **Environments → github-pages** → Deployment branches: `master` 만 허용 (기본값)
-3. **Branches → Add rule `master`** (선택): Require a pull request, Require status checks → `build`
+**권장: Cloudflare Pages + 커스텀 도메인.**
+홍보용 회사 사이트라서 상업적 이용이 허용되어야 하고, 사진이 많아 전송량이 커지며, `dev` 미리보기가 브랜치 전략과 그대로 맞습니다.
+Firebase 는 Firestore·Auth 를 같이 쓰는 앱(예: mealflow)에는 좋지만, 정적 포트폴리오에는 하루 전송 한도가 부담입니다.
 
-## SPA 404 처리 주의
+## 4. Cloudflare 로 전환하기
 
-GitHub Pages 는 없는 경로에 `404.html` 을 **HTTP 404 상태로** 보여줍니다. 화면은 정상이지만 검색 엔진은 상세 페이지를 404 로 볼 수 있습니다.
-검색 노출이 중요해지면 (1) 커스텀 도메인 + Cloudflare Pages/Vercel 의 rewrite, 또는 (2) 빌드 시 경로별 `index.html` 을 생성하는 방식으로 바꾸세요.
+1. Cloudflare 가입 → My Profile → API Tokens → **Create Token** → 템플릿 *Edit Cloudflare Workers* 또는 권한 `Account · Cloudflare Pages · Edit` 만 부여
+2. 대시보드 오른쪽의 **Account ID** 복사
+3. GitHub 저장소 → Settings → Secrets and variables → Actions
+   - Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`
+   - Variables: `DEPLOY_TARGET=cloudflare`, `CF_PAGES_PROJECT=bongbong-studio`, `SITE_URL=https://bongbong-studio.pages.dev` (도메인 연결 후에는 그 주소)
+4. `dev` 또는 `master` 에 push → 첫 실행에서 Pages 프로젝트가 자동 생성되고 배포됨
+5. (권장) 도메인 구매 → Cloudflare Pages → Custom domains 연결 → `SITE_URL` 변경 후 재배포
+6. 기존 `namjh654.github.io` 는 Settings → Pages 에서 끄거나, 새 주소로 안내하는 페이지만 남깁니다.
+
+되돌리려면 `DEPLOY_TARGET` 변수를 지우면 GitHub Pages 배포로 돌아갑니다.
+
+## 5. SEO 체크리스트
+
+이미 적용된 것:
+
+- [x] 페이지별 정적 HTML (prerender) — 네이버 Yeti 처럼 JS 실행이 약한 크롤러도 본문을 읽음
+- [x] 페이지별 `title`, `description`, `canonical`, Open Graph(카카오톡·인스타 공유 미리보기), Twitter 카드
+- [x] 구조화 데이터(JSON-LD): 회사 `ProfessionalService`, 프로젝트 `CreativeWork`, 비하인드 `BlogPosting`
+- [x] `sitemap.xml` (콘텐츠 폴더에서 자동 생성, 날짜 포함), `robots.txt`
+- [x] `lang="ko"`, 이미지 `alt`, 시맨틱 마크업(h1 하나, article/section)
+
+직접 해야 하는 것:
+
+1. **커스텀 도메인** — 검색 신뢰도와 브랜드에 가장 큰 영향. `github.io`·`pages.dev` 하위 주소는 회사 사이트로 약함
+2. **Google Search Console** — 속성 추가 → HTML 태그 방식 → `content` 값을 `src/content/site.ts` 의 `verification.google` 에 넣고 배포 → 확인 → sitemap 제출
+3. **네이버 서치어드바이저** — 사이트 등록 → HTML 태그 → `verification.naver` → 확인 → 요청 › 사이트맵 제출, RSS(선택). 국내 검색 유입은 네이버 비중이 큼
+4. **콘텐츠** — 프로젝트 제목·요약에 지역+공간 키워드를 자연스럽게 (예: "한남동 단독주택 리모델링"), 실제 사진 `caption` 작성
+5. **사진 용량** — 가로 1600~2000px, 300KB 안팎 (속도 = 검색 순위 요소)
+6. 네이버 플레이스·카카오맵·인스타그램 프로필에 사이트 주소 연결 (외부 링크)

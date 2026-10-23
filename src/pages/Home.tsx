@@ -1,112 +1,116 @@
 import { Link } from "react-router-dom";
-import { ProjectMasonry } from "../components/Cards";
+import { BehindCard, ProjectCard, SectionHead, delay } from "../components/Cards";
 import { behindPosts, featuredProjects, projects } from "../content";
-import { services, site } from "../content/site";
-import { formatDate, useDocumentTitle } from "../lib/useDocumentTitle";
+import { categories, services, site } from "../content/site";
+import { organizationLd, useSeo } from "../lib/seo";
+import ctaPhoto from "../assets/photos/cta.jpg";
 
 const Home = () => {
-  useDocumentTitle();
   const [hero, ...rest] = featuredProjects();
   const works = rest.length ? rest : hero ? [hero] : [];
-  const [behindMain, behindSub] = behindPosts;
   const years = new Date().getFullYear() - site.since + 1;
+  useSeo({ path: "/", image: hero?.cover, jsonLd: organizationLd });
 
   return (
     <>
       <section className="hero">
-        <div className="container hero-inner">
+        {hero && <img className="hero-photo" src={hero.cover} alt="" />}
+        <div className="hero-shade" />
+        <div className="container hero-content">
+          <p className="hero-label">{site.brandKo}</p>
           <h1 className="hero-title">{site.tagline}</h1>
-          <p className="hero-intro">{site.intro}</p>
-          <Link to="/projects" className="button">
-            프로젝트 보러가기
-          </Link>
-          {hero && (
-            <Link to={`/projects/${hero.slug}`} className="hero-visual">
-              <img src={hero.cover} alt={hero.title} />
-              <span className="tag">{hero.title}</span>
+          <p className="hero-sub">건축 설계 · 리모델링 · 인테리어 · 공간 브랜딩</p>
+          <div className="hero-actions">
+            <Link to="/projects" className="btn btn-light">
+              프로젝트 보기
             </Link>
-          )}
+            <Link to="/contact" className="btn btn-glass">
+              상담 문의
+            </Link>
+          </div>
+        </div>
+        {hero && (
+          <Link to={`/projects/${hero.slug}`} className="hero-caption">
+            {hero.title} →
+          </Link>
+        )}
+      </section>
+
+      <section className="section container statement">
+        <p className="statement-text" data-reveal>
+          주거부터 상업 공간, 브랜드까지.
+          <br />
+          <span className="muted">한 팀이 처음 상담부터 완공 후 기록까지 함께합니다.</span>
+        </p>
+        <dl className="stats">
+          {[
+            ["완성한 프로젝트", `${projects.length}`],
+            ["함께한 시간", `${years}년`],
+            ["작업 분야", `${Object.keys(categories).length}`],
+          ].map(([k, v], i) => (
+            <div key={k} className="stat" data-reveal style={delay(i)}>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="section container">
+        <SectionHead
+          label="Projects"
+          title="최근 프로젝트"
+          link={{ to: "/projects", text: "전체 보기" }}
+        />
+        <div className="project-grid">
+          {works.map((p, i) => (
+            <ProjectCard
+              key={p.slug}
+              project={p}
+              index={i}
+              wide={i === 0 && works.length % 2 === 1}
+            />
+          ))}
         </div>
       </section>
 
-      <section className="section container split">
-        <aside className="intro-card">
-          <h2 className="intro-title">
-            새로 올라온
-            <br />
-            프로젝트
-          </h2>
-          <p>
-            설계부터 완공까지, 스튜디오가 만든 공간을 프로젝트 단위로 기록합니다.
-          </p>
-          <Link to="/projects" className="button button-outline">
-            프로젝트 더 보기
-          </Link>
-        </aside>
-        <ProjectMasonry list={works} />
+      <section className="section section-gray">
+        <div className="container">
+          <SectionHead label="Services" title="하는 일" />
+          <ol className="service-grid">
+            {services.map((s, i) => (
+              <li key={s.title} className="service" data-reveal style={delay(i)}>
+                <span className="service-num">0{i + 1}</span>
+                <h3 className="service-title">{s.titleKo}</h3>
+                <p className="muted">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
-      {behindMain && (
-        <section className="band band-blue">
-          <div className="container band-inner">
-            <Link to={`/behind/${behindMain.slug}`} className="overlay-card band-main">
-              <img src={behindMain.cover} alt="" loading="lazy" />
-              <span className="overlay-top">{formatDate(behindMain.date)}</span>
-              <span className="overlay-title">{behindMain.title}</span>
-            </Link>
-            {behindSub && (
-              <Link to={`/behind/${behindSub.slug}`} className="overlay-card band-sub">
-                <img src={behindSub.cover} alt="" loading="lazy" />
-                <span className="overlay-title">{behindSub.title}</span>
-              </Link>
-            )}
-            <div className="band-text">
-              <h2 className="band-title">
-                결과물 뒤에 있는
-                <br />
-                작업 비하인드
-              </h2>
-              <p>현장에서 생긴 일, 재료를 고르는 과정, 브랜드를 만드는 고민을 나눕니다.</p>
-              <Link to="/behind" className="button button-outline">
-                비하인드 보러가기
-              </Link>
-            </div>
+      {behindPosts.length > 0 && (
+        <section className="section container">
+          <SectionHead
+            label="Behind"
+            title="결과물 뒤의 이야기"
+            link={{ to: "/behind", text: "비하인드 보기" }}
+          />
+          <div className="behind-grid">
+            {behindPosts.slice(0, 3).map((post, i) => (
+              <BehindCard key={post.slug} post={post} index={i} />
+            ))}
           </div>
         </section>
       )}
 
-      <section className="band band-gray">
-        <div className="container split">
-          <div className="split-head">
-            <h2 className="section-title">스튜디오 보고서</h2>
-            <p className="muted">
-              {site.since}년부터 공간 설계와 리모델링, 브랜딩을 함께 해왔습니다.
-            </p>
-          </div>
-          <div className="bento">
-            <div className="bento-card bento-lime bento-stat">
-              <span className="pill pill-dark">#완성한 프로젝트</span>
-              <strong>{projects.length}+</strong>
-            </div>
-            <div className="bento-card bento-blue bento-stat">
-              <span className="pill">#함께한 시간</span>
-              <strong>{years}년</strong>
-            </div>
-            {services.map((s) => (
-              <div key={s.title} className="bento-card">
-                <p className="bento-en">{s.title}</p>
-                <h3 className="bento-title">{s.titleKo}</h3>
-                <p className="muted">{s.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="band band-lime">
-        <div className="container cta-inner">
-          <h2 className="band-title">새 공간을 준비하고 계신가요?</h2>
-          <Link to="/contact" className="button">
+      <section className="cta">
+        <img className="cta-photo" src={ctaPhoto} alt="" loading="lazy" />
+        <div className="cta-shade" />
+        <div className="container cta-content" data-reveal>
+          <h2 className="cta-title">새 공간을 준비하고 계신가요?</h2>
+          <p className="cta-sub">위치와 면적, 예산, 일정을 알려주시면 방향을 함께 잡아드립니다.</p>
+          <Link to="/contact" className="btn btn-light">
             프로젝트 문의하기
           </Link>
         </div>

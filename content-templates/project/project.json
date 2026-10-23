@@ -8,7 +8,7 @@
   "client": "",
   "scope": ["설계", "인테리어"],
   "summary": "프로젝트를 한두 문장으로 소개합니다. 목록 카드와 상세 상단에 쓰입니다.",
-  "cover": "cover.svg",
+  "cover": "cover.jpg",
   "featured": false,
   "status": "draft",
   "sections": [
@@ -17,7 +17,7 @@
     { "heading": "Result", "body": "결과" }
   ],
   "gallery": [
-    { "src": "cover.svg", "caption": "사진 설명", "wide": true }
+    { "src": "cover.jpg", "caption": "사진 설명", "wide": true }
   ],
   "credits": [
     { "role": "Design", "name": "봉봉 스튜디오" },

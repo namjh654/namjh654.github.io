@@ -1,60 +1,61 @@
 import { useSearchParams } from "react-router-dom";
-import { ProjectMasonry } from "../components/Cards";
+import { ProjectCard } from "../components/Cards";
 import { projects } from "../content";
 import { categories, type CategoryKey } from "../content/site";
-import { useDocumentTitle } from "../lib/useDocumentTitle";
+import { useSeo } from "../lib/seo";
 
 const Projects = () => {
-  useDocumentTitle("Projects");
   const [params, setParams] = useSearchParams();
   const current = params.get("category") as CategoryKey | null;
   const list = current ? projects.filter((p) => p.category === current) : projects;
+  useSeo({
+    title: "프로젝트",
+    description: "봉봉 스튜디오가 설계하고 시공한 주거·상업·리모델링·브랜딩 프로젝트 포트폴리오.",
+    path: "/projects",
+    image: projects[0]?.cover,
+  });
 
   const select = (key: CategoryKey | null) =>
     setParams(key ? { category: key } : {}, { replace: true });
 
+  const tabs: [CategoryKey | null, string, number][] = [
+    [null, "전체", projects.length],
+    ...(Object.keys(categories) as CategoryKey[])
+      .map((k) => [k, categories[k], projects.filter((p) => p.category === k).length] as [CategoryKey, string, number])
+      .filter(([, , n]) => n > 0),
+  ];
+
   return (
     <section className="page container">
-      <header className="page-head">
-        <p className="eyebrow">Projects</p>
+      <header className="page-head" data-reveal>
+        <p className="label">Projects</p>
         <h1 className="page-title">프로젝트</h1>
-        <p className="muted page-lead">
-          설계부터 완공까지, 스튜디오가 함께한 공간을 프로젝트 단위로 기록합니다.
-        </p>
+        <p className="page-lead">설계부터 완공까지, 스튜디오가 함께한 공간을 기록합니다.</p>
       </header>
 
-      <div className="filter" role="tablist" aria-label="카테고리">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={!current}
-          className={`pill pill-line${!current ? " is-active" : ""}`}
-          onClick={() => select(null)}
-        >
-          전체 <span className="count">{projects.length}</span>
-        </button>
-        {(Object.keys(categories) as CategoryKey[]).map((key) => {
-          const count = projects.filter((p) => p.category === key).length;
-          if (!count) return null;
-          return (
-            <button
-              key={key}
-              type="button"
-              role="tab"
-              aria-selected={current === key}
-              className={`pill pill-line${current === key ? " is-active" : ""}`}
-              onClick={() => select(key)}
-            >
-              {categories[key]} <span className="count">{count}</span>
-            </button>
-          );
-        })}
+      <div className="segment" role="tablist" aria-label="카테고리">
+        {tabs.map(([key, label, n]) => (
+          <button
+            key={label}
+            type="button"
+            role="tab"
+            aria-selected={current === key}
+            className={`segment-item${current === key ? " is-active" : ""}`}
+            onClick={() => select(key)}
+          >
+            {label} <span className="segment-count">{n}</span>
+          </button>
+        ))}
       </div>
 
       {list.length ? (
-        <ProjectMasonry list={list} />
+        <div className="project-grid">
+          {list.map((p, i) => (
+            <ProjectCard key={p.slug} project={p} index={i} />
+          ))}
+        </div>
       ) : (
-        <p className="empty muted">해당 카테고리의 프로젝트가 아직 없습니다.</p>
+        <p className="empty">해당 카테고리의 프로젝트가 아직 없습니다.</p>
       )}
     </section>
   );

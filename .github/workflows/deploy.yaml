@@ -1,8 +1,11 @@
 name: Build & Deploy
 
 # 브랜치 흐름: 작업 브랜치(namjh654/*) → dev → master
-# - PR, dev push   : 빌드 검사만 (배포 안 함)
-# - master push    : 빌드 후 GitHub Pages 배포 (https://namjh654.github.io/)
+#
+# 배포 대상은 저장소 변수 DEPLOY_TARGET 으로 고른다 (Settings → Secrets and variables → Actions → Variables)
+#   github-pages (기본) : master push → https://namjh654.github.io/   (dev·PR 은 빌드 검사만)
+#   cloudflare          : master push → 운영, dev push → 미리보기(dev.<프로젝트>.pages.dev)
+#                         필요: secrets CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID / vars CF_PAGES_PROJECT, SITE_URL
 on:
   push:
     branches: [master, dev]
@@ -13,32 +16,43 @@ permissions:
   contents: read
 
 concurrency:
-  group: pages-${{ github.ref }}
+  group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_DEPLOY_TARGET: ${{ vars.DEPLOY_TARGET || 'github-pages' }}
+      REACT_APP_SITE_URL: ${{ vars.SITE_URL || 'https://namjh654.github.io' }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-      - name: Install Dependencies
-        run: npm ci
-      - name: Build
-        run: npm run build # CI=true 이므로 ESLint 경고도 실패로 처리된다
-      - name: Upload artifact
-        if: github.ref == 'refs/heads/master'
+      - run: npm ci
+      - name: Install headless browser (prerender)
+        run: npx playwright install --with-deps chromium --only-shell
+      - name: Build + prerender
+        run: npm run build:site # CI=true 이므로 ESLint 경고도 실패로 처리된다
+
+      - name: Upload (GitHub Pages)
+        if: env.REACT_APP_DEPLOY_TARGET == 'github-pages' && github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "build/."
+          path: build
+      - name: Upload (Cloudflare)
+        if: env.REACT_APP_DEPLOY_TARGET == 'cloudflare' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: build
+          include-hidden-files: true
+          retention-days: 3
 
-  deploy:
-    if: github.ref == 'refs/heads/master'
+  deploy-github-pages:
+    if: (vars.DEPLOY_TARGET || 'github-pages') == 'github-pages' && github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -48,6 +62,25 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy-cloudflare:
+    if: vars.DEPLOY_TARGET == 'cloudflare' && github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PROJECT: ${{ vars.CF_PAGES_PROJECT || 'bongbong-studio' }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: build
+      - name: Create Pages project (first run only)
+        run: npx --yes wrangler@4 pages project create "$PROJECT" --production-branch=master || true
+      - name: Deploy
+        run: npx --yes wrangler@4 pages deploy build --project-name="$PROJECT" --branch="${{ github.ref_name }}"

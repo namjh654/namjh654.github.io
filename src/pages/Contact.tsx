@@ -1,5 +1,5 @@
 import { categories, site } from "../content/site";
-import { useDocumentTitle } from "../lib/useDocumentTitle";
+import { organizationLd, useSeo } from "../lib/seo";
 
 const mailBody = [
   "공간 유형: (주거 / 상업 / 리모델링 / 브랜딩)",
@@ -11,58 +11,57 @@ const mailBody = [
 ].join("\n");
 
 const Contact = () => {
-  useDocumentTitle("Contact");
+  useSeo({
+    title: "문의",
+    description: `${site.brandKo} 프로젝트 상담 문의. ${Object.values(categories).join("·")} 공간 설계와 시공.`,
+    path: "/contact",
+    jsonLd: organizationLd,
+  });
   const mailto = `mailto:${site.email}?subject=${encodeURIComponent(
     `[${site.brandKo}] 프로젝트 문의`
   )}&body=${encodeURIComponent(mailBody)}`;
 
+  const rows = [
+    ["이메일", site.email, mailto],
+    ["전화", site.phone, site.phone && `tel:${site.phone}`],
+    ["인스타그램", site.instagram && "Instagram", site.instagram],
+    ["스튜디오", site.address, ""],
+    ["분야", Object.values(categories).join(" · "), ""],
+  ].filter(([, v]) => v);
+
   return (
-    <section className="page container">
-      <header className="page-head">
-        <p className="eyebrow">Contact</p>
-        <h1 className="page-title">프로젝트 문의</h1>
-        <p className="muted page-lead">
-          공간 유형과 위치, 면적, 예산, 일정을 함께 알려주시면 더 정확하게 안내드릴 수
-          있습니다.
+    <section className="page container contact">
+      <header className="page-head" data-reveal>
+        <p className="label">Contact</p>
+        <h1 className="page-title">
+          어떤 공간을
+          <br />
+          준비하고 계신가요?
+        </h1>
+        <p className="page-lead">
+          공간 유형과 위치, 면적, 예산, 일정을 함께 알려주시면 더 정확하게 안내드릴 수 있습니다.
         </p>
+        <a href={mailto} className="btn contact-cta">
+          메일로 문의하기
+        </a>
       </header>
 
-      <div className="contact-grid">
-        <div className="contact-item">
-          <p className="eyebrow">Email</p>
-          <a href={mailto} className="contact-value">
-            {site.email}
-          </a>
-        </div>
-        {site.phone && (
-          <div className="contact-item">
-            <p className="eyebrow">Phone</p>
-            <a href={`tel:${site.phone}`} className="contact-value">
-              {site.phone}
-            </a>
+      <dl className="contact-list" data-reveal>
+        {rows.map(([k, v, href]) => (
+          <div key={k} className="contact-row">
+            <dt>{k}</dt>
+            <dd>
+              {href ? (
+                <a href={href} {...(href.startsWith("http") && { target: "_blank", rel: "noreferrer" })}>
+                  {v}
+                </a>
+              ) : (
+                v
+              )}
+            </dd>
           </div>
-        )}
-        {site.instagram && (
-          <div className="contact-item">
-            <p className="eyebrow">Instagram</p>
-            <a href={site.instagram} target="_blank" rel="noreferrer" className="contact-value">
-              Instagram ↗
-            </a>
-          </div>
-        )}
-        <div className="contact-item">
-          <p className="eyebrow">Studio</p>
-          <p className="contact-value">{site.address}</p>
-        </div>
-        <div className="contact-item">
-          <p className="eyebrow">Fields</p>
-          <p className="contact-value">{Object.values(categories).join(" · ")}</p>
-        </div>
-      </div>
-
-      <a href={mailto} className="button contact-cta">
-        메일로 문의하기
-      </a>
+        ))}
+      </dl>
     </section>
   );
 };

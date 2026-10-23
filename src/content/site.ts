@@ -12,6 +12,14 @@ export const site = {
   address: "Seoul, Korea",
   instagram: "",
   since: 2024,
+  /** 검색·공유용 사이트 주소. 커스텀 도메인을 쓰면 빌드 환경변수 REACT_APP_SITE_URL 로 바꾼다. */
+  url: (process.env.REACT_APP_SITE_URL || "https://namjh654.github.io").replace(/\/$/, ""),
+  keywords: "건축 설계, 리모델링, 인테리어, 공간 브랜딩, 주택 리모델링, 카페 인테리어, 포트폴리오",
+  /** 검색 엔진 소유 확인 코드 (Google Search Console / 네이버 서치어드바이저 의 content 값) */
+  verification: {
+    google: "",
+    naver: "",
+  },
 };
 
 // 프로젝트 카테고리. project.json 의 "category" 는 이 키 중 하나여야 한다.
