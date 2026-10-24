@@ -85,7 +85,11 @@ Firebase 는 Firestore·Auth 를 같이 쓰는 앱(예: mealflow)에는 좋지�
 - 스팸 방지: 숨은 입력칸, 3초 이내 제출 차단, 같은 IP 10분 3건, 허용 출처(CORS) 제한
 - 답장: 메일의 Reply-To 가 문의자 주소라 Gmail 에서 그대로 답장하면 됩니다.
 
-### Vercel 설정
+### Vercel 설정 (2026-10-24 배포 완료)
+
+- 계정: `namjh654-2940` (담벼락과 분리된 Hobby 계정) · 프로젝트: `bongbong-contact`
+- 주소: https://bongbong-contact.vercel.app/api/contact (저장소 변수 `CONTACT_ENDPOINT` 에 설정됨)
+- 다시 배포: `cd contact-api && vercel deploy --prod` (Git 자동 배포는 연결하지 않음)
 
 | 항목 | 값 |
 | --- | --- |
