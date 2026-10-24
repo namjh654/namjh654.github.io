@@ -5,6 +5,6 @@
   "description": "봉봉 사이트 문의 → Resend 메일 (Vercel Function)",
   "engines": { "node": ">=20" },
   "scripts": {
-    "test": "node --test lib/"
+    "test": "node --test lib/inquiry.test.js"
   }
 }
