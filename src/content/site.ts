@@ -8,6 +8,8 @@ export const site = {
     "웹 서비스와 관리자, 모바일 앱과 게임을 직접 기획하고 만들어 운영합니다. 다음 프로젝트를 더 빨리 시작하도록 관리자·KMP 템플릿도 만들어 씁니다.",
   email: "namjh654@gmail.com",
   github: "https://github.com/namjh654",
+  /** 문의 양식을 받는 서버 함수 주소 (contact-api 를 Vercel 에 배포한 주소 + /api/contact) */
+  contactEndpoint: process.env.REACT_APP_CONTACT_ENDPOINT || "",
   /** 검색·공유용 사이트 주소. 다른 주소로 배포하면 빌드 환경변수 REACT_APP_SITE_URL 로 바꾼다. */
   url: (process.env.REACT_APP_SITE_URL || "https://namjh654.github.io").replace(/\/$/, ""),
   keywords: "개발자 포트폴리오, 풀스택 개발자, React, Next.js, Kotlin Multiplatform, Supabase, 게임 개발, 봉봉",

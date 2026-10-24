@@ -16,6 +16,10 @@
   "featured": false,
   "status": "draft",
   "cover": "",
+  "screenshots": [
+    { "src": "desktop.png", "device": "desktop", "caption": "메인 화면" },
+    { "src": "app.png", "device": "mobile", "caption": "앱 화면" }
+  ],
   "sections": [
     { "heading": "문제", "body": "무엇이 불편했나. 줄바꿈은 \n 으로 문단을 나눕니다." },
     { "heading": "해결", "body": "어떻게 풀었나" },

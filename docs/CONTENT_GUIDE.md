@@ -24,9 +24,18 @@ npm run new:project -- galaxy-factory
 | `sections` | | 본문 `[{ "heading": "문제", "body": "..." }]`. `
 ` 으로 문단 구분. 문제 → 해결 → 결과 순서 권장 |
 | `company` | | `kind: career` 일 때 `companies.json` 의 `key` |
-| `cover`, `gallery` | | 사진(선택). 같은 폴더에 넣고 파일 이름을 적음. 스크린샷 권장 |
+| `screenshots` | | 서비스 화면 `[{ "src": "app.png", "device": "mobile", "caption": "..." }]`. `desktop` 은 브라우저 틀, `mobile` 은 폰 틀로 보임. 비워 두면 기본 스크린샷(아래) 사용 |
+| `cover`, `gallery` | | 대표 사진·추가 사진(선택). `cover` 가 없으면 첫 데스크톱 스크린샷이 카드 이미지가 됨 |
 | `featured` | | `true` 면 홈 "대표 프로젝트" 에 먼저 노출 (최대 4개) |
 | `status` | | `draft` 는 `npm start` 에서만 보임. 공개는 `published` |
+
+### 스크린샷
+
+- **기본 스크린샷(자동):** `links.live` 가 있는 프로젝트는 `npm run screenshots` (하나만: `npm run screenshots -- sosazang`) 로
+  운영 화면을 데스크톱·모바일로 찍어 `auto-desktop.jpg`, `auto-mobile.jpg` 로 저장합니다. `screenshots` 를 비워 두면 이 파일이 쓰입니다.
+- **직접 첨부:** 로그인 뒤 화면, 관리자 화면, 앱·게임 화면은 직접 캡처해 폴더에 넣고 `screenshots` 에 적습니다.
+  앱 화면은 세로 캡처(예: 1080×2340)를 `"device": "mobile"` 로 적으면 폰 틀 안에 들어갑니다.
+- 실제 이용자 글·개인정보가 보이는 화면은 가리거나 테스트 계정 화면을 쓰세요.
 
 ## 2. 커리어 (`src/content/companies.json`)
 

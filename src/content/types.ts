@@ -9,6 +9,13 @@ export interface GalleryImage {
   wide?: boolean;
 }
 
+export interface Screenshot {
+  src: string;
+  /** desktop: 브라우저 틀, mobile: 폰 틀 */
+  device?: "desktop" | "mobile";
+  caption?: string;
+}
+
 export interface Section {
   heading?: string;
   body: string;
@@ -50,8 +57,13 @@ export interface ProjectSource {
   privateRepo?: boolean;
   metrics?: Metric[];
   sections?: Section[];
-  /** 대표 사진 (선택) */
+  /** 대표 사진 (선택). 없으면 첫 데스크톱 스크린샷을 쓴다. */
   cover?: string;
+  /**
+   * 서비스 화면 (선택). 비워 두면 폴더의 auto-desktop.jpg / auto-mobile.jpg
+   * (npm run screenshots 로 운영 주소를 찍은 파일)를 자동으로 쓴다.
+   */
+  screenshots?: Screenshot[];
   gallery?: GalleryImage[];
   featured?: boolean;
   status?: Visibility;

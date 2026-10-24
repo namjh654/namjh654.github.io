@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SectionHead, Tags } from "../components/Cards";
 import { companies } from "../content";
 import { site, skills } from "../content/site";
@@ -63,9 +64,9 @@ const About = () => {
           <h2 className="cta-title">연락하기</h2>
           <p className="cta-sub">프로젝트 제안, 협업, 채용 문의 모두 환영합니다.</p>
           <div className="hero-actions">
-            <a href={`mailto:${site.email}`} className="btn">
-              {site.email}
-            </a>
+            <Link to="/contact" className="btn">
+              문의하기
+            </Link>
             <a href={site.github} className="btn btn-secondary" target="_blank" rel="noreferrer">
               GitHub ↗
             </a>

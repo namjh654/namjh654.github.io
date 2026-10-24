@@ -28,6 +28,7 @@ function getRoutes() {
     { path: "/blog", lastmod: newest(posts), priority: "0.7" },
     ...posts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: p.date, priority: "0.6" })),
     { path: "/about", priority: "0.6" },
+    { path: "/contact", priority: "0.5" },
   ];
 }
 
