@@ -22,14 +22,14 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       REACT_APP_DEPLOY_TARGET: ${{ vars.DEPLOY_TARGET || 'github-pages' }}
       REACT_APP_SITE_URL: ${{ vars.SITE_URL || 'https://namjh654.github.io' }}
       REACT_APP_CONTACT_ENDPOINT: ${{ vars.CONTACT_ENDPOINT }} # contact-api 배포 주소 + /api/contact
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
           cache: npm
@@ -43,12 +43,13 @@ jobs:
 
       - name: Upload (GitHub Pages)
         if: env.REACT_APP_DEPLOY_TARGET == 'github-pages' && github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: build
+          include-hidden-files: true # .nojekyll 포함 (v4 부터 기본 제외)
       - name: Upload (Cloudflare)
         if: env.REACT_APP_DEPLOY_TARGET == 'cloudflare' && github.event_name == 'push'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: site
           path: build
@@ -58,7 +59,7 @@ jobs:
   deploy-github-pages:
     if: (vars.DEPLOY_TARGET || 'github-pages') == 'github-pages' && github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write
@@ -67,12 +68,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   deploy-cloudflare:
     if: vars.DEPLOY_TARGET == 'cloudflare' && github.event_name == 'push'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
     env:
@@ -80,7 +81,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PROJECT: ${{ vars.CF_PAGES_PROJECT || 'bongbong-studio' }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: site
           path: build
