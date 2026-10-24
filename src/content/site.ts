@@ -42,7 +42,7 @@ export type StageKey = keyof typeof stages;
 /** 소개 페이지의 기술 스택 (실제 프로젝트에서 쓰는 것만) */
 export const skills = [
   { area: "Web", items: ["TypeScript", "React", "Next.js", "Vite", "Tailwind CSS", "TanStack Query"] },
-  { area: "App · Game", items: ["Kotlin", "Kotlin Multiplatform", "Jetpack Compose", "SwiftUI", "Koin", "Ktor"] },
+  { area: "App · Game", items: ["React Native · Expo", "Android Kotlin", "Kotlin Multiplatform", "Jetpack Compose", "SwiftUI", "BLE"] },
   { area: "Backend · Infra", items: ["Supabase", "PostgreSQL · RLS", "Firebase", "Vercel", "GitHub Actions"] },
   { area: "Quality", items: ["Vitest", "Playwright", "ESLint · Prettier", "Kover · Turbine"] },
 ];

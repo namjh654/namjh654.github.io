@@ -106,17 +106,24 @@ export const getPost = (slug: string) => posts.find((p) => p.slug === slug);
 export const getPostsForProject = (slug: string) => posts.filter((p) => p.project === slug);
 export const getCompany = (key?: string) => companies.find((c) => c.key === key);
 
-/** 게임·회사 프로젝트를 뺀 개인 작업 (서비스·템플릿) */
-export const workProjects = projects.filter((p) => p.kind === "product" || p.kind === "template");
+/** 자체 프로젝트: 직접 만든 서비스·템플릿·게임 */
+export const selfProjects = projects.filter((p) => p.kind !== "career");
+/** 커리어 프로젝트: 회사에서 만든 것 */
+export const careerProjects = projects.filter((p) => p.kind === "career");
 export const games = projects.filter((p) => p.kind === "game");
+
+/** "2023.06 – 2024.12" → "1년 7개월" ("현재"는 오늘 기준). 형식이 다르면 undefined */
+export const tenure = (period?: string) => {
+  const m = period?.match(/(\d{4})\.(\d{2})\s*[–-]\s*(?:(\d{4})\.(\d{2})|현재)/);
+  if (!m) return undefined;
+  const now = new Date();
+  const [y2, m2] = m[3] ? [Number(m[3]), Number(m[4])] : [now.getFullYear(), now.getMonth() + 1];
+  const months = (y2 - Number(m[1])) * 12 + (m2 - Number(m[2])) + 1;
+  const y = Math.floor(months / 12);
+  const r = months % 12;
+  return [y && `${y}년`, r && `${r}개월`].filter(Boolean).join(" ");
+};
 
 /** 홈에 보일 4개: featured 를 먼저, 모자라면 최신순으로 채운다. */
 export const featuredProjects = () =>
   [...projects.filter((p) => p.featured), ...projects.filter((p) => !p.featured)].slice(0, 4);
-
-/** 목록 필터용: 사용된 플랫폼 태그 (많이 쓴 순) */
-export const platformsOf = (list: Project[]) => {
-  const count = new Map<string, number>();
-  list.forEach((p) => p.platforms.forEach((t) => count.set(t, (count.get(t) ?? 0) + 1)));
-  return Array.from(count.entries()).sort((a, b) => b[1] - a[1]);
-};

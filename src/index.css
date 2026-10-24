@@ -778,6 +778,48 @@ button {
   color: var(--gray-500);
 }
 
+.card-kind.is-career {
+  color: #0a8a4a;
+}
+
+.group + .group {
+  margin-top: clamp(56px, 7vw, 96px);
+}
+
+.group-head {
+  margin-bottom: 20px;
+}
+
+.group-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.group-count {
+  margin-left: 4px;
+  color: var(--blue);
+}
+
+.group-sub {
+  margin-top: 4px;
+  font-size: 15px;
+  color: var(--gray-600);
+}
+
+.group-sub a {
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.spec-link {
+  color: var(--blue);
+}
+
+.spec-link:hover {
+  text-decoration: underline;
+}
+
 .stage {
   display: inline-flex;
   align-items: center;
@@ -1017,8 +1059,9 @@ button {
   background: var(--gray-50);
 }
 
-.job-card.is-link:hover {
-  background: var(--gray-100);
+
+a.job-name:hover {
+  color: var(--blue);
 }
 
 .job-name {
@@ -1032,17 +1075,28 @@ button {
   color: var(--gray-600);
 }
 
-.job-more {
-  margin-top: 8px;
+.job-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 10px;
   font-size: 14px;
   font-weight: 600;
+}
+
+.job-links a {
   color: var(--blue);
+}
+
+.job-links a:hover {
+  text-decoration: underline;
 }
 
 /* ===== 스크린샷 (브라우저·폰 틀) ===== */
 .shots {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 24px;
   margin-bottom: 40px;
   padding: clamp(24px, 4vw, 48px);

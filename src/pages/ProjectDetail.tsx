@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import { PostRow, StageBadge, Tags } from "../components/Cards";
-import { getCompany, getPostsForProject, getProject, projects } from "../content";
-import { kinds, site } from "../content/site";
+import { PostRow, StageBadge, Tags, originLabel } from "../components/Cards";
+import { getCompany, getPostsForProject, getProject, projects, tenure } from "../content";
+import { site } from "../content/site";
 import { absoluteUrl, pageUrl, useSeo } from "../lib/seo";
 import NotFound from "./NotFound";
 
@@ -32,7 +32,14 @@ const ProjectDetail = () => {
       operatingSystem: project.platforms.join(", "),
       ...(images.length && { image: images.map((src) => absoluteUrl(src as string)) }),
       ...(project.links?.live && { url: project.links.live }),
-      author: { "@type": "Person", name: site.brandKo, url: site.url },
+      ...(project.kind === "career"
+        ? {
+            contributor: { "@type": "Person", name: site.brandKo, url: site.url },
+            ...(getCompany(project.company) && {
+              publisher: { "@type": "Organization", name: getCompany(project.company)?.name },
+            }),
+          }
+        : { author: { "@type": "Person", name: site.brandKo, url: site.url } }),
       mainEntityOfPage: pageUrl(path),
     },
   });
@@ -42,11 +49,12 @@ const ProjectDetail = () => {
   const next = list[(list.indexOf(project) + 1) % list.length];
   const related = getPostsForProject(project.slug);
   const company = getCompany(project.company);
-  const back = project.kind === "game" ? ["/games", "게임"] : ["/projects", "프로젝트"];
+  const back =
+    project.kind === "career" ? ["/career", "커리어"] : project.kind === "game" ? ["/games", "게임"] : ["/projects", "프로젝트"];
+  const span = tenure(project.period);
   const facts = [
-    ["기간", project.period],
+    ["기간", project.period && (span ? `${project.period} (${span})` : project.period)],
     ["역할", project.role],
-    ["회사", company?.name],
     ["저장소", project.links?.github ? "공개" : project.privateRepo ? "비공개 저장소" : undefined],
   ].filter(([, v]) => v) as [string, string][];
 
@@ -57,7 +65,8 @@ const ProjectDetail = () => {
           ‹ {back[1]}
         </Link>
         <div className="card-top">
-          <span className="eyebrow">{project.titleEn ?? kinds[project.kind]}</span>
+          <span className={`card-kind${project.kind === "career" ? " is-career" : ""}`}>{originLabel(project)}</span>
+          {project.titleEn && <span className="eyebrow">{project.titleEn}</span>}
           <StageBadge stage={project.stage} />
         </div>
         <h1 className="page-title">{project.title}</h1>
@@ -135,6 +144,15 @@ const ProjectDetail = () => {
             <span className="spec-value">{v}</span>
           </div>
         ))}
+        {company && (
+          <div className="spec-row">
+            <span className="spec-key">회사</span>
+            <Link to="/career" className="spec-value spec-link">
+              {company.name}
+              {company.period && ` · ${company.period}`} ›
+            </Link>
+          </div>
+        )}
         <div className="spec-row">
           <span className="spec-key">플랫폼</span>
           <Tags items={project.platforms} tone="blue" />
