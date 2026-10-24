@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PostRow, ProjectCard, SectionHead, Tags } from "../components/Cards";
-import { companies, featuredProjects, games, posts, workProjects } from "../content";
+import { careerProjects, companies, featuredProjects, posts, selfProjects } from "../content";
 import { site } from "../content/site";
 import { personLd, useSeo } from "../lib/seo";
 
@@ -26,12 +26,12 @@ const Home = () => {
       <section className="container">
         <dl className="stats">
           <div className="stat">
-            <dt>개인 서비스·템플릿</dt>
-            <dd>{workProjects.length}개</dd>
+            <dt>자체 프로젝트</dt>
+            <dd>{selfProjects.length}개</dd>
           </div>
           <div className="stat">
-            <dt>게임</dt>
-            <dd>{games.length}개</dd>
+            <dt>커리어 프로젝트</dt>
+            <dd>{careerProjects.length}개</dd>
           </div>
           <div className="stat">
             <dt>재직 회사</dt>
@@ -54,7 +54,7 @@ const Home = () => {
       </section>
 
       <section className="section container">
-        <SectionHead title="커리어" sub="회사에서 만든 프로젝트" link={{ to: "/career", text: "자세히" }} />
+        <SectionHead title="커리어" sub="회사에서 만든 프로젝트 · 시간순" link={{ to: "/career", text: "자세히" }} />
         <ol className="timeline timeline-compact">
           {companies.map((c) => (
             <li key={c.key} className="timeline-item">

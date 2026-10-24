@@ -1,0 +1,41 @@
+{
+  "kind": "career",
+  "company": "m2mtech",
+  "title": "ELSA",
+  "titleEn": "Elevator Smart Advisor",
+  "summary": "승강기 고장·출동을 상황실·센터·엔지니어에게 바로 알리고 장치 이력을 관리하는 현장 대응 앱. React Native CLI 프로젝트를 Expo 로 전환하고 구조를 정리했습니다.",
+  "date": "2026-10-19",
+  "period": "2025.09 – 현재",
+  "role": "React Native 앱 개발 · 구조 개선 · 스토어 배포",
+  "platforms": ["Android", "iOS"],
+  "stack": ["React Native", "Expo", "TypeScript"],
+  "links": { "store": "https://play.google.com/store/apps/details?id=cloud.elsa.app" },
+  "metrics": [
+    { "label": "전환", "value": "RN CLI → Expo" },
+    { "label": "배포", "value": "Google Play · App Store" },
+    { "label": "구조", "value": "전역 Modal · Sheet" }
+  ],
+  "screenshots": [
+    { "src": "https://play-lh.googleusercontent.com/Qb5Z7lAAbxSqgRDTsj16PwyIcSLjwlFugDEmpHRAgEu_6lBwC1qpwcfGGfae5qE-mamLHJ3E-x7i3La1P9h5=h720", "device": "mobile" },
+    { "src": "https://play-lh.googleusercontent.com/tzFunIfqMezQqPetXwERymI9WWh968Xw3vSjPmMx6ofbg9m_5aD-N-pwWRggZDH9uAxCq0M2AJ7eqZagnNx_bA=h720", "device": "mobile" },
+    { "src": "https://play-lh.googleusercontent.com/b9vw46H7hceI0ngqJsC2BFHQ_pWTrLXnNh3FUTM0i8WEFYrw01vC9qpPXHPP5PdfKHc2ICRIT-xL0jbVq0gS=h720", "device": "mobile" }
+  ],
+  "sections": [
+    {
+      "heading": "서비스",
+      "body": "승강기 고장이나 출동 상황이 생기면 중앙 상황실, 각 센터, 엔지니어에게 즉시 알려 이동 중에도 대응하게 합니다. 장치 등록, 현장 추가·삭제, 장치 운영 로그와 고장·오류 이력 검색, 수집한 데이터 기반 고장 예측을 제공합니다."
+    },
+    {
+      "heading": "구조 개선",
+      "body": "여러 화면에서 반복되던 Modal·Sheet 를 전역 구조로 정리하고, React Native CLI 프로젝트를 Expo 기반으로 전환했습니다. 라이브러리 의존성과 소스 구조도 함께 정리했습니다."
+    },
+    {
+      "heading": "업데이트 · 배포",
+      "body": "SDK·라이브러리 변경에 따른 호환성 문제와 앱–서버 API 변경에 대응하고, Google Play 와 App Store 양쪽에 배포했습니다."
+    },
+    {
+      "heading": "배운 점",
+      "body": "여러 앱을 동시에 개발·배포하면서, 기능 하나보다 환경 분리와 공통 구조처럼 반복되는 문제를 구조적으로 정리하는 것이 운영 비용을 크게 줄인다는 것을 체감했습니다."
+    }
+  ]
+}

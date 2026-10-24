@@ -1,0 +1,37 @@
+{
+  "kind": "career",
+  "company": "m2mtech",
+  "title": "ELIX",
+  "titleEn": "승강기 통합 관제",
+  "summary": "전국에 등록된 승강기를 실시간으로 관리하는 통합 관제 앱. React Native·Expo 로 개발해 Google Play·App Store 에 배포하고, React + TypeScript 관제 웹 개발도 지원했습니다.",
+  "date": "2026-10-20",
+  "period": "2025.09 – 현재",
+  "role": "React Native 앱 개발 · 스토어 배포 · 웹 지원",
+  "platforms": ["Android", "iOS", "Web"],
+  "stack": ["React Native", "Expo", "TypeScript", "React"],
+  "links": { "store": "https://play.google.com/store/apps/details?id=kr.or.lh.eip" },
+  "metrics": [
+    { "label": "배포", "value": "Google Play · App Store" },
+    { "label": "구성", "value": "앱 + 관제 웹" },
+    { "label": "환경", "value": "dev · prod 분리" }
+  ],
+  "screenshots": [
+    { "src": "https://play-lh.googleusercontent.com/S8PScRaCvYeSuKD4-dknYG9TF4scf1tXdYxlNynXnsV-7K43ZYmrVTeSCWLLfseqyndOsxuvgBEfSc1WjnMhzw=h720", "device": "mobile" },
+    { "src": "https://play-lh.googleusercontent.com/Y7Ilqel58fGIU4xlnCeb5edJWLOkDNoNGKOoYc3YUjVOemvrIrYHUvZzvDr-nxwmyQ9eVrrpfVGv_H-RMtB_5g=h720", "device": "mobile" },
+    { "src": "https://play-lh.googleusercontent.com/_HdPCAiHb52y42pQcSbDt5yrZnh8z1zO2WDEUbANDOs-CE3yD16mi2HFm99ytSn6ojeTHgTCQUhv1uzO22Rs=h720", "device": "mobile" }
+  ],
+  "sections": [
+    {
+      "heading": "서비스",
+      "body": "승강기의 고장·이상 징후를 실시간으로 모니터링해 알리고, 관리자는 일부 기능을 원격으로 제어하며 점검·수리를 접수부터 완료까지 추적합니다. 부품 교체·소모품 관리, 고장·민원 신고, 이력 조회도 제공합니다."
+    },
+    {
+      "heading": "앱 개발",
+      "body": "React Native 로 앱 기능을 개발하고, QR·바코드 라이브러리 교체와 호환성 문제, Android 권한·로딩 문제를 개선했습니다. Google Play 와 App Store 양쪽에 등록하고 배포까지 진행했습니다."
+    },
+    {
+      "heading": "관제 웹 · 환경",
+      "body": "React + TypeScript 기반 ELIX 관제 웹 개발을 지원했습니다. 앱의 개발·운영 환경을 분리해 API 서버, 설정값, 빌드를 환경별로 관리하도록 구성했습니다."
+    }
+  ]
+}

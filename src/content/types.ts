@@ -97,7 +97,7 @@ export interface Post extends Omit<PostSource, "status"> {
   slug: string;
 }
 
-/** src/content/companies.json 의 한 항목 (위가 최근) */
+/** src/content/companies.json 의 한 항목 (위에서부터 시간순, 오래된 회사 먼저) */
 export interface Company {
   key: string;
   name: string;
@@ -106,5 +106,11 @@ export interface Company {
   role?: string;
   summary?: string;
   /** 재직 중 참여한 프로젝트. 상세 글이 있으면 slug 로 연결한다. */
-  projects: { name: string; summary?: string; slug?: string }[];
+  projects: {
+    name: string;
+    summary?: string;
+    slug?: string;
+    /** 스토어·서비스 링크 */
+    links?: { label: string; url: string }[];
+  }[];
 }

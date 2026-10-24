@@ -1,0 +1,49 @@
+{
+  "kind": "career",
+  "company": "nepirity",
+  "title": "단체관광 RT",
+  "titleEn": "Real Trip",
+  "summary": "관광버스 기사님과 제휴업체(식당·숙소·관광지·여행사)를 위한 (주)리얼트립의 단체관광 플랫폼 앱. React Native + TypeScript 로 Android·iOS 를 메인 개발해 두 스토어에 출시했습니다.",
+  "date": "2024-12-31",
+  "period": "2023.06 – 2024.12",
+  "role": "React Native 메인 개발 · 스토어 출시",
+  "platforms": ["Android", "iOS"],
+  "stack": ["React Native", "TypeScript"],
+  "links": { "store": "https://play.google.com/store/apps/details?id=kr.co.realtrip&hl=ko" },
+  "metrics": [
+    { "label": "출시", "value": "Google Play · App Store" },
+    { "label": "코드베이스", "value": "RN 하나로 두 플랫폼" },
+    { "label": "역할", "value": "메인 개발" }
+  ],
+  "screenshots": [
+    { "src": "https://play-lh.googleusercontent.com/ccJ09nVfZ_CBCUE45lfFRM_kK6CX8FEg6tctS3_2qiDCe6hDa0cAvtxAN8_tnnz61BGwXkW70fORkgG5B7kE=h720", "device": "mobile" },
+    { "src": "https://play-lh.googleusercontent.com/U32eBXHpZo2UFNTO5G2DZcp4JXirL91vj0c3Wtsj8NtnhdA6lRX8_z-MYFWHn66INZnMK4eDEcU94qGEYFU27Q=h720", "device": "mobile" },
+    { "src": "https://play-lh.googleusercontent.com/MSLe3cSoFq-WKRUU6-qWSFbhnP-8HHzvzo3n4Cp6Vel1IDtYL2C70ik9C9nwqg4WIOGsnHYv43rv7yxwGR-0EA=h720", "device": "mobile" }
+  ],
+  "sections": [
+    {
+      "heading": "서비스",
+      "body": "단체관광에 필요한 관광지·식당·숙소 정보, 기사 회원 전용 커뮤니티와 소모임, 제휴업체 예약·문의, 지도 기반 위치 안내를 제공합니다. 회원가입 후 담당자 승인을 거쳐 기사님과 업체 사장님만 이용하는 구조입니다."
+    },
+    {
+      "heading": "광고 · 배너",
+      "body": "앱 내 광고 노출 기능과 제휴업체 광고 이미지 배너를 구현하고, 배너가 레이아웃과 스크롤 흐름을 방해하지 않도록 UI 를 다듬었습니다."
+    },
+    {
+      "heading": "강제 업데이트",
+      "body": "앱 실행 시 버전을 확인해 필수 업데이트가 필요하면 Android·iOS 각 스토어로 안내합니다. 서버·API 가 바뀌어도 구버전 사용자가 오류를 겪지 않고 최신 버전으로 유도되도록 했습니다."
+    },
+    {
+      "heading": "중첩 스크롤 최적화",
+      "body": "배너·목록·상세 정보가 한 화면에 함께 있어 스크롤 영역이 겹치며 생기던 충돌과 렌더링 저하를, 리스트·스크롤 구조를 정리해 해결했습니다."
+    },
+    {
+      "heading": "상세 화면 · 출시",
+      "body": "관광지·식당·숙소·업체 상세(정보, 이미지, 예약·문의, 위치 안내)를 구현했습니다. 권한·UI·빌드 설정 등 플랫폼별 차이를 처리하고 Google Play 와 App Store 심사·출시까지 메인으로 진행했습니다."
+    },
+    {
+      "heading": "배운 점",
+      "body": "Android 중심의 경험을 크로스플랫폼으로 넓혔고, 광고·강제 업데이트 같은 운영 기능과 스크롤 체감 품질, 두 스토어 출시까지 직접 책임지며 서비스 하나를 끝까지 완성했습니다."
+    }
+  ]
+}
