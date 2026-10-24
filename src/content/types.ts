@@ -30,7 +30,8 @@ export interface ProjectSource {
   client?: string;
   scope?: string[];
   summary: string;
-  cover: string;
+  /** 대표 사진 (선택) */
+  cover?: string;
   featured?: boolean;
   status?: ContentStatus;
   sections?: ProjectSection[];
@@ -53,7 +54,8 @@ export interface BehindSource {
   title: string;
   date: string;
   excerpt: string;
-  cover: string;
+  /** 대표 사진 (선택) */
+  cover?: string;
   /** 연결할 프로젝트 폴더 이름(slug). 없으면 스튜디오 일반 이야기. */
   project?: string;
   tags?: string[];

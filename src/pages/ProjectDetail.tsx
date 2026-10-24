@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { BehindCard } from "../components/Cards";
+import { BehindRow } from "../components/Cards";
 import { getBehindForProject, getProject, projects } from "../content";
 import { categories, site } from "../content/site";
 import { absoluteUrl, pageUrl, useSeo } from "../lib/seo";
@@ -9,6 +9,9 @@ const ProjectDetail = () => {
   const { slug = "" } = useParams();
   const project = getProject(slug);
   const path = `/projects/${slug}`;
+  const images = project
+    ? [project.cover, ...(project.gallery ?? []).map((g) => g.src)].filter(Boolean)
+    : [];
   useSeo({
     title: project?.title,
     description: project?.summary,
@@ -21,7 +24,7 @@ const ProjectDetail = () => {
       name: project.title,
       alternateName: project.titleEn,
       description: project.summary,
-      image: [project.cover, ...(project.gallery ?? []).map((g) => g.src)].map(absoluteUrl),
+      ...(images.length && { image: images.map((src) => absoluteUrl(src as string)) }),
       dateCreated: project.date,
       locationCreated: project.location,
       genre: categories[project.category],
@@ -43,50 +46,46 @@ const ProjectDetail = () => {
   ].filter(([, v]) => v) as [string, string][];
 
   return (
-    <article className="page detail">
-      <header className="container detail-head" data-reveal>
+    <article className="page container">
+      <header className="detail-head">
         <Link to="/projects" className="back-link">
-          ← 프로젝트
+          ‹ 프로젝트
         </Link>
-        <p className="label">
-          {project.titleEn ?? categories[project.category]}
-        </p>
+        <p className="eyebrow">{project.titleEn ?? categories[project.category]}</p>
         <h1 className="page-title">{project.title}</h1>
-        <p className="page-lead">{project.summary}</p>
+        <p className="page-sub">{project.summary}</p>
       </header>
 
-      <div className="container-wide">
-        <div className="detail-cover">
+      {project.cover && (
+        <div className="detail-photo">
           <img src={project.cover} alt={project.title} />
         </div>
-      </div>
+      )}
 
-      <div className="container">
-        <dl className="facts" data-reveal>
-          {facts.map(([k, v]) => (
-            <div key={k} className="fact">
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
+      <dl className="facts">
+        {facts.map(([k, v]) => (
+          <div key={k} className="fact">
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
 
+      <div className="prose">
         {project.sections?.map((s, i) => (
-          <section key={i} className="story" data-reveal>
-            <h2 className="story-heading">{s.heading}</h2>
-            <div className="story-body">
-              {s.body.split("\n").map((line, j) => (
-                <p key={j}>{line}</p>
-              ))}
-            </div>
+          <section key={i} className="prose-section">
+            {s.heading && <h2 className="prose-heading">{s.heading}</h2>}
+            {s.body.split("\n").map((line, j) => (
+              <p key={j}>{line}</p>
+            ))}
           </section>
         ))}
       </div>
 
       {!!project.gallery?.length && (
-        <div className="container-wide gallery">
+        <div className="gallery">
           {project.gallery.map((img, i) => (
-            <figure key={i} className={`gallery-item${img.wide ? " is-wide" : ""}`} data-reveal>
+            <figure key={i} className={`gallery-item${img.wide ? " is-wide" : ""}`}>
               <img src={img.src} alt={img.caption ?? project.title} loading="lazy" />
               {img.caption && <figcaption>{img.caption}</figcaption>}
             </figure>
@@ -95,35 +94,30 @@ const ProjectDetail = () => {
       )}
 
       {!!project.credits?.length && (
-        <div className="container credits">
+        <p className="credits">
           {project.credits.map((c) => (
-            <p key={c.role}>
-              <span>{c.role}</span> {c.name}
-            </p>
+            <span key={c.role}>
+              <span className="muted">{c.role}</span> {c.name}
+            </span>
           ))}
-        </div>
+        </p>
       )}
 
       {behind.length > 0 && (
-        <section className="section container">
-          <p className="label">Behind</p>
-          <h2 className="section-title section-title-gap">이 프로젝트의 비하인드</h2>
-          <div className="behind-grid">
-            {behind.map((post, i) => (
-              <BehindCard key={post.slug} post={post} index={i} />
+        <section className="section">
+          <h2 className="section-title section-gap">이 프로젝트의 비하인드</h2>
+          <ul className="rows">
+            {behind.map((post) => (
+              <BehindRow key={post.slug} post={post} />
             ))}
-          </div>
+          </ul>
         </section>
       )}
 
       {next && next !== project && (
-        <Link to={`/projects/${next.slug}`} className="next-project">
-          <img src={next.cover} alt="" loading="lazy" />
-          <span className="next-shade" />
-          <span className="container next-content">
-            <span className="next-label">다음 프로젝트</span>
-            <span className="next-title">{next.title}</span>
-          </span>
+        <Link to={`/projects/${next.slug}`} className="next-card">
+          <span className="next-label">다음 프로젝트</span>
+          <span className="next-title">{next.title} ›</span>
         </Link>
       )}
     </article>

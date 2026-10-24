@@ -36,12 +36,7 @@ const server = http.createServer((req, res) => {
   for (const { path: route } of getRoutes()) {
     await page.goto(origin + route, { waitUntil: "networkidle" });
     await page.waitForSelector(".site-main > *");
-    const html = await page.evaluate(() => {
-      // 스크롤 등장 효과 상태는 저장하지 않는다 (앱이 다시 그린다)
-      document.querySelectorAll(".is-in").forEach((el) => el.classList.remove("is-in"));
-      document.documentElement.classList.remove("js");
-      return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-    });
+    const html = await page.evaluate(() => "<!DOCTYPE html>\n" + document.documentElement.outerHTML);
     if (html.includes("페이지를 찾을 수 없습니다")) throw new Error(`prerender: ${route} 가 404 화면입니다`);
     const out = route === "/" ? path.join(build, "index.html") : path.join(build, route, "index.html");
     fs.mkdirSync(path.dirname(out), { recursive: true });

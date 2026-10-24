@@ -1,75 +1,63 @@
-import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { categories } from "../content/site";
 import type { BehindPost, Project } from "../content/types";
 import { formatDate } from "../lib/seo";
 
-/** 순서대로 조금씩 늦게 나타나게 하는 지연값 */
-export const delay = (i: number) => ({ "--delay": `${(i % 3) * 90}ms` } as CSSProperties);
-
-export const ProjectCard = ({
-  project,
-  index = 0,
-  wide = false,
-}: {
-  project: Project;
-  index?: number;
-  wide?: boolean;
-}) => (
-  <Link
-    to={`/projects/${project.slug}`}
-    className={`project-card${wide ? " is-wide" : ""}`}
-    data-reveal
-    style={delay(index)}
-  >
-    <div className="frame">
-      <img src={project.cover} alt={project.title} loading="lazy" />
-    </div>
-    <div className="card-body">
+/** 프로젝트 카드. 사진이 있으면 위에 보여주고, 없으면 글자만으로 구성한다. */
+export const ProjectCard = ({ project }: { project: Project }) => (
+  <Link to={`/projects/${project.slug}`} className="card project-card">
+    {project.cover && (
+      <div className="card-photo">
+        <img src={project.cover} alt={project.title} loading="lazy" />
+      </div>
+    )}
+    <div className="card-inner">
+      <span className="chip">{categories[project.category]}</span>
       <h3 className="card-title">{project.title}</h3>
+      <p className="card-text">{project.summary}</p>
       <p className="card-meta">
-        {[categories[project.category], project.location, project.year]
-          .filter(Boolean)
-          .join(" · ")}
+        {[project.location, project.year].filter(Boolean).join(" · ")}
       </p>
     </div>
   </Link>
 );
 
-export const BehindCard = ({ post, index = 0 }: { post: BehindPost; index?: number }) => (
-  <Link to={`/behind/${post.slug}`} className="behind-card" data-reveal style={delay(index)}>
-    <div className="frame">
-      <img src={post.cover} alt={post.title} loading="lazy" />
-    </div>
-    <div className="card-body">
-      <p className="card-meta">
-        {formatDate(post.date)}
-        {post.tags?.length ? ` · ${post.tags[0]}` : ""}
-      </p>
-      <h3 className="card-title">{post.title}</h3>
-      <p className="card-excerpt">{post.excerpt}</p>
-    </div>
-  </Link>
+/** 비하인드 목록 한 줄 */
+export const BehindRow = ({ post }: { post: BehindPost }) => (
+  <li>
+    <Link to={`/behind/${post.slug}`} className="row">
+      <div className="row-main">
+        <p className="row-meta">
+          {formatDate(post.date)}
+          {post.tags?.length ? ` · ${post.tags[0]}` : ""}
+        </p>
+        <h3 className="row-title">{post.title}</h3>
+        <p className="row-text">{post.excerpt}</p>
+      </div>
+      <span className="row-arrow" aria-hidden>
+        ›
+      </span>
+    </Link>
+  </li>
 );
 
 export const SectionHead = ({
-  label,
   title,
+  sub,
   link,
 }: {
-  label: string;
   title: string;
+  sub?: string;
   link?: { to: string; text: string };
 }) => (
-  <div className="section-head" data-reveal>
+  <div className="section-head">
     <div>
-      <p className="label">{label}</p>
       <h2 className="section-title">{title}</h2>
+      {sub && <p className="section-sub">{sub}</p>}
     </div>
     {link && (
-      <Link to={link.to} className="more-link">
-        {link.text}
-        <span aria-hidden>→</span>
+      <Link to={link.to} className="text-link">
+        {link.text} ›
       </Link>
     )}
   </div>

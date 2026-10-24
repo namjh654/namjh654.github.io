@@ -1,6 +1,6 @@
 // 콘텐츠 로더.
 // projects/<slug>/project.json, behind/<slug>/post.json 폴더를 빌드 시 자동으로 읽는다.
-// 이미지 경로는 각 JSON 파일이 있는 폴더 기준 상대 경로("cover.jpg", "images/01.jpg")로 적는다.
+// 사진은 선택이다. 쓸 때는 JSON 파일이 있는 폴더 기준 상대 경로("cover.jpg", "images/01.jpg")로 적는다.
 // status 가 "draft" 인 글은 로컬 개발 서버(npm start)에서만 보이고 배포본에는 빠진다.
 
 import { categories } from "./site";
@@ -62,7 +62,7 @@ function loadProjects(): Project[] {
       ...src,
       slug,
       year: Number(src.date.slice(0, 4)),
-      cover: projectImage(slug, src.cover),
+      cover: src.cover ? projectImage(slug, src.cover) : undefined,
       gallery: (src.gallery ?? []).map((img) => ({
         ...img,
         src: projectImage(slug, img.src),
@@ -85,7 +85,7 @@ function loadBehind(): BehindPost[] {
     list.push({
       ...src,
       slug,
-      cover: behindImage(slug, src.cover),
+      cover: src.cover ? behindImage(slug, src.cover) : undefined,
       blocks: (src.blocks ?? []).map((b) =>
         b.type === "image" ? { ...b, src: behindImage(slug, b.src) } : b
       ),
@@ -106,7 +106,6 @@ export const getBehindPost = (slug: string) =>
 export const getBehindForProject = (slug: string) =>
   behindPosts.filter((p) => p.project === slug);
 
-export const featuredProjects = () => {
-  const featured = projects.filter((p) => p.featured);
-  return (featured.length ? featured : projects).slice(0, 4);
-};
+/** 홈에 보일 4개: featured 를 먼저, 모자라면 최신순으로 채운다. */
+export const featuredProjects = () =>
+  [...projects.filter((p) => p.featured), ...projects.filter((p) => !p.featured)].slice(0, 4);

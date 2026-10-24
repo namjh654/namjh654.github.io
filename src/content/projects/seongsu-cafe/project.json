@@ -6,9 +6,13 @@
   "location": "서울 성동구 성수동",
   "area": "186㎡",
   "client": "카페 봉봉",
-  "scope": ["공간 설계", "인테리어", "사인 디자인", "BI"],
+  "scope": [
+    "공간 설계",
+    "인테리어",
+    "사인 디자인",
+    "BI"
+  ],
   "summary": "공장 건물을 개조한 2층 카페. 노출 천장과 벽돌을 그대로 두고, 나무와 식물로 온기를 더했습니다.",
-  "cover": "cover.jpg",
   "featured": true,
   "status": "published",
   "sections": [
@@ -21,13 +25,10 @@
       "body": "층고를 살려 메자닌을 두고, 1층은 긴 바 테이블과 창가 좌석으로 나눴습니다.\n간판과 메뉴판, 패키지는 공간에 쓴 재료 색에서 출발했습니다."
     }
   ],
-  "gallery": [
-    { "src": "01.jpg", "caption": "메자닌에서 내려다본 1층", "wide": true },
-    { "src": "02.jpg", "caption": "벽돌 벽과 창가 좌석" },
-    { "src": "03.jpg", "caption": "식물과 조명으로 채운 바" }
-  ],
   "credits": [
-    { "role": "Design & Branding", "name": "봉봉 스튜디오" },
-    { "role": "Photo", "name": "Unsplash (샘플)" }
+    {
+      "role": "Design & Branding",
+      "name": "봉봉 스튜디오"
+    }
   ]
 }

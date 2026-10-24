@@ -30,25 +30,27 @@ const Contact = () => {
   ].filter(([, v]) => v);
 
   return (
-    <section className="page container contact">
-      <header className="page-head" data-reveal>
-        <p className="label">Contact</p>
+    <section className="page container narrow">
+      <header className="page-head">
+        <p className="eyebrow">Contact</p>
         <h1 className="page-title">
           어떤 공간을
           <br />
           준비하고 계신가요?
         </h1>
-        <p className="page-lead">
+        <p className="page-sub">
           공간 유형과 위치, 면적, 예산, 일정을 함께 알려주시면 더 정확하게 안내드릴 수 있습니다.
         </p>
-        <a href={mailto} className="btn contact-cta">
-          메일로 문의하기
-        </a>
+        <div className="hero-actions">
+          <a href={mailto} className="btn">
+            메일로 문의하기
+          </a>
+        </div>
       </header>
 
-      <dl className="contact-list" data-reveal>
+      <dl className="info-card">
         {rows.map(([k, v, href]) => (
-          <div key={k} className="contact-row">
+          <div key={k} className="info-row">
             <dt>{k}</dt>
             <dd>
               {href ? (

@@ -33,8 +33,7 @@ const json = fs
 
 fs.mkdirSync(dir, { recursive: true });
 fs.writeFileSync(path.join(dir, file), json);
-fs.copyFileSync(path.join(templateDir, "cover.jpg"), path.join(dir, "cover.svg"));
 
 console.log(`만들었습니다: ${path.relative(root, dir)}`);
-console.log(`- ${file} 내용을 채우고, 사진을 같은 폴더에 넣은 뒤 파일 이름을 적으세요.`);
+console.log(`- ${file} 내용을 채우세요. 사진은 선택: 같은 폴더에 넣고 "cover"/"gallery" 에 파일 이름을 적습니다.`);
 console.log('- 공개할 준비가 되면 "status": "published" 로 바꾸세요. (draft 는 npm start 에서만 보임)');

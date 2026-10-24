@@ -13,9 +13,8 @@ npm run new:project -- hannam-house-2026
 ```
 src/content/projects/hannam-house-2026/
 ├── project.json
-├── cover.jpg        # 대표 이미지 (목록·상세 상단)
-├── 01.jpg
-└── 02.jpg
+├── cover.jpg        # (선택) 대표 사진
+└── 01.jpg           # (선택) 갤러리 사진
 ```
 
 ### project.json 항목
@@ -29,7 +28,7 @@ src/content/projects/hannam-house-2026/
 | `location`, `area`, `client` | | 개요표                                               |
 | `scope`     |      | 작업 범위 배열 `["설계", "인테리어"]`                                  |
 | `summary`   | ✔    | 한두 문장 소개                                                         |
-| `cover`     | ✔    | 대표 이미지 파일 이름                                                  |
+| `cover`     |      | 대표 사진 파일 이름. 비우면 글자 카드로 표시                            |
 | `featured`  |      | `true` 면 홈 "최근 프로젝트"에 노출 (없으면 최신순 4개)                 |
 | `status`    |      | `draft` 는 `npm start` 에서만 보이고 배포본에서 빠짐. 공개는 `published` |
 | `sections`  |      | `[{ "heading": "Brief", "body": "..." }]`. `\n` 으로 문단 구분          |

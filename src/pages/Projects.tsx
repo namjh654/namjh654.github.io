@@ -12,7 +12,6 @@ const Projects = () => {
     title: "프로젝트",
     description: "봉봉 스튜디오가 설계하고 시공한 주거·상업·리모델링·브랜딩 프로젝트 포트폴리오.",
     path: "/projects",
-    image: projects[0]?.cover,
   });
 
   const select = (key: CategoryKey | null) =>
@@ -27,10 +26,10 @@ const Projects = () => {
 
   return (
     <section className="page container">
-      <header className="page-head" data-reveal>
-        <p className="label">Projects</p>
+      <header className="page-head">
+        <p className="eyebrow">Projects</p>
         <h1 className="page-title">프로젝트</h1>
-        <p className="page-lead">설계부터 완공까지, 스튜디오가 함께한 공간을 기록합니다.</p>
+        <p className="page-sub">설계부터 완공까지, 스튜디오가 함께한 공간을 기록합니다.</p>
       </header>
 
       <div className="segment" role="tablist" aria-label="카테고리">
@@ -49,9 +48,9 @@ const Projects = () => {
       </div>
 
       {list.length ? (
-        <div className="project-grid">
-          {list.map((p, i) => (
-            <ProjectCard key={p.slug} project={p} index={i} />
+        <div className="card-grid">
+          {list.map((p) => (
+            <ProjectCard key={p.slug} project={p} />
           ))}
         </div>
       ) : (
