@@ -39,7 +39,7 @@ npm run new:project -- galaxy-factory
 
 ## 2. 커리어 (`src/content/companies.json`)
 
-위에서부터 최근 회사입니다.
+위에서부터 **시간순(오래된 회사 먼저)** 입니다. `period` 가 `YYYY.MM – YYYY.MM` 또는 `YYYY.MM – 현재` 형식이면 재직 기간(예: 1년 7개월)이 자동으로 붙습니다.
 
 ```json
 {
@@ -53,6 +53,8 @@ npm run new:project -- galaxy-factory
 ```
 
 회사 프로젝트를 자세히 쓰려면 `kind: "career"`, `"company": "nepirity"` 인 project.json 을 만들고 `slug` 로 연결합니다.
+그러면 커리어 화면의 프로젝트 이름이 세부 페이지로 연결되고, `/projects` 의 **커리어 프로젝트** 묶음과 홈 숫자 요약에도 자동으로 포함됩니다.
+스토어 스크린샷처럼 외부 이미지 주소도 `screenshots` 의 `src` 에 그대로 쓸 수 있습니다.
 회사 이름·내부 화면·수치는 공개해도 되는 범위만 적으세요.
 
 ## 3. 블로그

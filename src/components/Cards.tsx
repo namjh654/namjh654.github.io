@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getCompany } from "../content";
 import { kinds, stages } from "../content/site";
 import type { Post, Project } from "../content/types";
 import { formatDate } from "../lib/seo";
@@ -20,17 +21,16 @@ export const Tags = ({ items, tone = "gray" }: { items: string[]; tone?: "gray" 
     </ul>
   ) : null;
 
-/** 프로젝트 카드. 사진이 있으면 위에 보여주고, 없으면 글자만으로 구성한다. */
+/** 자체/커리어 구분 표시. 예) "자체 · 서비스", "커리어 · 엠투엠테크" */
+export const originLabel = (p: Project) =>
+  p.kind === "career" ? `커리어 · ${getCompany(p.company)?.name ?? "회사"}` : `자체 · ${kinds[p.kind]}`;
+
+/** 프로젝트 카드. 목록은 글자만으로 맞추고, 사진·스크린샷은 상세 페이지에서 보여준다. */
 export const ProjectCard = ({ project }: { project: Project }) => (
   <Link to={`/projects/${project.slug}`} className="card project-card">
-    {project.cover && (
-      <div className="card-photo">
-        <img src={project.cover} alt={project.title} loading="lazy" />
-      </div>
-    )}
     <div className="card-inner">
       <div className="card-top">
-        <span className="card-kind">{kinds[project.kind]}</span>
+        <span className={`card-kind${project.kind === "career" ? " is-career" : ""}`}>{originLabel(project)}</span>
         <StageBadge stage={project.stage} />
       </div>
       <h3 className="card-title">{project.title}</h3>

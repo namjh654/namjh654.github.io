@@ -2,16 +2,58 @@
   {
     "key": "nepirity",
     "name": "네피리티",
-    "projects": [{ "name": "RT" }]
+    "period": "2023.06 – 2024.12",
+    "role": "React Native 개발",
+    "summary": "React Native + TypeScript 로 단체관광 RT 앱을 Android·iOS 크로스플랫폼으로 메인 개발해 스토어 출시까지 진행했습니다.",
+    "projects": [
+      {
+        "name": "단체관광 RT",
+        "summary": "RN 메인 개발 · Android·iOS 출시 · 광고·강제 업데이트·스크롤 최적화",
+        "slug": "realtrip-rt",
+        "links": [{ "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=kr.co.realtrip&hl=ko" }]
+      }
+    ]
   },
   {
     "key": "softnet",
     "name": "소프트넷",
-    "projects": [{ "name": "inPHR" }, { "name": "BAND" }]
+    "period": "2025 · 3개월",
+    "role": "Android Kotlin 개발",
+    "summary": "Android Kotlin 으로 웨어러블 밴드와 앱을 연결하고, 생체 데이터를 API 와 연동해 그래프로 보여주는 헬스케어 앱을 개발했습니다.",
+    "projects": [
+      {
+        "name": "inPHR Band",
+        "summary": "BLE 밴드 연결 · API 연동 · MPAndroidChart 그래프",
+        "slug": "inphr-band",
+        "links": [{ "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.inphrcare.inphrhband&hl=ko" }]
+      }
+    ]
   },
   {
     "key": "m2mtech",
     "name": "엠투엠테크",
-    "projects": [{ "name": "ELIX" }, { "name": "ELSA" }]
+    "period": "2025.09 – 현재",
+    "role": "React Native · Expo 개발",
+    "summary": "React Native·Expo 로 승강기 관제 앱 ELIX·ELSA 를 개발해 두 스토어에 배포하고, 개발·운영 환경 분리와 ELIX 관제 웹 개발 지원을 맡고 있습니다.",
+    "projects": [
+      {
+        "name": "ELIX",
+        "summary": "승강기 통합 관제 앱 · 스토어 배포 · 관제 웹 지원",
+        "slug": "elix",
+        "links": [
+          { "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=kr.or.lh.eip" },
+          { "label": "App Store", "url": "https://apps.apple.com/us/app/elix/id6752594516" }
+        ]
+      },
+      {
+        "name": "ELSA",
+        "summary": "현장 대응 앱 · RN CLI → Expo 전환 · 구조 개선",
+        "slug": "elsa",
+        "links": [
+          { "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=cloud.elsa.app" },
+          { "label": "App Store", "url": "https://apps.apple.com/kr/app/elsa/id1587861612" }
+        ]
+      }
+    ]
   }
 ]
