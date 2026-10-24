@@ -1,0 +1,33 @@
+{
+  "kind": "game",
+  "title": "은하만들기: 원소 공장",
+  "titleEn": "Galaxy Maker: Element Factory",
+  "summary": "원자를 결합해 별을 밝히고 나만의 은하를 완성하는 우주 성장형 방치 게임입니다. 결합식은 실제 항성 핵합성 순서를 따릅니다.",
+  "date": "2026-10-11",
+  "period": "2026.10 – 현재",
+  "role": "기획 · 개발",
+  "platforms": ["Android"],
+  "stack": ["Kotlin", "Kotlin Multiplatform", "Jetpack Compose", "Koin"],
+  "stage": "dev",
+  "privateRepo": true,
+  "featured": true,
+  "metrics": [
+    { "label": "우주 단계", "value": "5단계" },
+    { "label": "MVP 원소", "value": "8종" },
+    { "label": "방치 생산", "value": "최대 8시간" }
+  ],
+  "sections": [
+    {
+      "heading": "게임",
+      "body": "입자와 에너지를 모아 수소를 만들고, 핵융합으로 헬륨·탄소·산소를 거쳐 철과 금까지 만듭니다. 원소로 행성을 빚고 별을 밝혀 항성계를 이루면 은하가 탄생합니다.\n화면 가운데의 우주가 원자 → 분자 → 행성 → 항성계 → 나선 은하로 함께 자랍니다."
+    },
+    {
+      "heading": "설계",
+      "body": "수소 융합 → 삼중 알파 → 알파 과정 → 규소 연소 → 중성자 포획 순서를 그대로 따라, MVP 원소 8종(H·He·C·O·Ne·Si·Fe·Au)이 이 사슬과 맞습니다. 금은 실제처럼 항성계 단계(킬로노바)에서만 만들 수 있습니다.\n자동화·결합·우주론 세 갈래 연구 중 무엇에 집중하느냐에 따라 은하의 색도 달라집니다."
+    },
+    {
+      "heading": "기술",
+      "body": "게임 규칙은 KMP 공통 모듈에 두어 iOS 로 넓힐 여지를 남기고, Android 는 Jetpack Compose 로 먼저 만듭니다. 계정·인터넷 없이 플레이하며 다크 모드와 한국어·영어를 지원합니다."
+    }
+  ]
+}

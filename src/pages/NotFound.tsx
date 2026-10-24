@@ -7,7 +7,7 @@ const NotFound = () => {
 
   return (
     <section className="page container not-found">
-      <p className="label">404</p>
+      <p className="eyebrow">404</p>
       <h1 className="page-title">페이지를 찾을 수 없습니다.</h1>
       <Link to="/" className="btn">
         홈으로

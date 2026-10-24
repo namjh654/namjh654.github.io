@@ -1,0 +1,33 @@
+{
+  "kind": "product",
+  "title": "소사장",
+  "titleEn": "Sosazang",
+  "summary": "소품샵 운영자가 여러 매장의 브랜드·상품·입고·판매·회수·계약·정산을 한 계정으로 관리하는 웹 서비스입니다.",
+  "date": "2026-10-21",
+  "period": "2026.07 – 현재",
+  "platforms": ["Web"],
+  "stack": ["Next.js 16", "React 19", "TypeScript", "Supabase", "Tailwind CSS", "Vercel"],
+  "stage": "live",
+  "links": { "live": "https://sosazang.vercel.app" },
+  "privateRepo": true,
+  "featured": true,
+  "metrics": [
+    { "label": "관리 업무", "value": "입고 → 판매 → 정산" },
+    { "label": "엑셀 연동", "value": "업로드 · 보고서" },
+    { "label": "기준 환경", "value": "PC · 태블릿 · 모바일" }
+  ],
+  "sections": [
+    {
+      "heading": "문제",
+      "body": "소품샵은 브랜드별로 상품을 받아 여러 매장에서 팔고, 월말에 브랜드마다 정산 보고서를 만듭니다. 이 과정이 엑셀과 수기 입력에 흩어져 있어 반복 입력과 누락이 많았습니다."
+    },
+    {
+      "heading": "해결",
+      "body": "엑셀 업로드 → 입고 검수 → 신상품 POS 양식 → 판매·회수 → 계약 조건별 월 정산까지 한 흐름으로 이었습니다.\n취소·검수·판매중지 뒤에도 거래 이력과 계산 근거를 남기고, 상품 ID 를 기준으로 과거 이력을 연결해 이름이 바뀌어도 정산이 흔들리지 않게 했습니다."
+    },
+    {
+      "heading": "기술",
+      "body": "Next.js 16 과 Supabase 로 서버에서 소유자와 현재 매장을 검증하고, 수천 개 상품·거래에서도 누락 없이 조회·계산하도록 데이터 흐름을 정리했습니다. 정산 보고서는 엑셀·워드 형식으로 내려받습니다."
+    }
+  ]
+}

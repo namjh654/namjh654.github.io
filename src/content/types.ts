@@ -1,6 +1,6 @@
-import type { CategoryKey } from "./site";
+import type { KindKey, StageKey } from "./site";
 
-export type ContentStatus = "published" | "draft";
+export type Visibility = "published" | "draft";
 
 export interface GalleryImage {
   src: string;
@@ -9,60 +9,90 @@ export interface GalleryImage {
   wide?: boolean;
 }
 
-export interface ProjectSection {
+export interface Section {
   heading?: string;
   body: string;
 }
 
-export interface Credit {
-  role: string;
-  name: string;
+export interface Metric {
+  label: string;
+  value: string;
+}
+
+export interface Links {
+  /** 운영 중인 서비스 주소 */
+  live?: string;
+  /** 공개 저장소 주소 */
+  github?: string;
+  /** 스토어 주소 */
+  store?: string;
 }
 
 /** src/content/projects/<slug>/project.json 의 형태 */
 export interface ProjectSource {
+  kind: KindKey;
   title: string;
   titleEn?: string;
-  category: CategoryKey;
-  date: string;
-  location?: string;
-  area?: string;
-  client?: string;
-  scope?: string[];
+  /** 한두 문장 소개. 카드와 상세 상단에 쓰인다. */
   summary: string;
+  /** 정렬 기준일 (YYYY-MM-DD, 최근 작업일) */
+  date: string;
+  /** 화면에 보일 기간. 예) "2026.07 – 현재" */
+  period?: string;
+  role?: string;
+  /** career 일 때 companies.json 의 key */
+  company?: string;
+  platforms: string[];
+  stack: string[];
+  stage?: StageKey;
+  links?: Links;
+  /** 저장소가 비공개면 true ("비공개 저장소" 로 표시) */
+  privateRepo?: boolean;
+  metrics?: Metric[];
+  sections?: Section[];
   /** 대표 사진 (선택) */
   cover?: string;
-  featured?: boolean;
-  status?: ContentStatus;
-  sections?: ProjectSection[];
   gallery?: GalleryImage[];
-  credits?: Credit[];
+  featured?: boolean;
+  status?: Visibility;
 }
 
 export interface Project extends Omit<ProjectSource, "status"> {
   slug: string;
-  year: number;
 }
 
-export type BehindBlock =
+export type PostBlock =
   | { type: "text"; heading?: string; body: string }
+  | { type: "code"; lang?: string; body: string }
   | { type: "image"; src: string; caption?: string }
   | { type: "quote"; body: string; by?: string };
 
-/** src/content/behind/<slug>/post.json 의 형태 */
-export interface BehindSource {
+/** src/content/blog/<slug>/post.json 의 형태 */
+export interface PostSource {
   title: string;
   date: string;
   excerpt: string;
   /** 대표 사진 (선택) */
   cover?: string;
-  /** 연결할 프로젝트 폴더 이름(slug). 없으면 스튜디오 일반 이야기. */
+  /** 연결할 프로젝트 폴더 이름(slug) */
   project?: string;
   tags?: string[];
-  status?: ContentStatus;
-  blocks: BehindBlock[];
+  status?: Visibility;
+  blocks: PostBlock[];
 }
 
-export interface BehindPost extends Omit<BehindSource, "status"> {
+export interface Post extends Omit<PostSource, "status"> {
   slug: string;
+}
+
+/** src/content/companies.json 의 한 항목 (위가 최근) */
+export interface Company {
+  key: string;
+  name: string;
+  nameEn?: string;
+  period?: string;
+  role?: string;
+  summary?: string;
+  /** 재직 중 참여한 프로젝트. 상세 글이 있으면 slug 로 연결한다. */
+  projects: { name: string; summary?: string; slug?: string }[];
 }

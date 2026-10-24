@@ -1,7 +1,7 @@
 // 페이지별 검색·공유 메타 태그.
 // 빌드 후 scripts/prerender.js 가 각 페이지를 HTML 로 저장하므로, 여기서 넣은 태그가 정적 HTML 에 그대로 남는다.
 import { useEffect } from "react";
-import { site } from "../content/site";
+import { site, skills } from "../content/site";
 
 interface SeoOptions {
   title?: string;
@@ -48,17 +48,17 @@ const setLink = (rel: string, href: string) => {
   el.href = href;
 };
 
-export const organizationLd = {
+export const personLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: site.brand,
-  alternateName: site.brandKo,
+  "@type": "Person",
+  name: site.brandKo,
+  alternateName: site.brand,
+  jobTitle: "Software Developer",
   description: site.intro,
   url: site.url,
-  email: site.email,
-  ...(site.phone && { telephone: site.phone }),
-  address: { "@type": "PostalAddress", addressLocality: site.address },
-  ...(site.instagram && { sameAs: [site.instagram] }),
+  email: `mailto:${site.email}`,
+  sameAs: [site.github],
+  knowsAbout: skills.flatMap((s) => s.items),
 };
 
 export function useSeo({ title, description, image, path, type = "website", jsonLd }: SeoOptions) {

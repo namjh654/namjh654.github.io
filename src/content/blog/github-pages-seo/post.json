@@ -1,0 +1,34 @@
+{
+  "title": "GitHub Pages 의 React SPA 를 검색되게 만들기",
+  "date": "2026-10-24",
+  "excerpt": "CRA 로 만든 SPA 는 GitHub Pages 에서 상세 페이지가 404 로 응답합니다. 빌드 때 페이지마다 HTML 을 미리 만들어 해결했습니다.",
+  "tags": ["SEO", "GitHub Pages", "React"],
+  "status": "published",
+  "blocks": [
+    {
+      "type": "text",
+      "heading": "문제",
+      "body": "GitHub Pages 는 SPA rewrite 를 지원하지 않습니다. 흔히 쓰는 방법은 index.html 을 404.html 로 복사하는 것인데, 이러면 화면은 뜨지만 /projects/sosazang 같은 주소가 HTTP 404 상태로 응답합니다. 검색 엔진은 이 페이지를 색인하지 않습니다.\n게다가 처음 받는 HTML 이 빈 div 하나라서, JS 실행이 약한 크롤러는 본문을 읽지 못합니다."
+    },
+    {
+      "type": "text",
+      "heading": "해결: 빌드 후 프리렌더링",
+      "body": "빌드가 끝나면 작은 정적 서버를 띄우고, 헤드리스 Chromium(Playwright)으로 모든 페이지를 열어 완성된 HTML 을 build/<경로>/index.html 로 저장합니다. 페이지 목록은 콘텐츠 폴더에서 읽기 때문에 글을 추가하면 자동으로 포함됩니다."
+    },
+    {
+      "type": "code",
+      "lang": "js",
+      "body": "for (const { path: route } of getRoutes()) {\n  await page.goto(origin + route, { waitUntil: \"networkidle\" });\n  const html = await page.evaluate(\n    () => \"<!DOCTYPE html>\n\" + document.documentElement.outerHTML\n  );\n  fs.writeFileSync(path.join(build, route, \"index.html\"), html);\n}"
+    },
+    {
+      "type": "text",
+      "heading": "함께 넣은 것",
+      "body": "페이지마다 title·description·canonical·Open Graph 를 넣고, 구조화 데이터(JSON-LD)와 sitemap.xml·robots.txt 를 빌드 때 생성합니다. GitHub Pages 는 /a/b 를 /a/b/ 로 301 리다이렉트하므로 canonical 도 슬래시로 끝나게 맞췄습니다."
+    },
+    {
+      "type": "text",
+      "heading": "결과",
+      "body": "모든 상세 페이지가 200 으로 응답하고, JS 없이도 제목과 본문이 HTML 에 들어 있습니다. 배포는 GitHub Actions 가 master push 때 빌드·프리렌더링·배포를 한 번에 처리합니다."
+    }
+  ]
+}

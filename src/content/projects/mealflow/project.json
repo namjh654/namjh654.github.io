@@ -1,0 +1,29 @@
+{
+  "kind": "product",
+  "title": "밀플로우",
+  "titleEn": "MealFlow",
+  "summary": "직원은 QR 로 접속해 오늘·주간 식단을 보고, 관리자는 달력에서 식단과 휴무일을 관리하는 사내 식단 PWA 입니다.",
+  "date": "2026-10-23",
+  "period": "2026.03 – 현재",
+  "role": "기획 · 개발 · 배포",
+  "platforms": ["PWA", "Admin"],
+  "stack": ["React 19", "TypeScript", "Vite", "Firebase Auth", "Firestore", "Firebase Hosting", "Zustand"],
+  "stage": "live",
+  "privateRepo": true,
+  "featured": true,
+  "metrics": [
+    { "label": "운영 비용", "value": "Firebase 무료 범위" },
+    { "label": "내보내기", "value": "XLSX · PDF" },
+    { "label": "접속", "value": "QR · 홈 화면 설치" }
+  ],
+  "sections": [
+    {
+      "heading": "직원 화면",
+      "body": "로그인 없이 QR 로 들어와 오늘과 주간 식단을 바로 확인합니다. PWA 로 홈 화면에 설치할 수 있고, Firestore 오프라인 캐시로 연결이 불안정해도 열립니다."
+    },
+    {
+      "heading": "관리자 화면",
+      "body": "초대 링크로 가입하고 최고 관리자가 승인하는 구조입니다. 날짜를 눌러 식단을 등록·수정하고, 기간을 정해 XLSX·PDF 로 내보내거나 공유합니다."
+    }
+  ]
+}
