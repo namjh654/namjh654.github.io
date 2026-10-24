@@ -10,7 +10,11 @@ const ProjectDetail = () => {
   const project = getProject(slug);
   const path = `/projects/${slug}`;
   const images = project
-    ? [project.cover, ...(project.gallery ?? []).map((g) => g.src)].filter(Boolean)
+    ? Array.from(
+        new Set(
+          [project.cover, ...(project.screenshots ?? []).map((s) => s.src), ...(project.gallery ?? []).map((g) => g.src)]
+        )
+      ).filter(Boolean)
     : [];
   useSeo({
     title: project?.title,
@@ -79,10 +83,38 @@ const ProjectDetail = () => {
         )}
       </header>
 
-      {project.cover && (
-        <div className="detail-photo">
-          <img src={project.cover} alt={project.title} />
+      {project.screenshots?.length ? (
+        <div className={`shots shots-${project.screenshots.length > 1 ? "multi" : "single"}`}>
+          {project.screenshots.map((shot, i) =>
+            shot.device === "mobile" ? (
+              <figure key={i} className="shot shot-mobile">
+                <div className="phone">
+                  <img src={shot.src} alt={shot.caption ?? `${project.title} 모바일 화면`} loading="lazy" />
+                </div>
+                {shot.caption && <figcaption>{shot.caption}</figcaption>}
+              </figure>
+            ) : (
+              <figure key={i} className="shot shot-desktop">
+                <div className="browser">
+                  <div className="browser-bar" aria-hidden>
+                    <span />
+                    <span />
+                    <span />
+                    {project.links?.live && <em>{project.links.live.replace(/^https?:\/\//, "")}</em>}
+                  </div>
+                  <img src={shot.src} alt={shot.caption ?? `${project.title} 화면`} loading="lazy" />
+                </div>
+                {shot.caption && <figcaption>{shot.caption}</figcaption>}
+              </figure>
+            )
+          )}
         </div>
+      ) : (
+        project.cover && (
+          <div className="detail-photo">
+            <img src={project.cover} alt={project.title} />
+          </div>
+        )
       )}
 
       {!!project.metrics?.length && (

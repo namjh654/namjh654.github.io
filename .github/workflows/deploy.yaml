@@ -25,6 +25,7 @@ jobs:
     env:
       REACT_APP_DEPLOY_TARGET: ${{ vars.DEPLOY_TARGET || 'github-pages' }}
       REACT_APP_SITE_URL: ${{ vars.SITE_URL || 'https://namjh654.github.io' }}
+      REACT_APP_CONTACT_ENDPOINT: ${{ vars.CONTACT_ENDPOINT }} # contact-api 배포 주소 + /api/contact
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,6 +33,8 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - name: Test contact API
+        run: npm test --prefix contact-api
       - name: Install headless browser (prerender)
         run: npx playwright install --with-deps chromium --only-shell
       - name: Build + prerender

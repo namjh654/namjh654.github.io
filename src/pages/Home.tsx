@@ -82,10 +82,10 @@ const Home = () => {
       <section className="section section-last container">
         <div className="cta">
           <h2 className="cta-title">함께 만들 일이 있다면</h2>
-          <p className="cta-sub">프로젝트 제안, 협업, 채용 문의 모두 메일로 받습니다.</p>
-          <a href={`mailto:${site.email}`} className="btn">
-            메일 보내기
-          </a>
+          <p className="cta-sub">프로젝트 제안, 협업, 채용 문의를 페이지에서 바로 남길 수 있습니다.</p>
+          <Link to="/contact" className="btn">
+            문의하기
+          </Link>
         </div>
       </section>
     </>

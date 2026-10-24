@@ -35,9 +35,9 @@ const SiteLayout = () => {
               </NavLink>
             ))}
           </nav>
-          <a href={site.github} className="btn btn-sm btn-dark header-cta" target="_blank" rel="noreferrer">
-            GitHub
-          </a>
+          <Link to="/contact" className="btn btn-sm header-cta">
+            문의하기
+          </Link>
           <button
             type="button"
             className="menu-toggle"
@@ -54,7 +54,7 @@ const SiteLayout = () => {
 
       <div id="mobile-menu" className="mobile-menu" hidden={!menuOpen}>
         <nav className="container" aria-label="모바일 메뉴">
-          {NAV.map((item) => (
+          {[...NAV, { to: "/contact", label: "문의하기" }].map((item) => (
             <NavLink key={item.to} to={item.to} className="mobile-link">
               {item.label}
             </NavLink>
@@ -79,6 +79,9 @@ const SiteLayout = () => {
                   <Link to={item.to}>{item.label}</Link>
                 </li>
               ))}
+              <li>
+                <Link to="/contact">문의하기</Link>
+              </li>
             </ul>
           </div>
           <p className="footer-info">
