@@ -17,7 +17,8 @@ permissions:
 
 concurrency:
   group: deploy-${{ github.ref }}
-  cancel-in-progress: true
+  # 운영(master) 배포는 중간에 취소하지 않고 순서대로 처리한다. 나머지 브랜치는 이전 실행을 취소한다.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
   build:
