@@ -1,0 +1,30 @@
+{
+  "title": "서버 함수 없이 무료 요금제에서 웹 푸시 보내기",
+  "date": "2026-10-24",
+  "excerpt": "Firebase Spark 요금제에는 Cloud Functions 가 없습니다. 엄마의 밥상은 Firestore 알림함과 GitHub Actions 예약 작업으로 식단 변경 알림을 휴대폰까지 보냅니다.",
+  "project": "moms-table",
+  "tags": ["Firebase", "PWA", "GitHub Actions"],
+  "status": "published",
+  "blocks": [
+    {
+      "type": "text",
+      "heading": "문제",
+      "body": "식단이 바뀌면 구성원에게 휴대폰 알림을 보내고 싶었습니다. 보통은 Firestore 쓰기 트리거로 Cloud Function 을 돌려 FCM 을 보내지만, 무료(Spark) 요금제에는 서버 함수가 없습니다. 알림 하나 때문에 종량제로 올리고 싶지는 않았습니다."
+    },
+    {
+      "type": "text",
+      "heading": "해결: 알림함에 남기고, 예약 작업이 보낸다",
+      "body": "관리자가 식단을 저장할 때 같은 일괄 쓰기(batch) 안에서 업체 알림함에 '대기' 알림을 함께 기록합니다. 실제로 바뀐 날짜가 있을 때만 남기므로 같은 내용을 다시 저장해도 알림이 가지 않습니다.\nGitHub Actions 예약 작업이 영업 시간(06:00~21:59) 동안 15분마다 대기 알림을 모아 FCM 으로 보내고, 결과(발송됨·건너뜀)를 알림 문서에 기록합니다. 알림 종류별 구독, 만료된 기기 토큰 정리, 6시간 넘게 밀린 알림 건너뛰기도 넣었습니다."
+    },
+    {
+      "type": "code",
+      "lang": "text",
+      "body": "식단 저장 (batch)\n  ├─ orgs/{업체}/menus/...           식단\n  └─ orgs/{업체}/notifications/...   status: pending   → 알림함·배지에 즉시 표시\n\nGitHub Actions (15분 간격)\n  pending 알림 조회 → 구독 기기로 FCM 발송 → status: sent / skipped"
+    },
+    {
+      "type": "text",
+      "heading": "결과",
+      "body": "유료 전환 없이 알림함에는 저장 즉시, 휴대폰에는 최대 약 15분 뒤에 알림이 도착합니다. 알림을 누르면 해당 날짜 식단 상세가 바로 열립니다(딥링크). 가입 → 식단 수정 → 알림함 → 딥링크 흐름은 로컬 에뮬레이터에서 확인했습니다.\n즉시 발송이 필요해지면 같은 발송 로직을 Cloud Function 트리거로 옮기기만 하면 되도록 함수로 분리해 두었습니다."
+    }
+  ]
+}

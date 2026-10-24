@@ -40,7 +40,7 @@ namjh654/<작업>  ──PR──▶  dev  ──PR──▶  master
 
 **권장: Cloudflare Pages + 커스텀 도메인.**
 홍보용 회사 사이트라서 상업적 이용이 허용되어야 하고, 사진이 많아 전송량이 커지며, `dev` 미리보기가 브랜치 전략과 그대로 맞습니다.
-Firebase 는 Firestore·Auth 를 같이 쓰는 앱(예: mealflow)에는 좋지만, 정적 포트폴리오에는 하루 전송 한도가 부담입니다.
+Firebase 는 Firestore·Auth 를 같이 쓰는 앱(예: 엄마의 밥상)에는 좋지만, 정적 포트폴리오에는 하루 전송 한도가 부담입니다.
 
 ## 4. Cloudflare 로 전환하기
 
