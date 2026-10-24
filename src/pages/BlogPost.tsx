@@ -1,13 +1,13 @@
 import { Link, useParams } from "react-router-dom";
-import { getBehindPost, getProject } from "../content";
+import { getPost, getProject } from "../content";
 import { site } from "../content/site";
 import { absoluteUrl, formatDate, pageUrl, useSeo } from "../lib/seo";
 import NotFound from "./NotFound";
 
-const BehindDetail = () => {
+const BlogPost = () => {
   const { slug = "" } = useParams();
-  const post = getBehindPost(slug);
-  const path = `/behind/${slug}`;
+  const post = getPost(slug);
+  const path = `/blog/${slug}`;
   useSeo({
     title: post?.title,
     description: post?.excerpt,
@@ -23,8 +23,7 @@ const BehindDetail = () => {
       datePublished: post.date,
       keywords: post.tags?.join(", "),
       mainEntityOfPage: pageUrl(path),
-      author: { "@type": "Organization", name: site.brand, url: site.url },
-      publisher: { "@type": "Organization", name: site.brand, url: site.url },
+      author: { "@type": "Person", name: site.brandKo, url: site.url },
     },
   });
   if (!post) return <NotFound />;
@@ -34,8 +33,8 @@ const BehindDetail = () => {
   return (
     <article className="page container narrow">
       <header className="detail-head">
-        <Link to="/behind" className="back-link">
-          ‹ 비하인드
+        <Link to="/blog" className="back-link">
+          ‹ 블로그
         </Link>
         <p className="eyebrow">
           {formatDate(post.date)}
@@ -62,6 +61,12 @@ const BehindDetail = () => {
                     <p key={j}>{line}</p>
                   ))}
                 </section>
+              );
+            case "code":
+              return (
+                <pre key={i} className="prose-code" data-lang={block.lang}>
+                  <code>{block.body}</code>
+                </pre>
               );
             case "image":
               return (
@@ -93,4 +98,4 @@ const BehindDetail = () => {
   );
 };
 
-export default BehindDetail;
+export default BlogPost;

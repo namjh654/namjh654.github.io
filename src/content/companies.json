@@ -1,0 +1,17 @@
+[
+  {
+    "key": "nepirity",
+    "name": "네피리티",
+    "projects": [{ "name": "RT" }]
+  },
+  {
+    "key": "softnet",
+    "name": "소프트넷",
+    "projects": [{ "name": "inPHR" }, { "name": "BAND" }]
+  },
+  {
+    "key": "m2mtech",
+    "name": "엠투엠테크",
+    "projects": [{ "name": "ELIX" }, { "name": "ELSA" }]
+  }
+]

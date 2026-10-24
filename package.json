@@ -28,7 +28,7 @@
     "build:site": "npm run build && npm run prerender",
     "test": "react-scripts test",
     "new:project": "node scripts/new-content.js project",
-    "new:behind": "node scripts/new-content.js behind",
+    "new:post": "node scripts/new-content.js post",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

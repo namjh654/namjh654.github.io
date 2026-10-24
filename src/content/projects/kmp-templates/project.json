@@ -1,0 +1,27 @@
+{
+  "kind": "template",
+  "title": "KMP 앱 템플릿",
+  "titleEn": "KMP Templates",
+  "summary": "복사해서 바로 쓰는 Kotlin Multiplatform 템플릿 두 종류. 로직만 공유하고 화면은 Compose·SwiftUI 로 만드는 판과, 화면까지 공유하는 Decompose 판입니다.",
+  "date": "2026-10-06",
+  "period": "2026.07 – 2026.10",
+  "role": "설계 · 개발",
+  "platforms": ["Android", "iOS"],
+  "stack": ["Kotlin Multiplatform", "Jetpack Compose", "SwiftUI", "SKIE", "Decompose", "Koin", "Ktor"],
+  "privateRepo": true,
+  "metrics": [
+    { "label": "KMP 단위 테스트", "value": "약 160개" },
+    { "label": "UI 흐름 테스트", "value": "iOS 14 · Android 15" },
+    { "label": "버전", "value": "v0.4" }
+  ],
+  "sections": [
+    {
+      "heading": "들어 있는 것",
+      "body": "온보딩·로그인·회원가입·비밀번호 재설정, 목록·상세·검색·알림함·프로필 편집 같은 화면 패턴, 자동 로그인과 토큰 재발급, 푸시·권한·강제 업데이트·인앱 리뷰, 다크 모드와 다국어."
+    },
+    {
+      "heading": "도구",
+      "body": "newFeature 명령 하나로 새 화면의 KMP 모듈·Android 화면·iOS 화면·내비게이션을 한 번에 만들고, 템플릿 점검과 전체 테스트를 통과한 상태로 시작합니다. dev·staging·prod 세 앱을 동시에 설치해 확인할 수 있습니다."
+    }
+  ]
+}

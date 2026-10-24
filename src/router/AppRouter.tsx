@@ -3,10 +3,10 @@ import SiteLayout from "../components/SiteLayout";
 import Home from "../pages/Home";
 import Projects from "../pages/Projects";
 import ProjectDetail from "../pages/ProjectDetail";
-import Behind from "../pages/Behind";
-import BehindDetail from "../pages/BehindDetail";
-import Studio from "../pages/Studio";
-import Contact from "../pages/Contact";
+import Career from "../pages/Career";
+import Blog from "../pages/Blog";
+import BlogPost from "../pages/BlogPost";
+import About from "../pages/About";
 import NotFound from "../pages/NotFound";
 
 const AppRouter = createBrowserRouter([
@@ -16,12 +16,13 @@ const AppRouter = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
-      { path: "projects", element: <Projects /> },
+      { path: "projects", element: <Projects variant="work" /> },
       { path: "projects/:slug", element: <ProjectDetail /> },
-      { path: "behind", element: <Behind /> },
-      { path: "behind/:slug", element: <BehindDetail /> },
-      { path: "studio", element: <Studio /> },
-      { path: "contact", element: <Contact /> },
+      { path: "games", element: <Projects variant="games" /> },
+      { path: "career", element: <Career /> },
+      { path: "blog", element: <Blog /> },
+      { path: "blog/:slug", element: <BlogPost /> },
+      { path: "about", element: <About /> },
       { path: "*", element: <NotFound /> },
     ],
   },

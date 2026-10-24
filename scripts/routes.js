@@ -16,16 +16,18 @@ function readEntries(kind, file) {
 
 function getRoutes() {
   const projects = readEntries("projects", "project.json");
-  const behind = readEntries("behind", "post.json");
+  const posts = readEntries("blog", "post.json");
   const newest = (list) => list.map((e) => e.date).sort().pop();
+  const games = projects.filter((p) => p.kind === "game");
   return [
-    { path: "/", lastmod: newest([...projects, ...behind]), priority: "1.0" },
-    { path: "/projects", lastmod: newest(projects), priority: "0.9" },
+    { path: "/", lastmod: newest([...projects, ...posts]), priority: "1.0" },
+    { path: "/projects", lastmod: newest(projects.filter((p) => p.kind !== "game")), priority: "0.9" },
+    ...(games.length ? [{ path: "/games", lastmod: newest(games), priority: "0.8" }] : []),
     ...projects.map((p) => ({ path: `/projects/${p.slug}`, lastmod: p.date, priority: "0.8" })),
-    { path: "/behind", lastmod: newest(behind), priority: "0.7" },
-    ...behind.map((p) => ({ path: `/behind/${p.slug}`, lastmod: p.date, priority: "0.6" })),
-    { path: "/studio", priority: "0.6" },
-    { path: "/contact", priority: "0.5" },
+    { path: "/career", priority: "0.7" },
+    { path: "/blog", lastmod: newest(posts), priority: "0.7" },
+    ...posts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: p.date, priority: "0.6" })),
+    { path: "/about", priority: "0.6" },
   ];
 }
 
