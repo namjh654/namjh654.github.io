@@ -5,7 +5,7 @@
 
 import companyList from "./companies.json";
 import { kinds } from "./site";
-import type { Company, Post, PostSource, Project, ProjectSource } from "./types";
+import type { Company, Post, PostSource, Project, ProjectSource, Screenshot } from "./types";
 
 const SHOW_DRAFTS = process.env.NODE_ENV !== "production";
 
@@ -33,6 +33,17 @@ const imageResolver =
 const projectImage = imageResolver(projectImages, "projects");
 const postImage = imageResolver(postImages, "blog");
 
+/** npm run screenshots 가 만든 기본 스크린샷 */
+const autoScreenshots = (slug: string): Screenshot[] =>
+  (
+    [
+      ["auto-desktop.jpg", "desktop"],
+      ["auto-mobile.jpg", "mobile"],
+    ] as const
+  )
+    .filter(([file]) => projectImages.keys().includes(`./${slug}/${file}`))
+    .map(([file, device]) => ({ src: file, device }));
+
 const byDateDesc = (a: { date: string }, b: { date: string }) => b.date.localeCompare(a.date);
 
 function loadProjects(): Project[] {
@@ -45,12 +56,19 @@ function loadProjects(): Project[] {
       console.warn(`[content] projects/${slug}: title·date·kind 를 확인하세요.`);
       continue;
     }
+    const screenshots = (src.screenshots ?? autoScreenshots(slug)).map((s) => ({
+      ...s,
+      src: projectImage(slug, s.src),
+    }));
     list.push({
       ...src,
       slug,
       platforms: src.platforms ?? [],
       stack: src.stack ?? [],
-      cover: src.cover ? projectImage(slug, src.cover) : undefined,
+      screenshots,
+      cover: src.cover
+        ? projectImage(slug, src.cover)
+        : screenshots.find((s) => s.device !== "mobile")?.src,
       gallery: (src.gallery ?? []).map((img) => ({ ...img, src: projectImage(slug, img.src) })),
     });
   }

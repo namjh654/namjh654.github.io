@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": { "deploymentEnabled": { "dev": false, "namjh654/*": false } },
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- .",
+  "functions": { "api/contact.js": { "maxDuration": 10 } }
+}

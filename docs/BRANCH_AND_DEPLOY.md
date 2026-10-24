@@ -73,3 +73,27 @@ Firebase 는 Firestore·Auth 를 같이 쓰는 앱(예: mealflow)에는 좋지�
 4. **콘텐츠** — 프로젝트 제목·요약에 지역+공간 키워드를 자연스럽게 (예: "한남동 단독주택 리모델링"), 실제 사진 `caption` 작성
 5. **사진 용량** — 가로 1600~2000px, 300KB 안팎 (속도 = 검색 순위 요소)
 6. 네이버 플레이스·카카오맵·인스타그램 프로필에 사이트 주소 연결 (외부 링크)
+
+## 6. 문의 양식 (contact-api)
+
+```
+/contact 양식 → contact-api (Vercel Function) → Resend → namjh654@gmail.com
+```
+
+- 코드: `contact-api/api/contact.js`, 검증·메일 본문: `contact-api/lib/inquiry.js` (테스트: `npm test --prefix contact-api`)
+- 첨부: JPG·PNG·WEBP 최대 5장. 브라우저에서 긴 변 1600px JPEG 로 줄여 보냄 (Vercel 요청 한도 4.5MB)
+- 스팸 방지: 숨은 입력칸, 3초 이내 제출 차단, 같은 IP 10분 3건, 허용 출처(CORS) 제한
+- 답장: 메일의 Reply-To 가 문의자 주소라 Gmail 에서 그대로 답장하면 됩니다.
+
+### Vercel 설정
+
+| 항목 | 값 |
+| --- | --- |
+| Root Directory | `contact-api` |
+| 환경변수 (Production) | `RESEND_API_KEY` (비밀), `CONTACT_TO=namjh654@gmail.com` |
+| 선택 | `CONTACT_FROM`, `ALLOWED_ORIGINS` (기본 `https://namjh654.github.io,http://localhost:3000`) |
+
+배포 주소가 정해지면 GitHub 저장소 변수 `CONTACT_ENDPOINT` 에 `https://<프로젝트>.vercel.app/api/contact` 를 넣고 master 를 다시 배포합니다.
+변수가 비어 있으면 양식은 "메일로 보내기" 안내로 대신합니다.
+
+Resend 무료 요금제는 월 3,000통·하루 100통이며, 도메인을 인증하기 전에는 **Resend 가입 이메일로만** 받을 수 있습니다.

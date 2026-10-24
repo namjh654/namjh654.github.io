@@ -7,6 +7,7 @@ import Career from "../pages/Career";
 import Blog from "../pages/Blog";
 import BlogPost from "../pages/BlogPost";
 import About from "../pages/About";
+import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
 
 const AppRouter = createBrowserRouter([
@@ -23,6 +24,7 @@ const AppRouter = createBrowserRouter([
       { path: "blog", element: <Blog /> },
       { path: "blog/:slug", element: <BlogPost /> },
       { path: "about", element: <About /> },
+      { path: "contact", element: <Contact /> },
       { path: "*", element: <NotFound /> },
     ],
   },

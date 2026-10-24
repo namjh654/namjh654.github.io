@@ -29,7 +29,8 @@
     "test": "react-scripts test",
     "new:project": "node scripts/new-content.js project",
     "new:post": "node scripts/new-content.js post",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "screenshots": "node scripts/screenshots.js"
   },
   "eslintConfig": {
     "extends": [
