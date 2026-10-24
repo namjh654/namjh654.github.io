@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import { BehindRow } from "../components/Cards";
-import { getBehindForProject, getProject, projects } from "../content";
-import { categories, site } from "../content/site";
+import { PostRow, StageBadge, Tags } from "../components/Cards";
+import { getCompany, getPostsForProject, getProject, projects } from "../content";
+import { kinds, site } from "../content/site";
 import { absoluteUrl, pageUrl, useSeo } from "../lib/seo";
 import NotFound from "./NotFound";
 
@@ -20,40 +20,63 @@ const ProjectDetail = () => {
     type: "article",
     jsonLd: project && {
       "@context": "https://schema.org",
-      "@type": "CreativeWork",
+      "@type": project.kind === "game" ? "VideoGame" : "SoftwareApplication",
       name: project.title,
       alternateName: project.titleEn,
       description: project.summary,
+      applicationCategory: project.kind === "game" ? "GameApplication" : "WebApplication",
+      operatingSystem: project.platforms.join(", "),
       ...(images.length && { image: images.map((src) => absoluteUrl(src as string)) }),
-      dateCreated: project.date,
-      locationCreated: project.location,
-      genre: categories[project.category],
-      url: pageUrl(path),
-      creator: { "@type": "Organization", name: site.brand, url: site.url },
+      ...(project.links?.live && { url: project.links.live }),
+      author: { "@type": "Person", name: site.brandKo, url: site.url },
+      mainEntityOfPage: pageUrl(path),
     },
   });
   if (!project) return <NotFound />;
 
-  const next = projects[(projects.indexOf(project) + 1) % projects.length];
-  const behind = getBehindForProject(project.slug);
+  const list = projects.filter((p) => p.kind === project.kind);
+  const next = list[(list.indexOf(project) + 1) % list.length];
+  const related = getPostsForProject(project.slug);
+  const company = getCompany(project.company);
+  const back = project.kind === "game" ? ["/games", "게임"] : ["/projects", "프로젝트"];
   const facts = [
-    ["분야", categories[project.category]],
-    ["위치", project.location],
-    ["면적", project.area],
-    ["완공", String(project.year)],
-    ["의뢰", project.client],
-    ["범위", project.scope?.join(", ")],
+    ["기간", project.period],
+    ["역할", project.role],
+    ["회사", company?.name],
+    ["저장소", project.links?.github ? "공개" : project.privateRepo ? "비공개 저장소" : undefined],
   ].filter(([, v]) => v) as [string, string][];
 
   return (
     <article className="page container">
       <header className="detail-head">
-        <Link to="/projects" className="back-link">
-          ‹ 프로젝트
+        <Link to={back[0]} className="back-link">
+          ‹ {back[1]}
         </Link>
-        <p className="eyebrow">{project.titleEn ?? categories[project.category]}</p>
+        <div className="card-top">
+          <span className="eyebrow">{project.titleEn ?? kinds[project.kind]}</span>
+          <StageBadge stage={project.stage} />
+        </div>
         <h1 className="page-title">{project.title}</h1>
         <p className="page-sub">{project.summary}</p>
+        {(project.links?.live || project.links?.store || project.links?.github) && (
+          <div className="link-row">
+            {project.links.live && (
+              <a href={project.links.live} className="btn" target="_blank" rel="noreferrer">
+                서비스 보기 ↗
+              </a>
+            )}
+            {project.links.store && (
+              <a href={project.links.store} className="btn" target="_blank" rel="noreferrer">
+                스토어에서 보기 ↗
+              </a>
+            )}
+            {project.links.github && (
+              <a href={project.links.github} className="btn btn-secondary" target="_blank" rel="noreferrer">
+                GitHub ↗
+              </a>
+            )}
+          </div>
+        )}
       </header>
 
       {project.cover && (
@@ -62,14 +85,33 @@ const ProjectDetail = () => {
         </div>
       )}
 
-      <dl className="facts">
+      {!!project.metrics?.length && (
+        <dl className="metrics">
+          {project.metrics.map((m) => (
+            <div key={m.label} className="metric">
+              <dt>{m.label}</dt>
+              <dd>{m.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <div className="spec">
         {facts.map(([k, v]) => (
-          <div key={k} className="fact">
-            <dt>{k}</dt>
-            <dd>{v}</dd>
+          <div key={k} className="spec-row">
+            <span className="spec-key">{k}</span>
+            <span className="spec-value">{v}</span>
           </div>
         ))}
-      </dl>
+        <div className="spec-row">
+          <span className="spec-key">플랫폼</span>
+          <Tags items={project.platforms} tone="blue" />
+        </div>
+        <div className="spec-row">
+          <span className="spec-key">기술</span>
+          <Tags items={project.stack} />
+        </div>
+      </div>
 
       <div className="prose">
         {project.sections?.map((s, i) => (
@@ -93,22 +135,12 @@ const ProjectDetail = () => {
         </div>
       )}
 
-      {!!project.credits?.length && (
-        <p className="credits">
-          {project.credits.map((c) => (
-            <span key={c.role}>
-              <span className="muted">{c.role}</span> {c.name}
-            </span>
-          ))}
-        </p>
-      )}
-
-      {behind.length > 0 && (
+      {related.length > 0 && (
         <section className="section">
-          <h2 className="section-title section-gap">이 프로젝트의 비하인드</h2>
+          <h2 className="section-title section-gap">관련 글</h2>
           <ul className="rows">
-            {behind.map((post) => (
-              <BehindRow key={post.slug} post={post} />
+            {related.map((post) => (
+              <PostRow key={post.slug} post={post} />
             ))}
           </ul>
         </section>
@@ -116,7 +148,7 @@ const ProjectDetail = () => {
 
       {next && next !== project && (
         <Link to={`/projects/${next.slug}`} className="next-card">
-          <span className="next-label">다음 프로젝트</span>
+          <span className="next-label">다음 {next.kind === "game" ? "게임" : "프로젝트"}</span>
           <span className="next-title">{next.title} ›</span>
         </Link>
       )}

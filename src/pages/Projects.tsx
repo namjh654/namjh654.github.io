@@ -1,51 +1,67 @@
 import { useSearchParams } from "react-router-dom";
 import { ProjectCard } from "../components/Cards";
-import { projects } from "../content";
-import { categories, type CategoryKey } from "../content/site";
+import { games, platformsOf, workProjects } from "../content";
+import type { Project } from "../content/types";
 import { useSeo } from "../lib/seo";
 
-const Projects = () => {
-  const [params, setParams] = useSearchParams();
-  const current = params.get("category") as CategoryKey | null;
-  const list = current ? projects.filter((p) => p.category === current) : projects;
-  useSeo({
+interface Props {
+  variant: "work" | "games";
+}
+
+const COPY = {
+  work: {
+    label: "Projects",
     title: "프로젝트",
-    description: "봉봉 스튜디오가 설계하고 시공한 주거·상업·리모델링·브랜딩 프로젝트 포트폴리오.",
-    path: "/projects",
-  });
+    sub: "직접 기획하고 개발해 운영하는 서비스와, 다음 프로젝트를 위해 만든 템플릿입니다.",
+    description: "봉봉이 직접 기획·개발·운영하는 웹 서비스와 관리자·KMP 템플릿.",
+  },
+  games: {
+    label: "Games",
+    title: "게임",
+    sub: "기획부터 밸런스, 개발까지 혼자 만드는 게임입니다.",
+    description: "봉봉이 개발한 게임 목록. 플랫폼과 기술 스택, 개발 상태.",
+  },
+};
 
-  const select = (key: CategoryKey | null) =>
-    setParams(key ? { category: key } : {}, { replace: true });
+/** 플랫폼 태그로 거르는 프로젝트·게임 목록 */
+const Projects = ({ variant }: Props) => {
+  const source: Project[] = variant === "games" ? games : workProjects;
+  const copy = COPY[variant];
+  const [params, setParams] = useSearchParams();
+  const current = params.get("platform");
+  const list = current ? source.filter((p) => p.platforms.includes(current)) : source;
+  useSeo({ title: copy.title, description: copy.description, path: variant === "games" ? "/games" : "/projects" });
 
-  const tabs: [CategoryKey | null, string, number][] = [
-    [null, "전체", projects.length],
-    ...(Object.keys(categories) as CategoryKey[])
-      .map((k) => [k, categories[k], projects.filter((p) => p.category === k).length] as [CategoryKey, string, number])
-      .filter(([, , n]) => n > 0),
+  const select = (tag: string | null) => setParams(tag ? { platform: tag } : {}, { replace: true });
+  const tabs: [string | null, string, number][] = [
+    [null, "전체", source.length],
+    ...platformsOf(source).map(([t, n]) => [t, t, n] as [string, string, number]),
   ];
 
   return (
     <section className="page container">
       <header className="page-head">
-        <p className="eyebrow">Projects</p>
-        <h1 className="page-title">프로젝트</h1>
-        <p className="page-sub">설계부터 완공까지, 스튜디오가 함께한 공간을 기록합니다.</p>
+        <p className="eyebrow">{copy.label}</p>
+        <h1 className="page-title">{copy.title}</h1>
+        <p className="page-sub">{copy.sub}</p>
       </header>
 
-      <div className="segment" role="tablist" aria-label="카테고리">
-        {tabs.map(([key, label, n]) => (
-          <button
-            key={label}
-            type="button"
-            role="tab"
-            aria-selected={current === key}
-            className={`segment-item${current === key ? " is-active" : ""}`}
-            onClick={() => select(key)}
-          >
-            {label} <span className="segment-count">{n}</span>
-          </button>
-        ))}
-      </div>
+      {tabs.length > 2 && (
+        <div className="segment" role="tablist" aria-label="플랫폼">
+          {tabs.map(([key, label, n]) => (
+            <button
+              key={label}
+              type="button"
+              role="tab"
+              aria-selected={current === key}
+              className={`segment-item${current === key ? " is-active" : ""}`}
+              onClick={() => select(key)}
+            >
+              {label} <span className="segment-count">{n}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {list.length ? (
         <div className="card-grid">
@@ -54,7 +70,7 @@ const Projects = () => {
           ))}
         </div>
       ) : (
-        <p className="empty">해당 카테고리의 프로젝트가 아직 없습니다.</p>
+        <p className="empty">해당 플랫폼의 항목이 아직 없습니다.</p>
       )}
     </section>
   );

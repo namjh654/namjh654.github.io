@@ -1,50 +1,49 @@
 import { Link } from "react-router-dom";
-import { BehindRow, ProjectCard, SectionHead } from "../components/Cards";
-import { behindPosts, featuredProjects, projects } from "../content";
-import { categories, services, site } from "../content/site";
-import { organizationLd, useSeo } from "../lib/seo";
+import { PostRow, ProjectCard, SectionHead, Tags } from "../components/Cards";
+import { companies, featuredProjects, games, posts, workProjects } from "../content";
+import { site } from "../content/site";
+import { personLd, useSeo } from "../lib/seo";
 
 const Home = () => {
-  const years = new Date().getFullYear() - site.since + 1;
-  useSeo({ path: "/", jsonLd: organizationLd });
+  useSeo({ path: "/", jsonLd: personLd });
 
   return (
     <>
       <section className="hero container">
-        <p className="eyebrow">{site.brandKo}</p>
+        <p className="eyebrow">{site.brandKo} · Developer</p>
         <h1 className="hero-title">{site.tagline}</h1>
         <p className="hero-sub">{site.intro}</p>
         <div className="hero-actions">
           <Link to="/projects" className="btn">
             프로젝트 보기
           </Link>
-          <Link to="/contact" className="btn btn-secondary">
-            상담 문의
-          </Link>
+          <a href={site.github} className="btn btn-secondary" target="_blank" rel="noreferrer">
+            GitHub ↗
+          </a>
         </div>
       </section>
 
       <section className="container">
         <dl className="stats">
           <div className="stat">
-            <dt>완성한 프로젝트</dt>
-            <dd>{projects.length}건</dd>
+            <dt>개인 서비스·템플릿</dt>
+            <dd>{workProjects.length}개</dd>
           </div>
           <div className="stat">
-            <dt>함께한 시간</dt>
-            <dd>{years}년</dd>
+            <dt>게임</dt>
+            <dd>{games.length}개</dd>
           </div>
           <div className="stat">
-            <dt>작업 분야</dt>
-            <dd>{Object.keys(categories).length}개</dd>
+            <dt>재직 회사</dt>
+            <dd>{companies.length}곳</dd>
           </div>
         </dl>
       </section>
 
       <section className="section container">
         <SectionHead
-          title="최근 프로젝트"
-          sub="설계부터 완공까지 함께한 공간"
+          title="대표 프로젝트"
+          sub="직접 기획하고 만들어 운영하는 것들"
           link={{ to: "/projects", text: "전체 보기" }}
         />
         <div className="card-grid">
@@ -55,28 +54,26 @@ const Home = () => {
       </section>
 
       <section className="section container">
-        <SectionHead title="하는 일" sub="한 팀이 처음 상담부터 완공 후 기록까지 맡습니다" />
-        <ol className="service-grid">
-          {services.map((s, i) => (
-            <li key={s.title} className="service">
-              <span className="service-num">{String(i + 1).padStart(2, "0")}</span>
-              <h3 className="service-title">{s.titleKo}</h3>
-              <p className="service-text">{s.body}</p>
+        <SectionHead title="커리어" sub="회사에서 만든 프로젝트" link={{ to: "/career", text: "자세히" }} />
+        <ol className="timeline timeline-compact">
+          {companies.map((c) => (
+            <li key={c.key} className="timeline-item">
+              <div className="timeline-head">
+                <h3 className="timeline-title">{c.name}</h3>
+                {c.period && <span className="timeline-period">{c.period}</span>}
+              </div>
+              <Tags items={c.projects.map((p) => p.name)} />
             </li>
           ))}
         </ol>
       </section>
 
-      {behindPosts.length > 0 && (
+      {posts.length > 0 && (
         <section className="section container">
-          <SectionHead
-            title="비하인드"
-            sub="결과물 뒤에 있는 과정과 고민"
-            link={{ to: "/behind", text: "전체 보기" }}
-          />
+          <SectionHead title="블로그" sub="만들면서 배운 것" link={{ to: "/blog", text: "전체 보기" }} />
           <ul className="rows">
-            {behindPosts.slice(0, 3).map((post) => (
-              <BehindRow key={post.slug} post={post} />
+            {posts.slice(0, 3).map((post) => (
+              <PostRow key={post.slug} post={post} />
             ))}
           </ul>
         </section>
@@ -84,11 +81,11 @@ const Home = () => {
 
       <section className="section section-last container">
         <div className="cta">
-          <h2 className="cta-title">새 공간을 준비하고 계신가요?</h2>
-          <p className="cta-sub">위치와 면적, 예산, 일정을 알려주시면 방향을 함께 잡아드립니다.</p>
-          <Link to="/contact" className="btn">
-            프로젝트 문의하기
-          </Link>
+          <h2 className="cta-title">함께 만들 일이 있다면</h2>
+          <p className="cta-sub">프로젝트 제안, 협업, 채용 문의 모두 메일로 받습니다.</p>
+          <a href={`mailto:${site.email}`} className="btn">
+            메일 보내기
+          </a>
         </div>
       </section>
     </>

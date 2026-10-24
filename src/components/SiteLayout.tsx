@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, ScrollRestoration, useLocation } from "react-router-dom";
+import { games } from "../content";
 import { site } from "../content/site";
 
 const NAV = [
   { to: "/projects", label: "프로젝트" },
-  { to: "/behind", label: "비하인드" },
-  { to: "/studio", label: "스튜디오" },
+  ...(games.length ? [{ to: "/games", label: "게임" }] : []),
+  { to: "/career", label: "커리어" },
+  { to: "/blog", label: "블로그" },
+  { to: "/about", label: "소개" },
 ];
 
 const SiteLayout = () => {
@@ -32,9 +35,9 @@ const SiteLayout = () => {
               </NavLink>
             ))}
           </nav>
-          <Link to="/contact" className="btn btn-sm header-cta">
-            문의하기
-          </Link>
+          <a href={site.github} className="btn btn-sm btn-dark header-cta" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
           <button
             type="button"
             className="menu-toggle"
@@ -51,11 +54,14 @@ const SiteLayout = () => {
 
       <div id="mobile-menu" className="mobile-menu" hidden={!menuOpen}>
         <nav className="container" aria-label="모바일 메뉴">
-          {[...NAV, { to: "/contact", label: "문의하기" }].map((item) => (
+          {NAV.map((item) => (
             <NavLink key={item.to} to={item.to} className="mobile-link">
               {item.label}
             </NavLink>
           ))}
+          <a href={site.github} className="mobile-link" target="_blank" rel="noreferrer">
+            GitHub ↗
+          </a>
         </nav>
       </div>
 
@@ -73,13 +79,14 @@ const SiteLayout = () => {
                   <Link to={item.to}>{item.label}</Link>
                 </li>
               ))}
-              <li>
-                <Link to="/contact">문의하기</Link>
-              </li>
             </ul>
           </div>
           <p className="footer-info">
-            {[site.brandKo, site.address, site.email, site.phone].filter(Boolean).join("  |  ")}
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+            {"  |  "}
+            <a href={site.github} target="_blank" rel="noreferrer">
+              github.com/namjh654
+            </a>
           </p>
           <p className="footer-copy">
             © {new Date().getFullYear()} {site.brand}. All rights reserved.

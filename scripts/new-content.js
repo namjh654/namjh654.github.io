@@ -1,18 +1,18 @@
 // 새 프로젝트/비하인드 폴더를 템플릿으로 만든다.
 //   npm run new:project -- hannam-house
-//   npm run new:behind -- hannam-demolition
+//   npm run new:post -- my-first-post
 const fs = require("fs");
 const path = require("path");
 
 const [kind, slug] = process.argv.slice(2);
-const target = { project: "projects", behind: "behind" }[kind];
+const target = { project: "projects", post: "blog" }[kind];
 
 if (!target || !slug) {
-  console.error("사용법: npm run new:project -- <slug>  또는  npm run new:behind -- <slug>");
+  console.error("사용법: npm run new:project -- <slug>  또는  npm run new:post -- <slug>");
   process.exit(1);
 }
 if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
-  console.error("slug 는 영문 소문자·숫자·하이픈만 씁니다. 예) hannam-house-2026");
+  console.error("slug 는 영문 소문자·숫자·하이픈만 씁니다. 예) galaxy-factory");
   process.exit(1);
 }
 

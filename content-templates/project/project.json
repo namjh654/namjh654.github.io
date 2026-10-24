@@ -1,42 +1,25 @@
 {
+  "kind": "product",
   "title": "프로젝트 이름",
   "titleEn": "Project Name",
-  "category": "remodeling",
+  "summary": "한두 문장 소개. 카드와 상세 상단에 쓰입니다.",
   "date": "2026-01-01",
-  "location": "서울 OO구",
-  "area": "00㎡",
-  "client": "",
-  "scope": [
-    "설계",
-    "인테리어"
-  ],
-  "summary": "프로젝트를 한두 문장으로 소개합니다. 목록 카드와 상세 상단에 쓰입니다.",
-  "cover": "",
+  "period": "2026.01 – 현재",
+  "role": "기획 · 개발",
+  "company": "",
+  "platforms": ["Web"],
+  "stack": ["TypeScript"],
+  "stage": "dev",
+  "links": { "live": "", "github": "", "store": "" },
+  "privateRepo": false,
+  "metrics": [{ "label": "지표 이름", "value": "값" }],
   "featured": false,
   "status": "draft",
+  "cover": "",
   "sections": [
-    {
-      "heading": "Brief",
-      "body": "의뢰 내용과 조건"
-    },
-    {
-      "heading": "Approach",
-      "body": "해결 방법. 줄바꿈은 \n 으로 문단을 나눕니다."
-    },
-    {
-      "heading": "Result",
-      "body": "결과"
-    }
+    { "heading": "문제", "body": "무엇이 불편했나. 줄바꿈은 \n 으로 문단을 나눕니다." },
+    { "heading": "해결", "body": "어떻게 풀었나" },
+    { "heading": "결과", "body": "무엇이 좋아졌나" }
   ],
-  "gallery": [],
-  "credits": [
-    {
-      "role": "Design",
-      "name": "봉봉 스튜디오"
-    },
-    {
-      "role": "Photo",
-      "name": ""
-    }
-  ]
+  "gallery": []
 }
