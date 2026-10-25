@@ -90,9 +90,11 @@ const SiteLayout = () => {
             <a href={site.github} target="_blank" rel="noreferrer">
               github.com/namjh654
             </a>
+            {"  |  "}
+            운영 {site.studio}
           </p>
           <p className="footer-copy">
-            © {new Date().getFullYear()} {site.brand}. All rights reserved.
+            © {new Date().getFullYear()} {site.brand} · {site.studio}. All rights reserved.
           </p>
         </div>
       </footer>

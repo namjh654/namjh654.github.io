@@ -52,7 +52,7 @@ export const personLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: site.brandKo,
-  alternateName: site.brand,
+  alternateName: [site.brand, site.studio],
   jobTitle: "Software Developer",
   description: site.intro,
   url: site.url,

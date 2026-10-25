@@ -47,6 +47,8 @@ export interface ProjectSource {
   /** 화면에 보일 기간. 예) "2026.07 – 현재" */
   period?: string;
   role?: string;
+  /** 운영 주체·형태. 예) "봉봉스튜디오 · 무료 서비스 (상업화 전)" */
+  operator?: string;
   /** career 일 때 companies.json 의 key */
   company?: string;
   platforms: string[];

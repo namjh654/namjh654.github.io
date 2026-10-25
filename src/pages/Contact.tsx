@@ -4,7 +4,7 @@ import { site } from "../content/site";
 import { formatBytes, toAttachment, type Attachment } from "../lib/image";
 import { personLd, useSeo } from "../lib/seo";
 
-const TOPICS = ["프로젝트 제안", "협업", "채용", "기타"] as const;
+const TOPICS = ["프로젝트 제안", "협업", "채용", "엄마의 밥상 서비스 문의", "기타"] as const;
 const MAX_FILES = 5;
 const MAX_TOTAL = 4 * 1024 * 1024;
 
@@ -133,6 +133,10 @@ const Contact = () => {
         <h1 className="page-title">문의하기</h1>
         <p className="page-sub">
           프로젝트 제안, 협업, 채용 문의 모두 환영합니다. 참고 화면이나 스크린샷이 있다면 함께 첨부해 주세요.
+        </p>
+        <p className="page-sub">
+          {site.studio}가 운영하는 <Link to="/projects/moms-table">엄마의 밥상</Link> 서비스 이용·개인정보 문의도 이곳에서
+          받습니다.
         </p>
       </header>
 

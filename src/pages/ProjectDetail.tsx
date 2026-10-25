@@ -55,6 +55,7 @@ const ProjectDetail = () => {
   const facts = [
     ["기간", project.period && (span ? `${project.period} (${span})` : project.period)],
     ["역할", project.role],
+    ["운영", project.operator],
     ["저장소", project.links?.github ? "공개" : project.privateRepo ? "비공개 저장소" : undefined],
   ].filter(([, v]) => v) as [string, string][];
 
