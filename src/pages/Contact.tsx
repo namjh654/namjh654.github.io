@@ -134,6 +134,10 @@ const Contact = () => {
         <p className="page-sub">
           프로젝트 제안, 협업, 채용 문의 모두 환영합니다. 참고 화면이나 스크린샷이 있다면 함께 첨부해 주세요.
         </p>
+        <p className="page-sub">
+          {site.studio}가 운영하는 <Link to="/projects/moms-table">엄마의 밥상</Link> 서비스 이용·개인정보 문의도 이곳에서
+          받습니다. 문의 유형은 &lsquo;기타&rsquo;를 골라 주세요.
+        </p>
       </header>
 
       <form className="form" onSubmit={onSubmit} noValidate>

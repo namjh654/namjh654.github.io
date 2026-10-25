@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <section className="hero container">
-        <p className="eyebrow">{site.brandKo} · Developer</p>
+        <p className="eyebrow">{site.studio} · Developer</p>
         <h1 className="hero-title">{site.tagline}</h1>
         <p className="hero-sub">{site.intro}</p>
         <div className="hero-actions">

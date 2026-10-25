@@ -13,6 +13,10 @@ const About = () => {
         <p className="eyebrow">About</p>
         <h1 className="page-title">{site.brandKo}</h1>
         <p className="page-sub">{site.intro}</p>
+        <p className="page-sub">
+          직접 만든 서비스는 {site.studio}라는 이름으로 운영합니다. 지금은{" "}
+          <Link to="/projects/moms-table">엄마의 밥상</Link>을 무료로 운영하고 있습니다(상업화 전).
+        </p>
       </header>
 
       <section className="section section-tight">
