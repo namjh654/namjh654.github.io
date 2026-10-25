@@ -1,6 +1,6 @@
 // 문의 입력 검증과 메일 본문 만들기. 네트워크·환경변수에 의존하지 않아 테스트하기 쉽게 분리했다.
 
-export const TOPICS = ["프로젝트 제안", "협업", "채용", "기타"];
+export const TOPICS = ["프로젝트 제안", "협업", "채용", "엄마의 밥상 서비스 문의", "기타"];
 export const MAX_FILES = 5;
 export const MAX_FILE_BYTES = 1.5 * 1024 * 1024; // 브라우저에서 줄인 뒤 기준
 export const MAX_TOTAL_BYTES = 4 * 1024 * 1024; // Vercel 요청 한도(4.5MB) 안쪽
