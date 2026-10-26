@@ -1,0 +1,75 @@
+{
+  "kind": "product",
+  "title": "봉봉 통합 관제 Admin",
+  "titleEn": "BONGBONG Admin",
+  "summary": "여러 Google 계정에 흩어진 Vercel · Supabase · Cloudflare 무료 플랜 사용량과 서비스 상태를 한 화면에서 보는 운영 관리자입니다. 관리자 웹 템플릿을 그대로 재사용하고 관제 기능만 모듈로 더했습니다.",
+  "date": "2026-10-27",
+  "period": "2026.10 – 현재",
+  "role": "AI 활용 1인 기획·개발·운영 (Claude Code 활용)",
+  "operator": "봉봉스튜디오 · 내부 운영 도구",
+  "platforms": ["Web", "Admin"],
+  "stack": [
+    "React 19",
+    "TypeScript",
+    "Vite 6",
+    "TanStack Query",
+    "Supabase (Seoul)",
+    "Edge Functions (Deno)",
+    "pg_cron · Vault",
+    "Vercel",
+    "Playwright"
+  ],
+  "stage": "live",
+  "privateRepo": true,
+  "metrics": [
+    { "label": "관제 공급자", "value": "3곳" },
+    { "label": "자동 테스트", "value": "단위 104 · E2E 37" },
+    { "label": "수집 주기", "value": "5분" }
+  ],
+  "sections": [
+    {
+      "heading": "문제",
+      "body": "서비스마다 다른 Google 계정으로 Vercel 배포, Supabase DB·인증, Cloudflare 도메인을 쓰다 보니 상태 확인과 무료 한도 감시를 계정마다 따로 로그인해서 해야 했습니다. 서비스가 늘수록 '어느 계정에 자리가 남았는지'를 기억에 의존하게 됐습니다."
+    },
+    {
+      "heading": "해결",
+      "body": "관리자 웹 템플릿을 복사해 시작하고, 관제 기능은 ops 모듈 하나로 붙였습니다. 서비스·공급자 계정·리소스 매핑, Health Check, 사용량·한도, 알림, 예약 작업, 배정 추천 화면이 같은 패턴(표·필터·폼·권한 가드)을 씁니다.\n공급자 토큰은 브라우저에 오지 않습니다. Edge Function 이 공급자 API 로 먼저 검증한 뒤 Supabase Vault 에 암호화해 두고, 화면에는 끝 4자리만 남깁니다. pg_cron 이 5분마다 수집을 부르고, 작업 잠금으로 중복 실행을 막습니다."
+    },
+    {
+      "heading": "데이터를 믿을 수 있게",
+      "body": "조회에 실패하면 사용량을 0 으로 적지 않고 연결 오류 알림을 엽니다. 마지막 성공 수집이 주기보다 오래되면 '오래된 데이터'로 표시합니다. API 가 없는 지표(Vercel 전송량, Supabase Egress 등)는 수동 입력으로 받아 출처를 따로 표시하고, 무료 한도 초기값은 공식 문서로 확인하기 전까지 '확인 필요'로 보여줍니다."
+    },
+    {
+      "heading": "범위",
+      "body": "역할은 owner · admin · operator · viewer · auditor 다섯 가지이고, 모든 변경은 RLS 와 서버 함수에서 다시 권한을 확인한 뒤 감사 로그에 남습니다. 배정 추천은 근거와 제외 사유만 보여주고, 프로젝트 이동·트래픽 전환은 승인·롤백 체계를 갖춘 뒤 다음 단계로 남겨 두었습니다."
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "monitoring.jpg",
+      "device": "desktop",
+      "caption": "모니터링 — 점검별 최근 응답 시간 막대와 성공률 (mock 데이터 화면)"
+    },
+    {
+      "src": "usage.jpg",
+      "device": "desktop",
+      "caption": "사용량·한도 — 한도 대비 사용률, 출처(API·수동 입력), 수집 시각 (mock 데이터 화면)"
+    },
+    {
+      "src": "accounts.jpg",
+      "device": "desktop",
+      "caption": "공급자 계정 — 소유 Google 계정별 묶음, 연결 상태와 오래된 데이터 구분 (mock 데이터 화면)"
+    },
+    {
+      "src": "service-detail.jpg",
+      "device": "desktop",
+      "caption": "서비스 상세 — Health Check 와 연결된 공급자 리소스 (mock 데이터 화면)"
+    },
+    {
+      "src": "placement.jpg",
+      "device": "desktop",
+      "caption": "배정 추천 — 새 리소스를 둘 계정 후보와 제외 사유 (mock 데이터 화면)"
+    }
+  ],
+  "status": "published"
+}
