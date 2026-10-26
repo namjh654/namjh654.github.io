@@ -1121,6 +1121,16 @@ a.job-name:hover {
   margin: 0 auto;
 }
 
+/* 데스크톱 화면이 여러 장이면 한 줄에 한 장씩, 폰 화면은 그 사이에 나란히 놓는다. */
+.shots-many {
+  flex-wrap: wrap;
+  row-gap: 40px;
+}
+
+.shots-many .shot-desktop {
+  flex: 1 1 100%;
+}
+
 .shot figcaption {
   margin-top: 10px;
   font-size: 14px;
