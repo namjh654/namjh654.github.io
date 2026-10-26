@@ -94,7 +94,11 @@ const ProjectDetail = () => {
       </header>
 
       {project.screenshots?.length ? (
-        <div className={`shots shots-${project.screenshots.length > 1 ? "multi" : "single"}`}>
+        <div
+          className={`shots shots-${project.screenshots.length > 1 ? "multi" : "single"}${
+            project.screenshots.filter((s) => s.device !== "mobile").length > 1 ? " shots-many" : ""
+          }`}
+        >
           {project.screenshots.map((shot, i) =>
             shot.device === "mobile" ? (
               <figure key={i} className="shot shot-mobile">
