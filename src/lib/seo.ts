@@ -53,7 +53,7 @@ export const personLd = {
   "@type": "Person",
   name: site.brandKo,
   alternateName: [site.brand, site.studio],
-  jobTitle: "Software Developer",
+  jobTitle: "Mobile Developer",
   description: site.intro,
   url: site.url,
   email: `mailto:${site.email}`,

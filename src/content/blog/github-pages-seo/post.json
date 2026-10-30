@@ -3,6 +3,7 @@
   "date": "2026-10-24",
   "excerpt": "CRA 로 만든 SPA 는 GitHub Pages 에서 상세 페이지가 404 로 응답합니다. 빌드 때 페이지마다 HTML 을 미리 만들어 해결했습니다.",
   "tags": ["SEO", "GitHub Pages", "React"],
+  "topic": "portfolio",
   "status": "published",
   "blocks": [
     {

@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
-import { getPost, getProject } from "../content";
-import { site } from "../content/site";
+import { getPost, getProject, getSeries, getSeriesPosts } from "../content";
+import { site, topics } from "../content/site";
 import { absoluteUrl, formatDate, pageUrl, useSeo } from "../lib/seo";
 import NotFound from "./NotFound";
 
@@ -29,6 +29,10 @@ const BlogPost = () => {
   if (!post) return <NotFound />;
 
   const project = post.project ? getProject(post.project) : undefined;
+  const inSeries = getSeries(post.series);
+  const episodes = inSeries ? getSeriesPosts(inSeries.slug) : [];
+  const at = episodes.indexOf(post);
+  const topic = post.topic && topics[post.topic];
 
   return (
     <article className="page container narrow">
@@ -38,11 +42,27 @@ const BlogPost = () => {
         </Link>
         <p className="eyebrow">
           {formatDate(post.date)}
+          {topic && ` · ${topic}`}
           {post.tags?.map((t) => ` · ${t}`)}
         </p>
         <h1 className="page-title">{post.title}</h1>
         <p className="page-sub">{post.excerpt}</p>
       </header>
+
+      {inSeries && (
+        <nav className="series-box" aria-label="시리즈">
+          <Link to={`/blog/series/${inSeries.slug}`} className="series-box-title">
+            시리즈 · {inSeries.title} ({at + 1}/{episodes.length}) ›
+          </Link>
+          <ol className="series-box-list">
+            {episodes.map((ep) => (
+              <li key={ep.slug} className={ep === post ? "is-current" : undefined}>
+                {ep === post ? ep.title : <Link to={`/blog/${ep.slug}`}>{ep.title}</Link>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
 
       {post.cover && (
         <div className="detail-photo">
@@ -87,6 +107,13 @@ const BlogPost = () => {
           }
         })}
       </div>
+
+      {episodes[at + 1] && (
+        <Link to={`/blog/${episodes[at + 1].slug}`} className="next-card">
+          <span className="next-label">다음 편</span>
+          <span className="next-title">{episodes[at + 1].title} ›</span>
+        </Link>
+      )}
 
       {project && (
         <Link to={`/projects/${project.slug}`} className="next-card">

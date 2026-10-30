@@ -6,16 +6,23 @@ import { personLd, useSeo } from "../lib/seo";
 
 const Home = () => {
   useSeo({ path: "/", jsonLd: personLd });
+  /** 회사에서 만들어 Google Play·App Store 에 낸 앱 */
+  const storeApps = careerProjects.filter((p) => p.links?.store).length;
 
   return (
     <>
       <section className="hero container">
-        <p className="eyebrow">{site.studio} · Developer</p>
+        <p className="eyebrow">
+          {site.brandKo} · {site.experience} {site.role}
+        </p>
         <h1 className="hero-title">{site.tagline}</h1>
         <p className="hero-sub">{site.intro}</p>
         <div className="hero-actions">
-          <Link to="/projects" className="btn">
-            프로젝트 보기
+          <Link to="/career" className="btn">
+            커리어 보기
+          </Link>
+          <Link to="/projects" className="btn btn-secondary">
+            프로젝트
           </Link>
           <a href={site.github} className="btn btn-secondary" target="_blank" rel="noreferrer">
             GitHub ↗
@@ -26,18 +33,33 @@ const Home = () => {
       <section className="container">
         <dl className="stats">
           <div className="stat">
+            <dt>경력</dt>
+            <dd>{site.experience}</dd>
+          </div>
+          <div className="stat">
+            <dt>스토어 출시 앱</dt>
+            <dd>{storeApps}개</dd>
+          </div>
+          <div className="stat">
             <dt>자체 프로젝트</dt>
             <dd>{selfProjects.length}개</dd>
           </div>
-          <div className="stat">
-            <dt>커리어 프로젝트</dt>
-            <dd>{careerProjects.length}개</dd>
-          </div>
-          <div className="stat">
-            <dt>재직 회사</dt>
-            <dd>{companies.length}곳</dd>
-          </div>
         </dl>
+      </section>
+
+      <section className="section container">
+        <SectionHead title="커리어" sub="회사에서 만들어 출시한 모바일 앱 · 시간순" link={{ to: "/career", text: "자세히" }} />
+        <ol className="timeline timeline-compact">
+          {companies.map((c) => (
+            <li key={c.key} className="timeline-item">
+              <div className="timeline-head">
+                <h3 className="timeline-title">{c.name}</h3>
+                {c.period && <span className="timeline-period">{c.period}</span>}
+              </div>
+              <Tags items={c.projects.map((p) => p.name)} />
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="section container">
@@ -53,24 +75,9 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="section container">
-        <SectionHead title="커리어" sub="회사에서 만든 프로젝트 · 시간순" link={{ to: "/career", text: "자세히" }} />
-        <ol className="timeline timeline-compact">
-          {companies.map((c) => (
-            <li key={c.key} className="timeline-item">
-              <div className="timeline-head">
-                <h3 className="timeline-title">{c.name}</h3>
-                {c.period && <span className="timeline-period">{c.period}</span>}
-              </div>
-              <Tags items={c.projects.map((p) => p.name)} />
-            </li>
-          ))}
-        </ol>
-      </section>
-
       {posts.length > 0 && (
         <section className="section container">
-          <SectionHead title="블로그" sub="만들면서 배운 것" link={{ to: "/blog", text: "전체 보기" }} />
+          <SectionHead title="블로그" sub="타임라인 · 주제 · 시리즈로 정리한 기록" link={{ to: "/blog", text: "전체 보기" }} />
           <ul className="rows">
             {posts.slice(0, 3).map((post) => (
               <PostRow key={post.slug} post={post} />
