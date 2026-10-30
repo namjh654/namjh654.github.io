@@ -4,8 +4,9 @@
 // status 가 "draft" 인 글은 로컬 개발 서버(npm start)에서만 보이고 배포본에는 빠진다.
 
 import companyList from "./companies.json";
+import seriesList from "./series.json";
 import { kinds } from "./site";
-import type { Company, Post, PostSource, Project, ProjectSource, Screenshot } from "./types";
+import type { Company, Post, PostSource, Project, ProjectSource, Screenshot, Series } from "./types";
 
 const SHOW_DRAFTS = process.env.NODE_ENV !== "production";
 
@@ -105,6 +106,15 @@ export const getProject = (slug: string) => projects.find((p) => p.slug === slug
 export const getPost = (slug: string) => posts.find((p) => p.slug === slug);
 export const getPostsForProject = (slug: string) => posts.filter((p) => p.project === slug);
 export const getCompany = (key?: string) => companies.find((c) => c.key === key);
+
+/** 공개된 글이 한 편 이상 있는 시리즈만 */
+export const series = (seriesList as Series[]).filter((s) => posts.some((p) => p.series === s.slug));
+export const getSeries = (slug?: string) => series.find((s) => s.slug === slug);
+/** 시리즈 글을 순서대로 (seriesOrder, 없으면 날짜순) */
+export const getSeriesPosts = (slug: string) =>
+  posts
+    .filter((p) => p.series === slug)
+    .sort((a, b) => (a.seriesOrder ?? 0) - (b.seriesOrder ?? 0) || a.date.localeCompare(b.date));
 
 /** 자체 프로젝트: 직접 만든 서비스·템플릿·게임 */
 export const selfProjects = projects.filter((p) => p.kind !== "career");

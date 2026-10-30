@@ -19,6 +19,10 @@ function getRoutes() {
   const posts = readEntries("blog", "post.json");
   const newest = (list) => list.map((e) => e.date).sort().pop();
   const games = projects.filter((p) => p.kind === "game");
+  const seriesFile = path.join(contentDir, "series.json");
+  const series = (fs.existsSync(seriesFile) ? JSON.parse(fs.readFileSync(seriesFile, "utf8")) : [])
+    .map((s) => ({ ...s, posts: posts.filter((p) => p.series === s.slug) }))
+    .filter((s) => s.posts.length);
   return [
     { path: "/", lastmod: newest([...projects, ...posts]), priority: "1.0" },
     { path: "/projects", lastmod: newest(projects.filter((p) => p.kind !== "game")), priority: "0.9" },
@@ -26,6 +30,7 @@ function getRoutes() {
     ...projects.map((p) => ({ path: `/projects/${p.slug}`, lastmod: p.date, priority: "0.8" })),
     { path: "/career", priority: "0.7" },
     { path: "/blog", lastmod: newest(posts), priority: "0.7" },
+    ...series.map((s) => ({ path: `/blog/series/${s.slug}`, lastmod: newest(s.posts), priority: "0.6" })),
     ...posts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: p.date, priority: "0.6" })),
     { path: "/about", priority: "0.6" },
     { path: "/contact", priority: "0.5" },

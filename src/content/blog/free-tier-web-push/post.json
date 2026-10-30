@@ -4,6 +4,7 @@
   "excerpt": "Firebase Spark 요금제에는 Cloud Functions 가 없습니다. 엄마의 밥상은 Firestore 알림함과 GitHub Actions 예약 작업으로 식단 변경 알림을 휴대폰까지 보냅니다.",
   "project": "moms-table",
   "tags": ["Firebase", "PWA", "GitHub Actions"],
+  "topic": "infra",
   "status": "published",
   "blocks": [
     {
