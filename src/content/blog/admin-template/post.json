@@ -4,6 +4,7 @@
   "excerpt": "서비스마다 관리자 화면을 새로 만들지 않도록, 인증·권한·데이터 계층·공통 UI 를 묶은 React 템플릿을 만들고 담벼락 관리자에 먼저 적용했습니다.",
   "project": "admin-templates",
   "tags": ["React", "Supabase", "템플릿"],
+  "topic": "product",
   "status": "published",
   "blocks": [
     {

@@ -481,6 +481,59 @@ button {
   color: var(--gray-300);
 }
 
+/* 블로그 타임라인: 월 묶음 */
+.month + .month {
+  margin-top: 28px;
+}
+
+.month-label {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-500);
+}
+
+/* 시리즈 */
+.series-num {
+  flex: none;
+  width: 40px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--gray-300);
+}
+
+.series-box {
+  margin-bottom: 40px;
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  background: var(--gray-50);
+}
+
+.series-box-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.series-box-list {
+  margin-top: 12px;
+  padding-left: 20px;
+  list-style: decimal;
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--gray-600);
+}
+
+.series-box-list a:hover {
+  color: var(--blue);
+}
+
+.series-box-list .is-current {
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
 /* ===== Services / Steps ===== */
 .service-grid {
   display: grid;

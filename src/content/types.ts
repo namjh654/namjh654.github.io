@@ -1,4 +1,4 @@
-import type { KindKey, StageKey } from "./site";
+import type { KindKey, StageKey, TopicKey } from "./site";
 
 export type Visibility = "published" | "draft";
 
@@ -91,8 +91,21 @@ export interface PostSource {
   /** 연결할 프로젝트 폴더 이름(slug) */
   project?: string;
   tags?: string[];
+  /** 주제 (site.ts 의 topics 키). 블로그의 "주제별" 보기에서 묶는다. */
+  topic?: TopicKey;
+  /** 시리즈 (series.json 의 slug)와 그 안의 순서(1부터) */
+  series?: string;
+  seriesOrder?: number;
   status?: Visibility;
   blocks: PostBlock[];
+}
+
+/** src/content/series.json 의 한 항목 */
+export interface Series {
+  slug: string;
+  title: string;
+  /** 시리즈 소개 한두 문장 */
+  description: string;
 }
 
 export interface Post extends Omit<PostSource, "status"> {

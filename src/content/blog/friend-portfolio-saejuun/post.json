@@ -1,0 +1,32 @@
+{
+  "title": "1편 · 김새준 — 디자이너의 포트폴리오를 GitHub Pages 로",
+  "date": "2026-10-30",
+  "excerpt": "UI·UX·브랜드 디자이너 친구의 GitHub 계정(SAEJUUN)에 빌드 없는 정적 포트폴리오 사이트를 만들고, 푸시하면 바로 배포되도록 했습니다.",
+  "tags": ["GitHub Pages", "정적 사이트", "디자이너"],
+  "topic": "portfolio",
+  "series": "friend-portfolio",
+  "seriesOrder": 1,
+  "status": "draft",
+  "blocks": [
+    {
+      "type": "text",
+      "heading": "계정과 주소",
+      "body": "GitHub 계정 SAEJUUN 의 saejuun.github.io 저장소에 만들었습니다. 주소는 https://saejuun.github.io/ 입니다.\n비밀번호를 주고받지 않고, 친구가 저장소에 협업자로 초대해 주는 방식으로 작업했습니다."
+    },
+    {
+      "type": "text",
+      "heading": "왜 빌드 없는 정적 사이트인가",
+      "body": "사이트를 이어서 고칠 사람은 개발자가 아니라 디자이너인 친구입니다. 그래서 React 나 빌드 도구 없이 HTML·CSS·JS 파일 몇 개로 만들어, 글자와 이미지만 바꿔도 되도록 했습니다.\nmain 브랜치에 푸시하면 GitHub Actions 가 저장소 그대로 GitHub Pages 에 배포합니다."
+    },
+    {
+      "type": "text",
+      "heading": "구성",
+      "body": "첫 페이지에 소개, 작업 사례, 디자인 프로세스, 연락처를 두고, 디자인 노트는 따로 모아 보는 페이지로 나눴습니다.\n디자이너 포트폴리오는 작업물이 주인공이라, 여백을 넓게 두고 글꼴(Pretendard)과 정렬만으로 위계를 잡았습니다."
+    },
+    {
+      "type": "text",
+      "heading": "실제 작업물로 바꾸기",
+      "body": "처음에는 구조를 보여주려고 콘셉트 작업으로 채웠고, 친구가 준 포트폴리오 PDF 와 작업 파일로 실제 사례·경력·이미지를 바꿔 넣었습니다."
+    }
+  ]
+}
