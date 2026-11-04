@@ -48,7 +48,7 @@ const Home = () => {
       </section>
 
       <section className="section container">
-        <SectionHead title="커리어" sub="회사에서 만들어 출시한 모바일 앱 · 시간순" link={{ to: "/career", text: "자세히" }} />
+        <SectionHead title="커리어" sub="회사에서 개발한 모바일 앱과 SDK · 시간순" link={{ to: "/career", text: "자세히" }} />
         <ol className="timeline timeline-compact">
           {companies.map((c) => (
             <li key={c.key} className="timeline-item">
@@ -56,7 +56,7 @@ const Home = () => {
                 <h3 className="timeline-title">{c.name}</h3>
                 {c.period && <span className="timeline-period">{c.period}</span>}
               </div>
-              <Tags items={c.projects.map((p) => p.name)} />
+              <Tags items={c.projects.length ? c.projects.map((p) => p.name) : (c.skills ?? [])} />
             </li>
           ))}
         </ol>
