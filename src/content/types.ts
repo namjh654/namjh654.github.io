@@ -120,6 +120,10 @@ export interface Company {
   period?: string;
   role?: string;
   summary?: string;
+  /** 공개할 프로젝트가 없을 때 맡은 일을 항목으로 적는다. */
+  work?: string[];
+  /** 주로 쓴 기술 */
+  skills?: string[];
   /** 재직 중 참여한 프로젝트. 상세 글이 있으면 slug 로 연결한다. */
   projects: {
     name: string;

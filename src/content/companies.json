@@ -1,5 +1,19 @@
 [
   {
+    "key": "biocube",
+    "name": "바이오큐브",
+    "period": "2022.03 – 2022.12",
+    "role": "Android Kotlin 개발 · 얼굴인식 SDK",
+    "summary": "첫 실무로, 얼굴인식 하드웨어와 연동하는 Android SDK 를 Kotlin 으로 개발했습니다. 공개된 앱 출시 없이 SDK 와 그것을 검증하는 테스트 앱을 맡았습니다.",
+    "work": [
+      "얼굴인식 하드웨어와 통신하는 Android SDK 개발",
+      "BLE · NFC 로 디바이스와 데이터 주고받기",
+      "SDK 기능을 확인하는 테스트 앱 개발"
+    ],
+    "skills": ["Android", "Kotlin", "BLE", "NFC"],
+    "projects": []
+  },
+  {
     "key": "nepirity",
     "name": "네피리티",
     "period": "2023.06 – 2024.12",
