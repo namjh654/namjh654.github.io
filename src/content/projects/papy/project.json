@@ -1,0 +1,76 @@
+{
+  "kind": "product",
+  "title": "Papy 페이피",
+  "titleEn": "PAPY",
+  "summary": "PDF 와 한글 문서(HWP · HWPX), Word(DOCX)를 회원가입 · 광고 · 서버 업로드 없이 내 컴퓨터와 휴대폰에서 열고 고치는 문서 앱입니다. Rust 엔진 하나를 데스크톱(Tauri)과 모바일(KMP)이 함께 씁니다.",
+  "date": "2026-11-04",
+  "period": "2026.11 – 현재",
+  "role": "1인 기획 · 개발 (Claude Code 활용)",
+  "platforms": [
+    "Windows",
+    "macOS",
+    "Linux",
+    "Android",
+    "iOS"
+  ],
+  "stack": [
+    "Rust",
+    "PDFium",
+    "rhwp",
+    "Tauri 2",
+    "React",
+    "TypeScript",
+    "Kotlin Multiplatform",
+    "UniFFI",
+    "Jetpack Compose",
+    "SwiftUI",
+    "GitHub Actions",
+    "Vercel"
+  ],
+  "stage": "dev",
+  "featured": true,
+  "links": {
+    "live": "https://papy-omega.vercel.app",
+    "github": "https://github.com/namjh654/papy"
+  },
+  "metrics": [
+    {
+      "label": "지원 형식",
+      "value": "PDF · HWP · HWPX · DOCX"
+    },
+    {
+      "label": "데스크톱 빌드",
+      "value": "macOS · Windows · Linux"
+    },
+    {
+      "label": "현재 버전",
+      "value": "v0.2.0 미리보기"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "무엇을 하는 앱인가",
+      "body": "PDF 와 한글 문서(HWP · HWPX)를 우선 지원하는, 비상업 용도 무료 · 오프라인 우선 통합 문서 앱입니다. 사용자가 고른 파일만 기기 안에서 열고, 문서 본문을 외부 서버로 보내지 않으며, 로그인 · 광고 · 추적이 없습니다.\nv0.2.0 미리보기에서 PDF · HWP · HWPX · DOCX 보기, HWP · HWPX · DOCX 편집 · 저장, PDF 로 내보내기를 할 수 있습니다."
+    },
+    {
+      "heading": "엔진: 형식마다 하나의 Rust 엔진",
+      "body": "문서 파싱 · 모델 · 렌더링은 UI 에 의존하지 않는 Rust 엔진(engine/)에만 둡니다. PDF 는 PDFium, HWP · HWPX 는 rhwp 를 어댑터로 붙이고, 세션 · 상한 · 취소 · 오류 코드 · 포맷 판별을 엔진 코어가 맡습니다.\nDOCX 는 문서 구조로 변환해 rhwp 의 배치 · 편집을 그대로 다시 씁니다. 본문 · 글자/문단 서식 · 표(병합) · 그림 · 머리말 · 꼬리말 · 각주 · 번호 목록 · 도형을 읽고 쓰며, 옮기지 못한 요소는 열 때 개수를 알려 줍니다."
+    },
+    {
+      "heading": "데스크톱",
+      "body": "Tauri 2 + React 로 만든 데스크톱 앱입니다. 연속 스크롤 · 확대/축소 · 썸네일 · 목차 · 암호 문서 · 최근 문서를 지원하고, 편집 모드에서는 HWP · HWPX 글자 입력(한글 입력기) · 서식 · 정렬, PDF 형광펜 · 밑줄 · 펜 · 텍스트 상자 · 메모 · 쪽 회전/삭제/이동, PDF 글자 고쳐 쓰기를 합니다.\n저장 · 다른 이름 저장 · 다른 형식으로 내보내기, 파일 더블클릭으로 열기(파일 연결), 한국어 · 영어 화면을 지원하고, 표 · 각주 같은 고급 편집은 rhwp-studio 를 앱 안에 넣어 처리합니다(macOS 에서 확인, Windows · Linux 확인 남음). macOS · Windows · Linux 설치 파일을 CI 에서 만듭니다."
+    },
+    {
+      "heading": "모바일",
+      "body": "직접 만든 KMP 템플릿을 편입하고, 같은 Rust 엔진을 UniFFI 로 Android · iOS 에 연결했습니다. 문서 보기, 확대 후 다시 그리기, 커서 편집 · 글자 모양 · 서식을 지키는 문단 바꾸기, 표 칸 안 편집 · 표 넣기 · 행열 · 합치기, 그림 넣기 · 크기 조절, PDF 로 내보내기까지 단계별로 붙였습니다.\n쓰지 않는 템플릿 모듈을 정리해 APK 를 42.9MB 에서 40.2MB 로 줄였고, R8 · 16KB 페이지 · ABI 분리 등 Android 릴리스 준비를 마쳤습니다."
+    },
+    {
+      "heading": "라이선스와 공개",
+      "body": "소스는 GitHub 에 공개하고 PolyForm Noncommercial 1.0.0 으로 배포합니다. 개인 · 학습 · 비영리 · 공공기관은 무료로 쓰고 고치고 재배포할 수 있고, 상업적 사용은 별도 문의입니다. 포함한 서드파티 구성요소의 고지(THIRD_PARTY_NOTICES)는 자동으로 만듭니다.\n소개 · 다운로드 · 설치 · 사용법 사이트는 한국어 · 영어로 Vercel 에 올렸습니다."
+    },
+    {
+      "heading": "AI 와 함께 일한 방식",
+      "body": "엔진 선택(PDFium · rhwp), 모바일 연결 방식(UniFFI), 고급 편집기 도입 같은 큰 결정은 ADR 문서로 남기고, 기능 단위 브랜치와 PR 로 나눠 AI(Claude Code)와 함께 개발했습니다.\n“테스트로 확인한 범위만 지원한다고 표시한다”는 원칙에 따라, 남은 일(코퍼스 문서 검증 · 성능 측정 · 코드 서명)은 로드맵에 그대로 적어 둡니다."
+    }
+  ]
+}

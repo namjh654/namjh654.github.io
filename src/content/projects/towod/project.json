@@ -1,0 +1,68 @@
+{
+  "kind": "product",
+  "title": "TOWOD 투와드",
+  "titleEn": "TOWOD",
+  "summary": "오늘 할 크로스핏 WOD 를 한 번에 뽑고, 운동 시계로 수행하고, 기록하고, 다른 사람과 나누는 개인 운동 앱입니다. 로직은 Kotlin Multiplatform 으로 한 번 만들고 화면은 Android Compose · iOS SwiftUI 로 각각 만듭니다.",
+  "date": "2026-11-03",
+  "period": "2026.10 – 현재",
+  "role": "1인 기획 · 개발 (Claude Code · Orca 활용)",
+  "platforms": [
+    "Android",
+    "iOS"
+  ],
+  "stack": [
+    "Kotlin Multiplatform",
+    "Jetpack Compose",
+    "SwiftUI",
+    "SKIE",
+    "Koin",
+    "Ktor",
+    "SQLDelight",
+    "Supabase",
+    "PostgreSQL · RLS",
+    "Kakao · Google 로그인",
+    "홈 위젯"
+  ],
+  "stage": "dev",
+  "privateRepo": true,
+  "metrics": [
+    {
+      "label": "공유 로직 단위 테스트",
+      "value": "300개+"
+    },
+    {
+      "label": "UI 흐름 테스트",
+      "value": "iOS 14 · Android 15"
+    },
+    {
+      "label": "개발 단계",
+      "value": "T0 ~ T3 완료 · T4 마감 중"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "무엇을 하는 앱인가",
+      "body": "홈 가운데의 뽑기 머신을 누르면 장비·시간·난이도 조건에 맞는 오늘의 와드가 나옵니다. 상세에서 동작 요령과 안전 안내를 보고, 운동 시계(For Time · AMRAP · EMOM · Tabata · Ladder · Chipper)로 수행한 뒤 형식에 맞는 점수 칸에 기록합니다.\n나만의 와드를 만들어 WOD 허브에 공개하면 다른 사람이 검색하고, 댓글을 달고, 평점을 남깁니다. 실시간 채팅 없이 대화는 공개 와드의 댓글로만 합니다."
+    },
+    {
+      "heading": "크로스핏 훈련 기능",
+      "body": "운동 시계는 3-2-1 카운트, EMOM 분 전환, Tabata 운동·휴식 전환, 남은 10초를 소리와 진동으로 알리고, 화면을 꺼도 Android 진행 알림 · iOS 로컬 알림으로 끝 시각을 알려 줍니다.\n결과 화면은 지난 최고 기록과 비교해 PR 을 표시하고, 공유 카드를 만듭니다. 내 기록에는 최근 8주 달력·연속 주 요약, PR 탭(추정 1RM · % 표 · 원판 계산기)과 kg/lb 전환, Android · iOS 홈 위젯이 있습니다."
+    },
+    {
+      "heading": "구조",
+      "body": "뽑기 엔진, 저장소, ViewModel 은 KMP 공유 모듈(feature:wod 등)에 한 번만 두고, 화면과 내비게이션은 Android Compose · iOS SwiftUI 로 각각 만듭니다. iOS 는 SKIE 로 Kotlin Flow·sealed class 를 Swift 다운 타입으로 받습니다.\n사용자에게 보이는 문구는 공유 로직이 만들지 않고 오류 코드만 넘기며, 문구는 각 플랫폼 리소스가 정합니다. 직접 만든 KMP 템플릿에서 시작해 쓰지 않는 기능을 걷어 내고 시작했습니다."
+    },
+    {
+      "heading": "서버와 계정",
+      "body": "서버는 Supabase(PostgreSQL)이고, 와드·기록·댓글·평점·신고는 행 수준 보안(RLS)으로 사용자별로 나눕니다. 키가 없으면 기기 안 로컬 백엔드로 그대로 동작해, 로그인 없이도 뽑기와 기록을 쓸 수 있고 로그인하면 기기 기록이 계정으로 옮겨집니다.\n카카오 · 구글 로그인, 한 계정에 여러 로그인 수단 연결 · 해제, 중복 확인을 거친 닉네임(한글 추천 닉네임), 탈퇴 RPC, 신고 처리와 정지 회원 쓰기 제한까지 마이그레이션으로 관리합니다."
+    },
+    {
+      "heading": "검증",
+      "body": "공유 로직 단위 테스트 300여 개와 UI 흐름 테스트(iOS XCUITest 14개 · Android UiAutomator 15개)를 orca.sh check · uitest 한 줄로 돌립니다. UI 테스트는 실서버 키를 잠시 빼고 로컬 백엔드 + 모의 로그인으로 돌아 어느 작업 폴더에서도 같은 결과가 나옵니다.\n실서버(Supabase)에서 비로그인 뽑기 → 카카오 가입 → 기록 이전 → 만들기·공개 → 허브 댓글 → 구글 로그인 → 평점 흐름을 확인했습니다."
+    },
+    {
+      "heading": "AI 와 함께 일한 방식",
+      "body": "공통 로직 · 병합 · 점검을 맡는 브랜치와 Android · iOS 화면 브랜치를 Orca 작업 폴더로 나눠, AI 에이전트가 플랫폼별로 동시에 작업하고 한 곳에서 합칩니다.\n정책 결정은 번호를 붙여 기록(DEC-139~167)하고, 기획서 정비본(PRD)과 진행 문서로 단계(T0~T4)마다 완료 조건을 확인한 뒤 넘어갑니다. 스토어 등록 전 마감 단계(T4)가 남아 있습니다."
+    }
+  ]
+}
