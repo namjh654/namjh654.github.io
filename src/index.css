@@ -1086,6 +1086,21 @@ button {
   color: var(--gray-600);
 }
 
+.timeline-work {
+  margin-top: 12px;
+  padding-left: 20px;
+  list-style: disc;
+  color: var(--gray-600);
+}
+
+.timeline-work li + li {
+  margin-top: 4px;
+}
+
+.timeline-item > .tags {
+  margin-top: 12px;
+}
+
 .timeline-head + .tags,
 .timeline-compact .tags {
   margin-top: 12px;
