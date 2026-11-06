@@ -116,11 +116,12 @@ export const getSeriesPosts = (slug: string) =>
     .filter((p) => p.series === slug)
     .sort((a, b) => (a.seriesOrder ?? 0) - (b.seriesOrder ?? 0) || a.date.localeCompare(b.date));
 
-/** 자체 프로젝트: 직접 만든 서비스·템플릿 (게임은 /games 로 따로 모은다) */
+/** 자체 프로젝트: 직접 만든 서비스·템플릿 (게임은 사이드로 따로 묶는다) */
 export const selfProjects = projects.filter((p) => p.kind !== "career" && p.kind !== "game");
 /** 커리어 프로젝트: 회사에서 만든 것 */
 export const careerProjects = projects.filter((p) => p.kind === "career");
-export const games = projects.filter((p) => p.kind === "game");
+/** 사이드 프로젝트: 게임처럼 개인적으로 만드는 것 */
+export const sideProjects = projects.filter((p) => p.kind === "game");
 
 /** "2023.06 – 2024.12" → "1년 7개월" ("현재"는 오늘 기준). 형식이 다르면 undefined */
 export const tenure = (period?: string) => {
@@ -134,7 +135,7 @@ export const tenure = (period?: string) => {
   return [y && `${y}년`, r && `${r}개월`].filter(Boolean).join(" ");
 };
 
-/** 홈에 보일 4개: 게임을 뺀 프로젝트 중 featured 를 먼저, 모자라면 최신순으로 채운다. */
+/** 홈에 보일 4개: 사이드(게임)를 뺀 프로젝트 중 featured 를 먼저, 모자라면 최신순으로 채운다. */
 export const featuredProjects = () => {
   const list = projects.filter((p) => p.kind !== "game");
   return [...list.filter((p) => p.featured), ...list.filter((p) => !p.featured)].slice(0, 4);

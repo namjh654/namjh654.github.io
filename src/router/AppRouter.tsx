@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import SiteLayout from "../components/SiteLayout";
 import Home from "../pages/Home";
 import Projects from "../pages/Projects";
@@ -18,9 +18,10 @@ const AppRouter = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
-      { path: "projects", element: <Projects variant="work" /> },
+      { path: "projects", element: <Projects /> },
       { path: "projects/:slug", element: <ProjectDetail /> },
-      { path: "games", element: <Projects variant="games" /> },
+      // 예전 게임 메뉴 주소. 게임은 프로젝트 > 사이드 로 옮겼다.
+      { path: "games", element: <Navigate to="/projects?group=side" replace /> },
       { path: "career", element: <Career /> },
       { path: "blog", element: <Blog /> },
       { path: "blog/series/:slug", element: <BlogSeries /> },

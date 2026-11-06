@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PostBento, ProjectCard, SectionHead, StackOverview, Tags } from "../components/Cards";
-import { careerProjects, companies, featuredProjects, games, posts, selfProjects, stackUsage } from "../content";
+import { careerProjects, companies, featuredProjects, posts, selfProjects, sideProjects, stackUsage } from "../content";
 import { site } from "../content/site";
 import { personLd, useSeo } from "../lib/seo";
 
@@ -63,9 +63,9 @@ const Home = () => {
             <ProjectCard key={p.slug} project={p} />
           ))}
         </div>
-        {games.length > 0 && (
+        {sideProjects.length > 0 && (
           <p className="section-note">
-            게임은 따로 모았습니다 · <Link to="/games">게임 {games.length}개 보기 ›</Link>
+            게임 같은 사이드 프로젝트도 있습니다 · <Link to="/projects?group=side">사이드 {sideProjects.length}개 보기 ›</Link>
           </p>
         )}
       </section>
