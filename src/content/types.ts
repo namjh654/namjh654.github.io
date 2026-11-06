@@ -96,6 +96,11 @@ export interface PostSource {
   /** 시리즈 (series.json 의 slug)와 그 안의 순서(1부터) */
   series?: string;
   seriesOrder?: number;
+  /**
+   * 블로그 카드 크기 (선택). 비워 두면 자동: 시리즈 대표 글은 lg, 사진이 있으면 wide, 나머지는 sm.
+   * sm 1×1 · wide 가로 2칸 · tall 세로 2칸 · lg 2×2
+   */
+  size?: "sm" | "wide" | "tall" | "lg";
   status?: Visibility;
   blocks: PostBlock[];
 }
@@ -112,7 +117,7 @@ export interface Post extends Omit<PostSource, "status"> {
   slug: string;
 }
 
-/** src/content/companies.json 의 한 항목 (위에서부터 시간순, 오래된 회사 먼저) */
+/** src/content/companies.json 의 한 항목 (위에서부터 최신순, 지금 다니는 회사 먼저) */
 export interface Company {
   key: string;
   name: string;

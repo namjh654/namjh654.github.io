@@ -20,7 +20,7 @@ https://namjh654.github.io/
 | `/projects`        | 자체 프로젝트 · 커리어 프로젝트 묶음 (`?group=self` / `career`) |
 | `/games`           | 게임 목록 (플랫폼 필터)                                   |
 | `/projects/:slug`  | 상세: 상태, 링크, 지표, 기간·역할·플랫폼·기술, 본문, 관련 글 |
-| `/career`          | 회사별 시간순 타임라인, 재직 기간, 프로젝트 세부 페이지 연결 |
+| `/career`          | 회사별 최신순 타임라인, 재직 기간, 프로젝트 세부 페이지 연결 |
 | `/blog`, `/blog/:slug` | 개발 글                                              |
 | `/about`           | 일하는 방식, 기술 스택, 경력, 연락처                       |
 
@@ -41,7 +41,7 @@ npm run build:site                 # 빌드 + sitemap + 페이지별 HTML 프리
 src/
 ├── content/
 │   ├── site.ts            # 이름·소개·연락처·기술 스택·분류(kind)·상태(stage)
-│   ├── companies.json     # 재직 회사와 회사 프로젝트 (시간순)
+│   ├── companies.json     # 재직 회사와 회사 프로젝트 (최신순)
 │   ├── projects/<slug>/   # project.json (+ 선택 사진) → /projects/<slug>
 │   ├── blog/<slug>/       # post.json (+ 선택 사진)    → /blog/<slug>
 │   ├── index.ts           # 폴더 자동 인식 로더

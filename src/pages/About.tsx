@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { SectionHead, Tags } from "../components/Cards";
+import { SectionHead, StackOverview } from "../components/Cards";
 import { companies } from "../content";
-import { site, skills } from "../content/site";
+import { site } from "../content/site";
 import { personLd, useSeo } from "../lib/seo";
 
 const About = () => {
@@ -14,8 +14,8 @@ const About = () => {
         <h1 className="page-title">{site.brandKo}</h1>
         <p className="page-sub">{site.intro}</p>
         <p className="page-sub">
-          직접 만든 서비스는 {site.studio}라는 이름으로 운영합니다. 지금은{" "}
-          <Link to="/projects/moms-table">엄마의 밥상</Link>을 무료로 운영하고 있습니다(상업화 전).
+          {site.studioIntro} 지금은 <Link to="/projects/moms-table">엄마의 밥상</Link>을 무료로 운영하고 있습니다(상업화
+          전).
         </p>
       </header>
 
@@ -26,7 +26,8 @@ const About = () => {
             ["출시하고 운영하는 앱", "개발에서 끝내지 않고 Google Play·App Store 심사와 배포, 강제 업데이트, 개발·운영 환경 분리까지 맡아 왔습니다."],
             ["크로스플랫폼과 네이티브", "React Native·Expo 로 두 플랫폼을 함께 만들고, 기기 연동처럼 네이티브가 필요한 곳은 Android Kotlin 으로 직접 다룹니다."],
             ["기기·현장과 이어지는 앱", "BLE 웨어러블 밴드 연결과 생체 데이터 그래프, 승강기 관제·현장 대응처럼 실제 장비와 사람에 닿는 앱을 만듭니다."],
-            ["구조를 고쳐 오래 쓰게", "RN CLI 프로젝트를 Expo 로 옮기고 구조를 정리하는 등, 다음 사람이 이어받기 쉬운 코드로 바꿉니다. 회사 밖에서는 직접 만든 서비스를 운영합니다."],
+            ["웹·백엔드·인프라까지", "Next.js·React 웹과 관리자 화면, Supabase(PostgreSQL·RLS·Edge Functions)·Firebase 백엔드, Vercel·GitHub Actions 배포까지 서비스 한 벌을 혼자 구성해 운영합니다."],
+            ["구조를 고쳐 오래 쓰게", "RN CLI 프로젝트를 Expo 로 옮기고 구조를 정리하는 등, 다음 사람이 이어받기 쉬운 코드로 바꿉니다."],
           ].map(([t, b], i) => (
             <li key={t} className="service">
               <span className="service-num">{String(i + 1).padStart(2, "0")}</span>
@@ -38,19 +39,12 @@ const About = () => {
       </section>
 
       <section className="section">
-        <SectionHead title="기술 스택" />
-        <div className="spec">
-          {skills.map((s) => (
-            <div key={s.area} className="spec-row">
-              <span className="spec-key">{s.area}</span>
-              <Tags items={s.items} />
-            </div>
-          ))}
-        </div>
+        <SectionHead title="기술 스택" sub="프로젝트에 실제로 쓴 기술 · 숫자는 사용한 프로젝트 수" />
+        <StackOverview />
       </section>
 
       <section className="section">
-        <SectionHead title="경력" />
+        <SectionHead title="경력" sub="최신순" />
         <div className="spec">
           {companies.map((c) => (
             <div key={c.key} className="spec-row">

@@ -1,49 +1,5 @@
 [
   {
-    "key": "biocube",
-    "name": "바이오큐브",
-    "period": "2022.03 – 2022.12",
-    "role": "Android Kotlin 개발 · 얼굴인식 SDK",
-    "summary": "첫 실무로, 얼굴인식 하드웨어와 연동하는 Android SDK 를 Kotlin 으로 개발했습니다. 공개된 앱 출시 없이 SDK 와 그것을 검증하는 테스트 앱을 맡았습니다.",
-    "work": [
-      "얼굴인식 하드웨어와 통신하는 Android SDK 개발",
-      "BLE · NFC 로 디바이스와 데이터 주고받기",
-      "SDK 기능을 확인하는 테스트 앱 개발"
-    ],
-    "skills": ["Android", "Kotlin", "BLE", "NFC"],
-    "projects": []
-  },
-  {
-    "key": "nepirity",
-    "name": "네피리티",
-    "period": "2023.06 – 2024.12",
-    "role": "React Native 개발",
-    "summary": "React Native + TypeScript 로 단체관광 RT 앱을 Android·iOS 크로스플랫폼으로 메인 개발해 스토어 출시까지 진행했습니다.",
-    "projects": [
-      {
-        "name": "단체관광 RT",
-        "summary": "RN 메인 개발 · Android·iOS 출시 · 광고·강제 업데이트·스크롤 최적화",
-        "slug": "realtrip-rt",
-        "links": [{ "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=kr.co.realtrip&hl=ko" }]
-      }
-    ]
-  },
-  {
-    "key": "softnet",
-    "name": "소프트넷",
-    "period": "2025 · 3개월",
-    "role": "Android Kotlin 개발",
-    "summary": "Android Kotlin 으로 웨어러블 밴드와 앱을 연결하고, 생체 데이터를 API 와 연동해 그래프로 보여주는 헬스케어 앱을 개발했습니다.",
-    "projects": [
-      {
-        "name": "inPHR Band",
-        "summary": "BLE 밴드 연결 · API 연동 · MPAndroidChart 그래프",
-        "slug": "inphr-band",
-        "links": [{ "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.inphrcare.inphrhband&hl=ko" }]
-      }
-    ]
-  },
-  {
     "key": "m2mtech",
     "name": "엠투엠테크",
     "period": "2025.09 – 현재",
@@ -69,5 +25,49 @@
         ]
       }
     ]
+  },
+  {
+    "key": "softnet",
+    "name": "소프트넷",
+    "period": "2025 · 3개월",
+    "role": "Android Kotlin 개발",
+    "summary": "Android Kotlin 으로 웨어러블 밴드와 앱을 연결하고, 생체 데이터를 API 와 연동해 그래프로 보여주는 헬스케어 앱을 개발했습니다.",
+    "projects": [
+      {
+        "name": "inPHR Band",
+        "summary": "BLE 밴드 연결 · API 연동 · MPAndroidChart 그래프",
+        "slug": "inphr-band",
+        "links": [{ "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.inphrcare.inphrhband&hl=ko" }]
+      }
+    ]
+  },
+  {
+    "key": "nepirity",
+    "name": "네피리티",
+    "period": "2023.06 – 2024.12",
+    "role": "React Native 개발",
+    "summary": "React Native + TypeScript 로 단체관광 RT 앱을 Android·iOS 크로스플랫폼으로 메인 개발해 스토어 출시까지 진행했습니다.",
+    "projects": [
+      {
+        "name": "단체관광 RT",
+        "summary": "RN 메인 개발 · Android·iOS 출시 · 광고·강제 업데이트·스크롤 최적화",
+        "slug": "realtrip-rt",
+        "links": [{ "label": "Google Play", "url": "https://play.google.com/store/apps/details?id=kr.co.realtrip&hl=ko" }]
+      }
+    ]
+  },
+  {
+    "key": "biocube",
+    "name": "바이오큐브",
+    "period": "2022.03 – 2022.12",
+    "role": "Android Kotlin 개발 · 얼굴인식 SDK",
+    "summary": "첫 실무로, 얼굴인식 하드웨어와 연동하는 Android SDK 를 Kotlin 으로 개발했습니다. 공개된 앱 출시 없이 SDK 와 그것을 검증하는 테스트 앱을 맡았습니다.",
+    "work": [
+      "얼굴인식 하드웨어와 통신하는 Android SDK 개발",
+      "BLE · NFC 로 디바이스와 데이터 주고받기",
+      "SDK 기능을 확인하는 테스트 앱 개발"
+    ],
+    "skills": ["Android", "Kotlin", "BLE", "NFC"],
+    "projects": []
   }
 ]

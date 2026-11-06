@@ -3,11 +3,12 @@ import { Link, NavLink, Outlet, ScrollRestoration, useLocation } from "react-rou
 import { games } from "../content";
 import { site } from "../content/site";
 
+/** 만든 것(프로젝트·게임) → 기록(블로그) → 사람(커리어·소개) 순서. 게임은 프로젝트와 섞지 않고 따로 둔다. */
 const NAV = [
   { to: "/projects", label: "프로젝트" },
   ...(games.length ? [{ to: "/games", label: "게임" }] : []),
-  { to: "/career", label: "커리어" },
   { to: "/blog", label: "블로그" },
+  { to: "/career", label: "커리어" },
   { to: "/about", label: "소개" },
 ];
 
