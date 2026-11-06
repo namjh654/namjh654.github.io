@@ -18,7 +18,7 @@ const Career = () => {
       <header className="page-head">
         <p className="eyebrow">Career</p>
         <h1 className="page-title">커리어</h1>
-        <p className="page-sub">회사에 재직하며 맡은 일과 만든 프로젝트를 시간순으로 정리했습니다. 프로젝트를 누르면 세부 내용으로 이동합니다.</p>
+        <p className="page-sub">회사에 재직하며 맡은 일과 만든 프로젝트를 최신순으로 정리했습니다. 프로젝트를 누르면 세부 내용으로 이동합니다.</p>
       </header>
 
       <ol className="timeline">

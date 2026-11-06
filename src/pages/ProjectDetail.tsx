@@ -50,7 +50,7 @@ const ProjectDetail = () => {
   const related = getPostsForProject(project.slug);
   const company = getCompany(project.company);
   const back =
-    project.kind === "career" ? ["/career", "커리어"] : project.kind === "game" ? ["/games", "게임"] : ["/projects", "프로젝트"];
+    project.kind === "career" ? ["/career", "커리어"] : project.kind === "game" ? ["/projects?group=side", "사이드 프로젝트"] : ["/projects", "프로젝트"];
   const span = tenure(project.period);
   const facts = [
     ["기간", project.period && (span ? `${project.period} (${span})` : project.period)],

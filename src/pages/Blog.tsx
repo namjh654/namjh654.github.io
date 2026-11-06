@@ -1,8 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
-import { PostRow } from "../components/Cards";
+import { PostBento } from "../components/Cards";
 import { getSeriesPosts, posts, series } from "../content";
 import { topics, type TopicKey } from "../content/site";
-import type { Post } from "../content/types";
 import { useSeo } from "../lib/seo";
 
 type View = "timeline" | "topic" | "series";
@@ -13,22 +12,13 @@ const VIEWS: { key: View; label: string }[] = [
   { key: "series", label: "시리즈" },
 ];
 
-const Rows = ({ list }: { list: Post[] }) => (
-  <ul className="rows">
-    {list.map((post) => (
-      <PostRow key={post.slug} post={post} />
-    ))}
-  </ul>
-);
-
-/** 연도 → 월 순서로 묶는다. posts 는 이미 최신순이다. */
+/** 연도별로 묶어 카드로 보여준다. posts 는 이미 최신순이다. 시리즈 1편은 크게 강조된다. */
 const Timeline = () => {
   const years = Array.from(new Set(posts.map((p) => p.date.slice(0, 4))));
   return (
     <>
       {years.map((y) => {
         const inYear = posts.filter((p) => p.date.startsWith(y));
-        const months = Array.from(new Set(inYear.map((p) => p.date.slice(5, 7))));
         return (
           <section key={y} className="group">
             <div className="group-head">
@@ -36,12 +26,7 @@ const Timeline = () => {
                 {y} <span className="group-count">{inYear.length}</span>
               </h2>
             </div>
-            {months.map((m) => (
-              <div key={m} className="month">
-                <p className="month-label">{Number(m)}월</p>
-                <Rows list={inYear.filter((p) => p.date.slice(5, 7) === m)} />
-              </div>
-            ))}
+            <PostBento list={inYear} />
           </section>
         );
       })}
@@ -61,34 +46,34 @@ const Topics = () => (
               {topics[key]} <span className="group-count">{list.length}</span>
             </h2>
           </div>
-          <Rows list={list} />
+          <PostBento list={list} emphasize={false} />
         </section>
       );
     })}
   </>
 );
 
+/** 시리즈마다 소개와 회차 카드. 1편(대표)이 가장 크게 보인다. */
 const SeriesList = () =>
   series.length ? (
-    <div className="card-grid">
+    <>
       {series.map((s) => {
         const list = getSeriesPosts(s.slug);
         return (
-          <Link key={s.slug} to={`/blog/series/${s.slug}`} className="card project-card">
-            <div className="card-inner">
-              <div className="card-top">
-                <span className="card-kind">시리즈 · {list.length}편</span>
-              </div>
-              <h3 className="card-title">{s.title}</h3>
-              <p className="card-text">{s.description}</p>
-              <div className="card-foot">
-                <span className="card-meta">최근 · {list[list.length - 1].title}</span>
-              </div>
+          <section key={s.slug} className="group">
+            <div className="group-head">
+              <h2 className="group-title">
+                {s.title} <span className="group-count">{list.length}편</span>
+              </h2>
+              <p className="group-sub">
+                {s.description} · <Link to={`/blog/series/${s.slug}`}>시리즈 전체 보기 ›</Link>
+              </p>
             </div>
-          </Link>
+            <PostBento list={list} />
+          </section>
         );
       })}
-    </div>
+    </>
   ) : (
     <p className="empty">아직 시리즈가 없습니다.</p>
   );
