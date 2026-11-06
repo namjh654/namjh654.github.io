@@ -21,9 +21,11 @@ export const Tags = ({ items, tone = "gray" }: { items: string[]; tone?: "gray" 
     </ul>
   ) : null;
 
-/** 자체/커리어 구분 표시. 예) "자체 · 서비스", "커리어 · 엠투엠테크" */
+/** 자체/사이드/커리어 구분 표시. 예) "자체 · 서비스", "사이드 · 게임", "커리어 · 엠투엠테크" */
 export const originLabel = (p: Project) =>
-  p.kind === "career" ? `커리어 · ${getCompany(p.company)?.name ?? "회사"}` : `자체 · ${kinds[p.kind]}`;
+  p.kind === "career"
+    ? `커리어 · ${getCompany(p.company)?.name ?? "회사"}`
+    : `${p.kind === "game" ? "사이드" : "자체"} · ${kinds[p.kind]}`;
 
 /** 프로젝트 카드. 목록은 글자만으로 맞추고, 사진·스크린샷은 상세 페이지에서 보여준다. */
 export const ProjectCard = ({ project }: { project: Project }) => (
