@@ -5,7 +5,7 @@
 
 import companyList from "./companies.json";
 import seriesList from "./series.json";
-import { kinds } from "./site";
+import { kinds, platformGroups, stackCatalog, type PlatformGroupKey } from "./site";
 import type { Company, Post, PostSource, Project, ProjectSource, Screenshot, Series } from "./types";
 
 const SHOW_DRAFTS = process.env.NODE_ENV !== "production";
@@ -116,8 +116,8 @@ export const getSeriesPosts = (slug: string) =>
     .filter((p) => p.series === slug)
     .sort((a, b) => (a.seriesOrder ?? 0) - (b.seriesOrder ?? 0) || a.date.localeCompare(b.date));
 
-/** 자체 프로젝트: 직접 만든 서비스·템플릿·게임 */
-export const selfProjects = projects.filter((p) => p.kind !== "career");
+/** 자체 프로젝트: 직접 만든 서비스·템플릿 (게임은 /games 로 따로 모은다) */
+export const selfProjects = projects.filter((p) => p.kind !== "career" && p.kind !== "game");
 /** 커리어 프로젝트: 회사에서 만든 것 */
 export const careerProjects = projects.filter((p) => p.kind === "career");
 export const games = projects.filter((p) => p.kind === "game");
@@ -134,6 +134,31 @@ export const tenure = (period?: string) => {
   return [y && `${y}년`, r && `${r}개월`].filter(Boolean).join(" ");
 };
 
-/** 홈에 보일 4개: featured 를 먼저, 모자라면 최신순으로 채운다. */
-export const featuredProjects = () =>
-  [...projects.filter((p) => p.featured), ...projects.filter((p) => !p.featured)].slice(0, 4);
+/** 홈에 보일 4개: 게임을 뺀 프로젝트 중 featured 를 먼저, 모자라면 최신순으로 채운다. */
+export const featuredProjects = () => {
+  const list = projects.filter((p) => p.kind !== "game");
+  return [...list.filter((p) => p.featured), ...list.filter((p) => !p.featured)].slice(0, 4);
+};
+
+/** 프로젝트가 속한 화면 구분 (앱 · 웹 · 데스크탑) */
+export const platformGroupsOf = (p: Project) =>
+  (Object.keys(platformGroups) as PlatformGroupKey[]).filter((k) =>
+    p.platforms.some((pl) => (platformGroups[k].match as readonly string[]).includes(pl))
+  );
+
+/** 카탈로그 항목을 쓴 프로젝트 (게임 포함, 최신순) */
+const projectsUsing = (match: RegExp) => projects.filter((p) => p.stack.some((s) => match.test(s)));
+
+/** 기술 스택별 사용 프로젝트. 쓴 프로젝트가 없는 항목·분야는 뺀다. */
+export const stackUsage = stackCatalog
+  .map((g) => ({
+    area: g.area,
+    items: g.items
+      .map((i) => ({ name: i.name, projects: projectsUsing(i.match) }))
+      .filter((i) => i.projects.length),
+  }))
+  .filter((g) => g.items.length);
+
+/** 이름으로 카탈로그 항목 찾기 (프로젝트 목록의 ?stack= 필터) */
+export const getStack = (name?: string | null) =>
+  stackUsage.flatMap((g) => g.items).find((i) => i.name === name);

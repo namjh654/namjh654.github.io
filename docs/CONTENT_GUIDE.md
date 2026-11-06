@@ -15,7 +15,7 @@ npm run new:project -- galaxy-factory
 | `kind` | ✔ | `product`(서비스) `template`(템플릿) `game`(게임 → /games 에 표시) `career`(회사 프로젝트) |
 | `title`, `summary`, `date` | ✔ | 이름, 한두 문장 소개, 정렬 기준일(최근 작업일, `YYYY-MM-DD`) |
 | `platforms` | ✔ | 플랫폼 태그 `["Web", "Admin", "PWA", "Android", "iOS"]` — 목록 필터가 이 값으로 만들어짐 |
-| `stack` | ✔ | 기술 태그 |
+| `stack` | ✔ | 기술 태그. `site.ts` 의 `stackCatalog` 에 맞는 항목이 있어야 홈·소개의 기술 스택 종합과 프로젝트 기술 필터에 잡힙니다 |
 | `period`, `role` | | 화면에 보일 기간(`2026.07 – 현재`), 역할 |
 | `stage` | | `live`(운영 중) `dev`(개발 중) `archived`(종료). 템플릿처럼 상태가 의미 없으면 생략 |
 | `links` | | `live`(서비스 주소) `github`(공개 저장소) `store`(스토어) |
@@ -39,7 +39,7 @@ npm run new:project -- galaxy-factory
 
 ## 2. 커리어 (`src/content/companies.json`)
 
-위에서부터 **시간순(오래된 회사 먼저)** 입니다. `period` 가 `YYYY.MM – YYYY.MM` 또는 `YYYY.MM – 현재` 형식이면 재직 기간(예: 1년 7개월)이 자동으로 붙습니다.
+위에서부터 **최신순(지금 다니는 회사 먼저)** 입니다. `period` 가 `YYYY.MM – YYYY.MM` 또는 `YYYY.MM – 현재` 형식이면 재직 기간(예: 1년 7개월)이 자동으로 붙습니다.
 
 ```json
 {
@@ -78,7 +78,7 @@ npm run new:post -- my-post
 
 ## 4. 사이트 공통 정보
 
-`src/content/site.ts` 에서 이름, 소개 문구, 이메일, GitHub, 기술 스택을 바꿉니다.
+`src/content/site.ts` 에서 이름, 소개 문구, 이메일, GitHub 을 바꿉니다. 기술 스택은 `stackCatalog`(분야별 항목 + 프로젝트 `stack` 매칭 규칙), 앱·웹·데스크탑 구분은 `platformGroups` 에서 관리합니다. 블로그 카드 크기는 post.json 의 `size`(sm · wide · tall · lg)로 직접 정할 수 있고, 비우면 시리즈 1편은 크게 자동 배치됩니다.
 
 ## 5. 이미지 규칙
 
